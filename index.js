@@ -263,14 +263,14 @@ app.post("/edituser/:id",(req,res)=>{
                 Time:date,
         });
             
-        res.redirect("http://localhost:3000/listuser")
+        res.redirect("http://bigprojecta.herokuapp.com//listuser")
       
       
       });
 app.get("/delete",(req,res)=>{
         var db1 = db.collection('Admin').doc(req.query.id).delete();
     
-       res.redirect("http://localhost:3000/listuser")
+       res.redirect("http://bigprojecta.herokuapp.com//listuser")
   
     })
 //-----------------------------//Route 2:PRODUCT//----------------------------//
