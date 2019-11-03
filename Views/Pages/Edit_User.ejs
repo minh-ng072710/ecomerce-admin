@@ -1,0 +1,119 @@
+<div class="kt-pagebody">
+
+      <!-- row -->
+    
+        <div class="row row-sm mg-t-20">
+          <div class="col-xl-12">
+            <div class="card bd-blue-300" style="background-color:#BFE0E7;">
+              <div class="card-header bg-gray-100 pd-y-15 pd-x-20" style="background-color:#BFE0E7;">
+               <center><h3 class="register-heading" style="color:
+                #606445;font-family: 'PT Serif', serif;font-weight: 900;margin-left:-3px ;">THÊM MỚI USER</h3></center> 
+              </div><!-- card-header -->
+              <div class="col-md-10 register-right">
+                        
+                <div class="tab-content" id="myTabContent" style="margin-right: -5px;">
+                   
+                    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                        <%listuser.forEach((arr)=>{ %>
+                        <form action="./edituser/<%=arr.id%>" method="post">
+                      
+                            <div class="row register-form" style="margin-left: 197px;
+                            margin-top: 36px;">
+                            
+
+                          
+                                <div class="col-md-6">
+                                
+                                      <input type="hidden" name="id" value="<%=arr.id%>">
+
+                                 
+
+                                     
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" value="<%=arr.AcFullName%>" name="username" required />
+                                    </div>
+                                
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" value="<%=arr.Address%>" name="address"/>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="password" class="form-control" value="<%=arr.Passwords%>" name="password" required/>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="password" class="form-control"  value="<%=arr.Passwords%>" name="repassword" required/>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="maxl">
+                                            <label class="radio inline"> 
+                                                <input type="radio" name="gender"  value="male" <% if('male' == arr.Gender){ %> checked <% } %>>
+                                                <span> Male </span> 
+                                            </label>
+                                            <label class="radio inline"> 
+                                                <input type="radio" name="gender" value="female" <% if('female' == arr.Gender){ %> checked <% } %>> 
+                                                <span>Female </span> 
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                </div>
+                        
+                                <div class="col-md-6">
+                                      
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" value="<%=arr.Email%>" name="email" required/>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="text" minlength="10" maxlength="10" name="txtEmpPhone" class="form-control" value="<%=arr.Phone%>" required/>
+                                    </div>
+                                 
+                                   
+                                    <div class="form-group">
+                                      <input type="file" class="form-control" value="<%=arr.url%>" name="image">
+                                
+                                  </div>
+                                  <div class="form-group">
+                                      
+                                    
+                                      
+                                          <select class="form-control" name="groupagency">
+                                         
+                                                <option value="1">aaaaa</option>          
+                                         
+                                          </select>
+                                        </div>
+                                      </div>
+                                
+                                   
+                                </div>
+                              
+                                <div>
+                                      <input type="submit" class="btnRegister btn btn-primary active" style="margin-bottom:50px;margin-left:520px;width: 110px;font-family: 'PT Serif', serif;font-weight: 900;font-size: 20px;"  value="Cập Nhật"/>
+                                        <a href="./listuser">
+                                                <button type="button" class="btn btn-warning"  style="margin-bottom:50px;margin-left:480px;width: 180px;display:block;font-family: 'PT Serif', serif;font-weight: 900;font-size: 20px;">Xem Danh Sách</button>
+                                        </a>
+                                </div>
+                               
+                            </div>
+                       </form>
+                       <%})%>
+                    </div>
+                    
+                </div>
+            </div>
+             <!-- table-responsive -->
+           <!-- card-footer -->
+            </div><!-- card -->
+    
+            
+    
+            
+          </div><!-- col-8 -->
+          <!-- col-4 -->
+        </div><!-- row -->
+      </div>
+
+
+    
+ 
+      
+ 
