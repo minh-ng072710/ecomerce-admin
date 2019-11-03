@@ -97,7 +97,7 @@ app.listen(port, function () {
 });
 
 //-----------------------------Route Main:Home----------------------------//
-app.get("/home",(req,res)=>{
+app.get("/",(req,res)=>{
     res.render("Home",{
         pages:"Home"
     });
