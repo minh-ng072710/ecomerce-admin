@@ -92,7 +92,7 @@ console.log(util.inspect('index.js', { showHidden: false, depth: null }));
 
 //-----------------------------Port Option----------------------------//
 var port = 3000;
-app.listen(port, function () {
+app.listen(proccess.env.PORT||port, function () {
     console.log("App is running on Port: " + port);
 });
 
