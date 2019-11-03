@@ -195,7 +195,7 @@ app.post("/edituser/:id",(req,res)=>{
             Time:date,
     });
         
-    res.redirect("http://bigprojecta.herokuapp.com/listuser")
+    res.redirect("https://nguyengiaminh.herokuapp.com//listuser")
   
   
   });
@@ -215,7 +215,7 @@ upload(req,res,async (err)=>{
     }
   
 })
-   res.redirect("http://bigprojecta.herokuapp.com/listuser")
+   res.redirect("https://nguyengiaminh.herokuapp.com//listuser")
 
 })
 //-----------------------------//Route 2:PRODUCT//----------------------------//
