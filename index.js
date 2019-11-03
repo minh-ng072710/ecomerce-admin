@@ -91,10 +91,8 @@ const util = require('util');
 console.log(util.inspect('index.js', { showHidden: false, depth: null }));
 
 //-----------------------------Port Option----------------------------//
-var port = 3000;
-app.listen(proccess.env.PORT||port, function () {
-    console.log("App is running on Port: " + port);
-});
+
+app.listen(process.env.PORT||3000)
 
 //-----------------------------Route Main:Home----------------------------//
 app.get("/",(req,res)=>{
