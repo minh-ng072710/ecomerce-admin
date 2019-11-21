@@ -1,75 +1,213 @@
 
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.20/datatables.min.css"/>
+ 
+<script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.20/datatables.min.js"></script>
+<link rel="stylesheet" href="./js/Bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" href="./js/DataTables/DataTables-1.10.20/css/dataTables.bootstrap.min.css">
+<script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-app.js"></script>
 
-        <div class="clearfix"></div>
-        <br />
-        <div class="col-md-12 col-sm-12 col-xs-12">
-                <div class="x_panel">
-                  <div class="x_title">
-                    <center><h2 style="color:
-                        #606445;font-family: 'PT Serif', serif;font-weight: 900;margin-left:91px;">LIST ADMIN</h2>
-                    <div class="clearfix"></div>
-                  </div>
-                  <div class="x_content">
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <table id="datatable" class="table table-striped table-bordered dataTable no-footer" role="grid" aria-describedby="datatable_info">
-                                    <thead>
-                                        <tr role="row" style="background-color: lightslategrey; color: lightyellow;">
-                                          <th class="pd-l-20 tx-center" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width:120px;">
-                                            Ảnh Đại Diện
-                                          </th>
-                                          <th  tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Name: activate to sort column descending" style="width:200px ;text-align: center;">TOKEN_ID</th>
-                                          <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width:150px ;text-align: center;">Tên Đăng Nhập</th>
-                                       
-                                           
-                                            <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending" style="width: 130px;text-align: center">Số Điện Thoại</th>
-                                            <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending" style="width: 130px;text-align: center">Email</th>
-                                            <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending" style="width: 130px;text-align: center">Ngày Đăng Kí</th>
-                                            <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending" style="width: 130px;text-align: center">Sửa/Xóa</th>
-
-                                        </tr>
-                                    </thead>
+<script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-analytics.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-firestore.js"></script>
+<script>
 
 
-                                    <tbody>
-                                   
-                                        <%list.forEach((arr)=>{%>
-                                      
 
-                                       
-                                            <tr role="row" >
-                                             
-                                                  <th class="sorting_1">  
-                                                    <center>
-                                                        <img src="./Upload/<%=arr.url%>" class="wd-70 rounded-circle" alt="Image">
-                                                    </center> 
-                                                    </th>
-                                                    <td style="width: 130px;text-align: center;padding-top: 33px;color: black;"><%=arr.id%></td>
-                                                  
-                                                    <td style="width: 130px;text-align: center;padding-top: 33px;color: black;" ><%=arr.AcFullName%></td>
-                                                    <td style="width: 130px;text-align: center;padding-top: 33px;color: black;"><%=arr.Phone%></td>
-                                                    <td style="width: 130px;text-align: center;padding-top: 33px;color: black;"><%=arr.Email%></td>
-                                                    <td style="width: 130px;text-align: center;padding-top: 33px;color: black;"><%=arr.Time%></td>
-                                                    <td style="width: 180px;text-align: center;padding-top: 33px">
-                                                      <a href="./edituser/?id=<%=arr.id%>"><button class="btn btn-success" type="reset">Sửa</button></a>
-                                                      <a href="./delete/?id=<%=arr.id%>"><button type="button" class="btn btn-danger">Xóa</button></a>
-                                                  </td>
-                                                </tr>
-                                                
-                                            
-                                             <%})%>   
-                                        
-                                    </tbody>
-                                </table>
-                                <div>
-                                  <center>
-                                      <a href="/adduser"><button class="btn btn-primary" type="reset">Thêm Mới</button></a>
-                                  </center>
-                                 
-                                </div>
-                            </div>
-                        </div>
-              </div>
+var firebaseConfig = {
+apiKey: "AIzaSyAVBtWsFEvEZVT4A7rcTV2nRtfj13I5BI0",
+authDomain: "ecommerce-3b4a8.firebaseapp.com",
+databaseURL: "https://ecommerce-3b4a8.firebaseio.com",
+projectId: "ecommerce-3b4a8",
+storageBucket: "ecommerce-3b4a8.appspot.com",
+messagingSenderId: "359580994105",
+appId: "1:359580994105:web:cd475d76e870b4169f1be8",
+measurementId: "G-PC5T29FZVN"
+};
 
-                                                    
-                                                  
+firebase.initializeApp(firebaseConfig);
+firebase.analytics();
+const db = firebase.firestore(firebase)
+var HTML="";
+
+
+db.collection("Admin")
+.onSnapshot(function (doc) {
+  doc.docChanges().forEach((change) => {
+
+
+
+
+
+  })
+  db.collection('Admin').get()
+    .then(snapshot => {
+      snapshot.forEach(doc => {
+        var element = doc.data()
+        HTML += `
+        <tr role="row" >
+<td class="sorting_1">
+ <center>
+    <img src="./Upload/`+ element.url + `" class="wd-70 rounded-circle" alt="Image">
+</center>
+</td>
+<td style="width: 430px;text-align: center;padding-top: 33px;color: black;">`+ element.AcFullName + `</td>
+<td style="width: 130px;text-align: center;padding-top: 33px;color: black;">`+ element.Phone + `</td>
+<td style="width: 130px;text-align: center;padding-top: 33px;color: black;">`+ element.Email + `</td>
+<td style="width: 130px;text-align: center;padding-top: 33px;color: black;">`+ element.Gender + `</td>
+
+<td style="width: 250px;text-align: center;padding-top: 33px;color: black;">`+ element.Time + `</td>
+<td style="width:300px;text-align: center;padding-top: 33px">
+  <a href="./edituser_admin/?id=`+ element.id + `"><button onclick=" return confirm('Bấm vào là Sửa đó nha????')" class="btn btn-success" type="reset">Sửa</button></a>
+  <a href="./delete/?id=`+ element.id + `&&url=` + element.url + `"><button onclick=" return confirm('Bấm vào là xóa đó nha????')" type="button"
+      class="btn btn-danger">Xóa</button></a>
+</td>
+</tr>
+  `;
+      });
+
+      var showHTML = document.getElementById("text");
+      showHTML.innerHTML = HTML;
+
+    })
+  HTML = ''
+
+});
+
+
+</script>
+
+
+
+
+
+
+
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.20/datatables.min.css" />
+
+<script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.20/datatables.min.js"></script>
+
+<link rel="stylesheet" href="./js/Bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" href="./js/DataTables/DataTables-1.10.20/css/dataTables.bootstrap.min.css">
+<style>
+.container{max-width: 1233px;}
+</style>
+<div class="container">
+<div class="x_title">
+<center>
+  <h2 style="color:#606445;font-family: 'PT Serif', serif;font-weight: 900;margin-left:10px;margin-top: 14px;">DANH SÁCH
+  ADMIN</h2>
+  <div class="clearfix"></div>
+</div>
+<div class="form-group">
+  <select name="state" id="maxRows" class="form-control" style="width: 300px;    
+  margin-top: 20px;">
+      <option value="5000">Hiển Thị Tất Cả</option>
+      <option value="3">3</option>
+      <option value="5">5</option>
+      <option value="10">10</option>
+      <option value="15">15</option>
+      <option value="20">20</option>
+      <option value="50">50</option>
+      <option value="75">75</option>
+      <option value="100">100</option>
+  </select>
+</div>
+<table class="table table-srtriped table-bordered table-hover" id="mytable">
+<thead>
+  <tr role="row" style="background-color: lightslategrey; color: lightyellow;">
+    <th class="pd-l-20 tx-center" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1"
+      aria-label="Position: activate to sort column ascending" style="width:120px;">
+      Ảnh Đại Diện
+    </th>
+ 
+    <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1"
+      aria-label="Position: activate to sort column ascending" style="width:430px ;text-align: center;">Họ Tên Đầy Đủ</th>
+
+
+    <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1"
+      aria-label="Salary: activate to sort column ascending" style="width: 130px;text-align: center">Số Điện Thoại
+    </th>
+    <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1"
+      aria-label="Salary: activate to sort column ascending" style="width: 130px;text-align: center">Email</th>
+      <th tabindex="0" aria-controls="datatable" rowspan="1" colspan="1"
+      aria-label="Name: activate to sort column descending" style="width:200px ;text-align: center;">Giới Tính</th>
+    <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1"
+      aria-label="Salary: activate to sort column ascending" style="width: 250px;text-align: center">Ngày Đăng Kí
+    </th>
+ 
+    <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1"
+      aria-label="Salary: activate to sort column ascending" style="width: 300px;text-align: center">SỬA/XÓA</th>
+  </tr>
+</thead>
+<tfoot>
+
+</tfoot>
+<tbody id='text'>
+
+
+
+</tbody>
+</table>
+<nav aria-label="Page navigation" >
+  <ul class="pagination" style="margin-left: 1061px;">
+     
+  </ul>
+</nav>
+</div>
+<center>
+<a href="./adduser_admin"><button class="btn btn-primary" type="reset">Thêm Mới</button></a>
+</center>
+<div>
+
+
+</div>
+<script>
+$(document).ready(function(){
+ $("#maxRows").on('change', function(){
+
+     var table='#mytable'
+  
+       $('.pagination').html('')
+       var trnum=0
+       var maxRows=parseInt($(this).val())
+       var totalRows=$(table+' tbody tr').length
+       $(table+' tr:gt(0)').each(function(){
+           trnum++
+           if(trnum > maxRows){  
+               $(this).hide()
+           }
+           if(trnum <= maxRows){
+               $(this).show()
+           }
+       })
+       if(totalRows > maxRows){
+           var pagenum=Math.ceil(totalRows/maxRows)
+           for(var i=1;i<=pagenum;){
+             $('.pagination').append('<li style="border:solid 3px cornflowerblue;width:45px;height:30px;text-align:center;background-color: #E7E7E3;cursor: pointer;" class="page-item" data-page = "' + i + '">\<span>' + i++ + '<span class="sr-only">(current)</span></span>\</li>').show()
+           }
+           
+       }
+       $('.pagination li:first-child').addClass('active')
+       $('.pagination li').on('click',function(){
+           var pageNum=$(this).attr('data-page')
+           var trIndex=0;
+           $('.pagination li').removeClass('active')
+  
+           $(table+' tr:gt(0)').each(function(){
+               trIndex++
+               if(trIndex>(maxRows*pageNum)||trIndex<=((maxRows*pageNum)-maxRows)){
+                   $(this).hide()
+               }else{
+                   $(this).show()
+               }
+           })
+       })
+   })
+
+})
+
+
+ </script>
+<script src="./js/jquery.js"></script>
+<script src="./js/Bootsrap/js/bootstrap.min.js"></script>
+<script src="./js/DataTables/DataTables-1.10.20/js/jquery.dataTables.min.js"></script>
+<script src="./js/DataTables/DataTables-1.10.20/js/dataTables.bootstrap.min.js"></script>

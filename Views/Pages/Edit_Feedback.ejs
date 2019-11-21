@@ -1,0 +1,134 @@
+<style>
+ .form-group{margin-bottom: 2rem }
+.form-control{height: 48px !important;}
+ @import url('https://fonts.googleapis.com/css?family=Oswald&display=swap');
+
+
+
+#profileImage
+{
+  margin-top: -49px;
+    cursor: pointer;
+    width: 100px;
+    height: 100px;
+
+    margin-left: 32px;
+}
+.form-control{height: 48px !important;}
+label{font-weight: 500;}
+</style>
+<div class="kt-pagebody">
+
+  <!-- row -->
+
+  <div class="row row-sm mg-t-20">
+    <div class="col-xl-12">
+      <div class="card bd-blue-300" style="background-color:#BFE0E7;">
+        <div class="card-header bg-gray-100 pd-y-15 pd-x-20" style="background-color:#BFE0E7;">
+          <center>
+            <h3 class="register-heading" style="color:
+              #606445;font-family: 'PT Serif', serif;font-weight: 900;margin-left:-40px ;">SỬA THÔNG TIN FEEDBACK</h3>
+           
+                     
+        </center>
+        <%listproduct.forEach((items)=>{%>
+
+              
+          <image id="profileImage" class="wd-70 rounded-circle"  src="<%=items.imgURL%>" />
+              <h4 style="font-family: 'Oswald', sans-serif; margin-left: 59px;
+              margin-top: 7px;font-weight: 700font-size: 15px">MSP:<%=items.proID%></h4>
+                    <h4 style="font-family: 'Oswald', sans-serif;font-size: 15px;font-weight: 700;">Tên Sản Phẩm: <%=items.name%> </h4>
+            
+            <% })%>
+         
+        </div><!-- card-header -->
+        <div class="col-md-10 register-right">
+
+          <div class="tab-content" id="myTabContent" style="margin-right: -5px;">
+            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                <% listfeedback.forEach(function(items){ %>
+              <form action="./editfeedback/<%=items.fbID%>" method="POST">
+                <div class="row register-form" style="margin-left: 180px;
+                          margin-top: 36px;">
+
+                  <div class="col-md-12">
+
+                
+                    <div class="form-group">
+                      <label for="nameedit">Sửa Tên Sản Phẩm:</label>
+                        <select id="nameedit" class="form-control" name="nameedit">
+
+                            <% list3.forEach(function(item){ %>
+                          
+                            <option value="<%=item.proID%>"><%= item.name%></option>
+                            <% }) %>
+                          </select> 
+
+                    </div>
+                   
+                    <div class="form-group">
+
+                      <label for="content">Review:</label>
+                      
+                      <textarea class="form-control" rows="5" cols="50" placeholder="Nhập Đánh Giá Sản Phẩm...."
+                       id="content" name="content"><%= items.content%></textarea>
+
+
+                    </div>
+
+
+                    <div class="form-group">
+                      <label for="email">Email User:</label>
+                      <input type="text" class="form-control"  name="email" value="<%= items.email%>"/>
+                 
+                    </div>
+
+                    <% }) %>
+                  </div>
+
+                </div>
+                <center>
+                    <div class="form-group">
+                      <button  type="submit" class="btn btn-primary" 
+                        style="font-family: 'PT Serif', serif;font-weight: 900;font-size: 20px;MARGIN-LEFT: 144PX;">CẬP NHẬT</button>
+      
+      
+                    </div>
+      
+                  </center>
+              </form>
+              
+              
+            </div>
+
+
+
+           
+          
+
+        
+          </div>
+          <center>
+            <a href="./listfeedback">
+              <button type="button" class="btn btn-warning"
+                style="margin-bottom:50px;width: 180px;display:block;font-family: 'PT Serif', serif;font-weight: 900;font-size: 20px; MARGIN-LEFT: 144PX;">Xem
+                Danh Sách</button>
+            </a>
+          </center>
+
+
+        </div>
+
+      </div>
+    </div>
+    <!-- table-responsive -->
+    <!-- card-footer -->
+  </div><!-- card -->
+
+
+
+
+</div><!-- col-8 -->
+<!-- col-4 -->
+</div><!-- row -->
+</div>

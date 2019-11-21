@@ -1,0 +1,142 @@
+<style>
+#imageUpload
+{
+   display: none;
+}
+
+#profileImage
+{
+  margin-top: -49px;
+    cursor: pointer;
+    width: 100px;
+    height: 100px;
+}
+.form-control{height: 48px !important;}
+label{font-weight: 500;}
+                             
+</style>
+<div class="kt-pagebody">
+
+      <!-- row -->
+    
+        <div class="row row-sm mg-t-20">
+          <div class="col-xl-12">
+            <div class="card bd-blue-300" style="background-color:#BFE0E7;">
+              <div class="card-header bg-gray-100 pd-y-15 pd-x-20" style="background-color:#BFE0E7;">
+                  <%listuser.forEach((arr)=>{ %>
+               <center><h3 class="register-heading" style="color:
+                #606445;font-family: 'PT Serif', serif;font-weight: 900;margin-left:-3px ;">CHỈNH SỬA ADMIN</h3></center> 
+                        
+                        <form action="./edituser_admin/<%=arr.id%>" method="post" enctype="multipart/form-data">
+                <image id="profileImage" class="wd-70 rounded-circle"  src="./Upload/<%=arr.url%>" />
+                  <input id="imageUpload" type="file" 
+                         name="image" placeholder="Photo" capture>
+              </div><!-- card-header -->
+              <div class="col-md-10 register-right">
+                        
+                <div class="tab-content" id="myTabContent" style="margin-right: -5px;">
+                   
+                    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+              
+                      
+                            <div class="row register-form" style="margin-left: 197px;
+                            margin-top: 36px;">
+                            
+
+                          
+                                <div class="col-md-6">
+                                
+                                      <input type="hidden" name="id" value="<%=arr.id%>">
+
+                                 
+
+                           
+                                    <div class="form-group">
+                                      <label for="username">Nhập Họ Tên Đầy Đủ:</label>
+                                        <input type="text" class="form-control" value="<%=arr.AcFullName%>" name="username" required />
+                                        
+                                        
+                                    </div>
+                                
+                                    <div class="form-group">
+                                      <label for="address">Nhập Địa Chỉ:</label>
+                                        <input type="text" class="form-control" value="<%=arr.Address%>" name="address"/>
+                                    </div>
+                                    <div class="form-group">
+                                      <label for="pass">Nhập Mật Khẩu:</label>
+                                        <input type="password" class="form-control" value="<%=arr.Passwords%>" name="pass" id="pass" required/>
+                                    </div>
+                                   
+                                
+
+                                </div>
+                        
+                                <div class="col-md-6">
+                                
+                                      <label for="email">Nhập Email:</label>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" value="<%=arr.Email%>" name="email" required/>
+                                    </div>
+                                    <label for="txtEmPhone">Nhập SDT:</label>
+                                    <div class="form-group">
+                                        <input type="text" minlength="10" maxlength="10" name="txtEmpPhone" class="form-control" value="<%=arr.Phone%>" required/>
+                                    </div>
+                                 
+                                   
+                                    <div class="form-group" style="margin-top: 61px;">
+                                    
+                                        <div class="maxl">
+                                            <label class="radio inline"> 
+                                                <input type="radio" name="gender"  value="Nam" <% if('Nam' == arr.Gender){ %> checked <% } %>>
+                                                <span> Male </span> 
+                                            </label>
+                                            <label class="radio inline"> 
+                                                <input type="radio" name="gender" value="Nữ" <% if('Nữ' == arr.Gender){ %> checked <% } %>> 
+                                                <span>Female </span> 
+                                            </label>
+                                        </div>
+                                     
+                                  </div>
+                               
+                                      </div>
+                                
+                                   
+                                </div>
+                              
+                                <div>
+                                      <input type="submit" class="btnRegister btn btn-primary active" style="margin-bottom:50px;margin-left:520px;width: 110px;font-family: 'PT Serif', serif;font-weight: 900;font-size: 20px;margin-top: 60px;"  value="Cập Nhật"/>
+                                        <a href="./listadmin">
+                                                <button type="button" class="btn btn-warning"  style="margin-bottom:50px;margin-left:480px;width: 180px;display:block;font-family: 'PT Serif', serif;font-weight: 900;font-size: 20px;">Xem Danh Sách</button>
+                                        </a>
+                                </div>
+                               
+                            </div>
+                       </form>
+                       <%})%>
+                    </div>
+                    
+                </div>
+            </div>
+             <!-- table-responsive -->
+           <!-- card-footer -->
+            </div><!-- card -->
+    
+            
+    
+            
+          </div><!-- col-8 -->
+          <!-- col-4 -->
+        </div><!-- row -->
+      </div>
+
+
+    
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+      <script>
+        $("#profileImage").click(function(e) {
+                 $("#imageUpload").click();
+
+                });
+      </script>
+      
+     

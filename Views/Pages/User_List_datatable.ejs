@@ -1,0 +1,75 @@
+
+
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.20/datatables.min.css"/>
+ 
+    <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.20/datatables.min.js"></script>
+    <link rel="stylesheet" href="./js/Bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./js/DataTables/DataTables-1.10.20/css/dataTables.bootstrap.min.css">
+    
+    <div class="container">
+            <div class="x_title">
+                    <center><h2 style="color:
+                        #606445;font-family: 'PT Serif', serif;font-weight: 900;margin-left:91px;margin-top: 14px;">DANH SÁCH KHÁCH HÀNG</h2>
+                    <div class="clearfix"></div>
+                  </div>
+      <table class="table table-srtriped table-bordered table-hover" id="mydata">
+        <thead>
+                <tr role="row" style="background-color: lightslategrey; color: lightyellow;">
+                   
+                        <th  tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Name: activate to sort column descending" style="width:200px ;text-align: center;">TOKEN_ID</th>
+                        <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width:150px ;text-align: center;">Tên Đăng Nhập</th>
+                     
+                         
+                          <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending" style="width: 130px;text-align: center">Số Điện Thoại</th>
+                          <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending" style="width: 130px;text-align: center">Email</th>
+                          <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending" style="width: 150px;text-align: center">Ngày Đăng Kí</th>
+                        
+                          <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending" style="width: 130px;text-align: center">Sửa/Xóa</th>
+               </tr>
+        </thead>
+        <tfoot>
+
+        </tfoot>
+        <tbody>
+                <%list.forEach((arr)=>{%>
+                                      
+
+                                       
+                    <tr role="row" >
+                     
+                         
+                            <td style="width: 130px;text-align: center;padding-top: 33px;color: black;"><%=arr.userID%></td>
+                          
+                            <td style="width: 130px;text-align: center;padding-top: 33px;color: black;" ><%=arr.accFullName%></td>
+                            <td style="width: 130px;text-align: center;padding-top: 33px;color: black;"><%=arr.phone%></td>
+                            <td style="width: 130px;text-align: center;padding-top: 33px;color: black;"><%=arr.email%></td>
+                            <td style="width: 150px;text-align: center;padding-top: 33px;color: black;"><%=arr.signupdate%></td>
+                            <td style="width:200px;text-align: center;padding-top: 33px">
+                              <a href="./edituser/?id=<%=arr.id%>"><button class="btn btn-success" type="reset">Sửa</button></a>
+                              <a href="./delete/?id=<%=arr.id%>&&url=<%=arr.url%>"><button type="button" class="btn btn-danger">Xóa</button></a>
+                          </td>
+                        </tr>
+                        
+                    
+                     <%})%>   
+        </tbody>
+    </table>
+    </div>
+    <script>
+        $("#mydata").dataTable({
+            "pageLength": 4
+            ,
+          
+        }
+            
+        );
+    </script>
+   
+    <script src="./js/jquery.js"></script>
+    <script src="./js/Bootsrap/js/bootstrap.min.js"></script>
+    <script src="./js/DataTables/DataTables-1.10.20/js/jquery.dataTables.min.js"></script>
+    <script src="./js/DataTables/DataTables-1.10.20/js/dataTables.bootstrap.min.js"></script>
+   
+   
+    
+

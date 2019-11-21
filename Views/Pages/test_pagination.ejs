@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Pagination</title>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="container" style="margin-top: 35px;">
+        <h4>Select Rows</h4>
+        <div class="form-group">
+            <select name="state" id="maxRows" class="form-control" style="width: 150px;">
+                <option value="5000">Show ALl</option>
+                <option value="5">5</option>
+                <option value="10">10</option>
+                <option value="15">15</option>
+                <option value="20">20</option>
+                <option value="50">50</option>
+                <option value="75">75</option>
+                <option value="100">100</option>
+            </select>
+        </div>
+        <table id="mytable" class="table table-bordered table-striped">
+            <thead>
+                <th>Ảnh Đại Diện</th>
+                <th>TOKEN_ID</th>
+                <th>Tên Đăng Nhập</th>
+                <th>Số Điện Thoại</th>
+                <th>Email</th>
+                <th>Ngày Đăng Kí</th>
+                <th>Sửa/Xóa</th>
+            </thead>
+            <tbody>
+             
+                    <%list.forEach((arr)=>{%>
+                                      
+
+                                       
+                        <tr role="row" >
+                         
+                              <th class="sorting_1">  
+                                <center>
+                                    <img src="./Upload/<%=arr.url%>" class="wd-70 rounded-circle" alt="Image">
+                                </center> 
+                                </th>
+                                <td style="width: 130px;text-align: center;padding-top: 33px;color: black;"><%=arr.id%></td>
+                              
+                                <td style="width: 130px;text-align: center;padding-top: 33px;color: black;" ><%=arr.AcFullName%></td>
+                                <td style="width: 130px;text-align: center;padding-top: 33px;color: black;"><%=arr.Phone%></td>
+                                <td style="width: 130px;text-align: center;padding-top: 33px;color: black;"><%=arr.Email%></td>
+                                <td style="width: 130px;text-align: center;padding-top: 33px;color: black;"><%=arr.Time%></td>
+                                <td style="width: 180px;text-align: center;padding-top: 33px">
+                                  <a href="./edituser/?id=<%=arr.id%>"><button class="btn btn-success" type="reset">Sửa</button></a>
+                                  <a href="./delete/?id=<%=arr.id%>&&url=<%=arr.url%>"><button type="button" class="btn btn-danger">Xóa</button></a>
+                              </td>
+                            </tr>
+                            
+                        
+                         <%})%>   
+            </tbody>
+        </table>
+        <div>
+                <center>
+                  <a href="./adduser"><button class="btn btn-primary" type="reset">Thêm Mới</button></a>
+                </center>
+    
+              </div>
+        <div class="pagination-container">
+            <nav>
+                <ul class="pagination">
+                
+                </ul>
+            </nav>
+        </div>
+    </div>
+  
+    <script>
+      var table='#mytable'
+      $("#maxRows").on('change', function(){
+          $('.pagination').html('')
+          var trnum=0
+          var maxRows=parseInt($(this).val())
+          var totalRows=$(table+' tbody tr').length
+          $(table+' tr:gt(0)').each(function(){
+              trnum++
+              if(trnum > maxRows){  
+                  $(this).hide()
+              }
+              if(trnum <= maxRows){
+                  $(this).show()
+              }
+          })
+          if(totalRows > maxRows){
+              var pagenum=Math.ceil(totalRows/maxRows)
+              for(var i=1;i<=pagenum;){
+                $('.pagination').append('<li data-page="'+i+'">\<span>'+ i++ +'<span class="sr-only">(current)</span></span>\</li>').show()
+              }
+              
+          }
+          $('.pagination li:first-child').addClass('active')
+          $('.pagination li').on('click',function(){
+              var pageNum=$(this).attr('data-page')
+              var trIndex=0;
+              $('.pagination li').removeClass('active')
+              $(this).addClass('active')
+              $(table+' tr:gt(0)').each(function(){
+                  trIndex++
+                  if(trIndex>(maxRows*pageNum)||trIndex<=((maxRows*pageNum)-maxRows)){
+                      $(this).hide()
+                  }else{
+                      $(this).show()
+                  }
+              })
+          })
+      })
+    $(function(){
+        $('table tr:eq(0)').prepend('<th>ID</th>')
+        var id=0;
+        $('table tr:gt(0)').each(function(){
+            id++
+            $(this).prepend('<td>'+id+'</td>')
+        })
+    })
+    </script>
+</body>
+</html>

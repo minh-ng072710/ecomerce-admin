@@ -1,0 +1,192 @@
+<style>
+.form-group{margin-bottom: 2rem }
+.form-control{height: 48px !important;}
+ @import url('https://fonts.googleapis.com/css?family=Oswald&display=swap');
+
+#imageUpload
+{
+   display: none;
+}
+
+#profileImage
+{
+  margin-top: -49px;
+    cursor: pointer;
+    width: 100px;
+    height: 100px;
+
+    margin-left: 32px;
+}
+.form-control{height: 48px !important;}
+label{font-weight: 500;}
+</style>
+<div class="kt-pagebody">
+
+      <!-- row -->
+    
+        <div class="row row-sm mg-t-20">
+          <div class="col-xl-12">
+            <div class="card bd-blue-300" style="background-color:#BFE0E7;">
+              <div class="card-header bg-gray-100 pd-y-15 pd-x-20" style="background-color:#BFE0E7;">
+               <center><h3 class="register-heading" style="color:
+                #606445;font-family: 'PT Serif', serif;font-weight: 900;margin-left:-3px ;">CHỈNH SỬA THÔNG TIN SẢN PHẨM</h3></center> 
+                 <%listcats.forEach((items)=>{%>
+               <image id="profileImage" class="wd-70 rounded-circle"  src="<%=items.imgURL%>" />
+                        <input id="imageUpload" type="file" 
+                               name="image" placeholder="Photo" required="" capture>
+                <center>
+           
+                      
+           
+                               
+                           
+                    
+                        <form action="./editproduct/<%=items.proID%>" method="post" enctype="multipart/form-data">
+             
+
+               
+                            <div class="maxl">
+                        <label class="radio"> 
+                            (<input type="radio" name="discount" value="0" <% if('0'== items.isSale) {%> checked <% } %>>
+                            <span>Không Khuyến Mãi</span>   / 
+                        </label>
+                        <label class="radio"> 
+                            <input type="radio" name="discount" value="1" <% if('1'== items.isSale) {%> checked <% } %> >
+                            <span>Đang Khuyến Mãi</span>) 
+                        </label>
+                    </div></center>
+                    <h4 style="font-family: 'Oswald', sans-serif;">Mã Sản Phẩm:<%=items.proID%></h4>
+                    <h4 style="font-family: 'Oswald', sans-serif;">Mã Loại: <%=items.catID%> </h4>
+                </div><!-- card-header -->
+              <div class="col-md-10 register-right">
+                        
+                <div class="tab-content" id="myTabContent" style="margin-right: -5px;">
+                    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                     
+                            <div class="row register-form" style="margin-left: 197px;
+                            margin-top: 36px;">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="name">
+                                            Nhập Tên Sản Phẩm:
+                                        </label>
+                                        <input type="text" class="form-control" value="<%=items.name%>" name="name" required />
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="category">Chọn Loại Sản Phẩm:</label>
+                                   
+
+                                   
+                                            <select class="form-control" name="category">
+                                                    
+                                                    <% listcats.forEach(function(item){ %>
+                                                      
+                                                    <option value="<%= item.catID%>"><%= item.name%></option>
+                                                    <% }) %>
+                                                  </select>
+                                                
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="price">Giá Sản Phẩm (VND):</label>
+                                        <input type="text" name="price" id="price" value="<%=items.price%>" class="form-control">
+
+                                    </div>
+                                    <div class="form-group">
+                                            <label for="startsale">Ngày Bắt Đầu Khuyến Mãi:</label>
+                                      
+                                            <input type="date" class="form-control"  name="startsale"  required/>
+                                        
+                                    </div>
+                                    <div class="form-group">
+                                            <label for="category">Giảm Giá(%):</label>
+                                   
+
+                                   
+                                            <select class="form-control" name="category">
+                                                    
+                                                   
+                                                      
+                                                    <option value="<%=items.discount%>"><%=items.discount%></option>
+                                                 
+                                                  </select>
+                                          
+                                                  
+                                           
+                                     
+                                           
+                                    </div>
+                                   
+                                
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="image">
+                                            Chọn Hình Ảnh:
+                                        </label>
+                                            <input type="file" class="form-control" name="image">
+                                    </div>
+                                    <div class="form-group">
+                                            <label for="name">
+                                                    Nhập Số Lượng Sản Phẩm:
+                                                </label>
+                                                <input type="number" class="form-control"  name="quantity" value="<%=items.quantity%>" required />
+                                     
+                                    </div>
+                                 <div class="form-group">
+                                     <label for="volumtric">
+                                         Dung Tích Chai (ML):
+                                     </label>
+                                     <input type="text" class="form-control" name="volumtric" value="<%=items.volumetric%>" id="volumtric">
+
+                                 </div>
+                                   <div class="form-group">
+                                        <label for="startsale">Ngày Kết Thúc Khuyến Mãi:</label>
+                            
+                                        <input type="date" class="form-control"  name="endsale" value="<%=items.endSale%>"  required/>
+                                   </div>
+                                    <div class="form-group">
+                                            
+                                  </div>
+                                 
+                                  <div class="form-group">
+                                        <label for="description">Nhập Mô Tả Sản Phẩm:</label>
+                                           
+                            
+                                        <textarea rows="7" cols="50"  name="description"><%=items.description%></textarea>
+                                             
+                                               
+                                </div>
+                                   
+                                </div>
+                                <%  })%>
+                                <div>
+                                        <input type="submit" class="btnRegister btn btn-primary active" style="margin-bottom:50px;margin-left: 303px;margin-top: 26px;width: 200px;font-family: 'PT Serif', serif;font-weight: 900;font-size: 20px;"  value="Sửa Sản Phẩm"/>
+                                        <a href="./listproduct">
+                                                <button type="button" class="btn btn-warning"  style="margin-bottom:50px;    margin-left: 312px;;width: 180px;display:block;font-family: 'PT Serif', serif;font-weight: 900;font-size: 20px;">Xem Danh Sách</button>
+                                        </a>
+                                </div>
+                               
+                            </div>
+                       </form>
+                       
+                    </div>
+                    
+                </div>
+            </div>
+             <!-- table-responsive -->
+           <!-- card-footer -->
+            </div><!-- card -->
+    
+            
+    
+            
+          </div><!-- col-8 -->
+          <!-- col-4 -->
+        </div><!-- row -->
+      </div>
+
+
+    
+ 
+      
+ 

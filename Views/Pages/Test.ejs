@@ -1,16 +1,57 @@
+<!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/7.4.0/firebase-app.js"></script>
+
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+<script src="https://www.gstatic.com/firebasejs/7.4.0/firebase-analytics.js"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<script>
+  // Your web app's Firebase configuration
+  var firebaseConfig = {
+    apiKey: "AIzaSyAVBtWsFEvEZVT4A7rcTV2nRtfj13I5BI0",
+    authDomain: "ecommerce-3b4a8.firebaseapp.com",
+    databaseURL: "https://ecommerce-3b4a8.firebaseio.com",
+    projectId: "ecommerce-3b4a8",
+    storageBucket: "ecommerce-3b4a8.appspot.com",
+    messagingSenderId: "359580994105",
+    appId: "1:359580994105:web:cd475d76e870b4169f1be8",
+    measurementId: "G-PC5T29FZVN"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  firebase.analytics();
+  
+</script>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
 </head>
 <body>
-    <form action="./addtest" method="post">
-        <input type="text" placeholder="lasst name" name="lastname">
-        <input type="text" placeholder="first name" name="firstname">
-        <input type="submit" value="DKa">
-    </form>
+  
+    <input type="text" name="username" id="username">
+    <input type="password" name="passwords" id="passwords">
+    <input id="dangki" type="button" value="Đăng Kí">
+  
 </body>
 </html>
+
+
+<script>
+
+    $(document).ready(function(){
+        $("#dangki").click(function(){
+          alert("hhaaa")
+        })
+      })
+    </script>
+
+
+  
+

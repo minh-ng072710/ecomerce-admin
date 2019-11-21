@@ -1,0 +1,111 @@
+<style>
+  @import url('https://fonts.googleapis.com/css?family=Oswald&display=swap');
+  </style>
+<style>
+  #imageUpload
+  {
+     display: none;
+  }
+  
+  #profileImage
+  {
+    margin-top: -49px;
+      cursor: pointer;
+      width: 100px;
+      height: 100px;
+      margin-left: 45px;
+  }
+  .form-control{height: 48px !important;}
+  label{font-weight: 500;}
+  .form-group {
+    margin-bottom: 2rem;
+}                        
+  </style>
+
+<div class="kt-pagebody">
+
+    <!-- row -->
+  
+      <div class="row row-sm mg-t-20">
+        <div class="col-xl-12">
+          <div class="card bd-blue-300" style="background-color:#BFE0E7;">
+            <%listcats.forEach((arr)=>{ %>
+            <div class="card-header bg-gray-100 pd-y-15 pd-x-20" style="background-color:#BFE0E7;">
+             <center><h3 class="register-heading" style="color:
+              #606445;font-family: 'PT Serif', serif;font-weight: 900;margin-left:-3px ;">SỬA THÔNG TIN LOẠI SẢN PHẨM</h3></center> 
+          <image id="profileImage" class="wd-70 rounded-circle"  src="./Upload/<%=arr.imgURL%>" />
+            <h4 style="font-family: 'Oswald', sans-serif;">Mã Loại Sản Phẩm:<%=arr.catID%></h4>
+            <input id="imageUpload" type="file" 
+                   name="image" placeholder="Photo" required="" capture>
+        </div><!-- card-header --> 
+            <div class="col-md-10 register-right">
+                      
+              <div class="tab-content" id="myTabContent" style="margin-right: -5px;">
+                  <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                     
+                     <form action="./editcats/<%=arr.catID%>" method="post" enctype="multipart/form-data">
+                          <div class="row register-form" style="margin-left: 197px;
+                          margin-top: 36px;">
+                        
+                              <div class="col-md-12">
+                                 
+                                  <div class="form-group">
+                                      <input type="text" class="form-control" value="<%=arr.name%>"  name="name_vi" />
+                                  </div>
+                                  
+                                  <div class="form-group">
+                                    <input type="file" class="form-control"  name="image" />
+                                </div>
+                       
+                                
+                               
+                                    
+                                      
+                                       
+                                          
+                                        </div>
+                                        
+                                      </div>
+                                    </div>
+                                
+                                 
+                                 
+                                <center>
+                                    <div class="form-group">
+                                        <button type="submit" class="btn btn-primary" id="btn_Add"  style="font-family: 'PT Serif', serif;font-weight: 900;font-size: 20px;margin-left: 150px;">Cập Nhật</button>
+                                        
+                                        
+                                    </div>
+                               
+                                </center>
+                                <center>
+                                    <a href="./listcats">
+                                      <button type="button" class="btn btn-warning"  style="margin-bottom:50px;width: 180px;display:block;font-family: 'PT Serif', serif;font-weight: 900;font-size: 20px;margin-left: 150px;">Xem Danh Sách</button>
+                              </a>
+                                </center>
+                              
+                               
+                          </div>
+                     </form>
+                     <%})%>
+                     
+                  </div>
+                  
+              </div>
+          </div>
+           <!-- table-responsive -->
+         <!-- card-footer -->
+          </div><!-- card -->
+  
+          
+  
+          
+        </div><!-- col-8 -->
+        <!-- col-4 -->
+      </div><!-- row -->
+    </div>
+
+
+  
+
+    

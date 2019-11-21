@@ -1,3 +1,7 @@
+<style>
+.form-group{margin-bottom: 2rem }
+.form-control{height: 48px !important;}
+</style>
 <div class="kt-pagebody">
 
       <!-- row -->
@@ -9,69 +13,57 @@
                <center><h3 class="register-heading" style="color:
                 #606445;font-family: 'PT Serif', serif;font-weight: 900;margin-left:-3px ;">THÊM MỚI USER</h3></center> 
               </div><!-- card-header -->
-              <div class="col-md-10 register-right">
+              <div class="col-md-10 register-right" style="margin-top: 40px">
                         
                 <div class="tab-content" id="myTabContent" style="margin-right: -5px;">
                     <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                       <form action="./adduser" method="post" enctype="multipart/form-data">
+                       <form action="./adduser" method="post">
                             <div class="row register-form" style="margin-left: 197px;
                             margin-top: 36px;">
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <input type="text" class="form-control" placeholder="Account Full Name" name="username" required />
+                                        <input type="text" class="form-control" placeholder="Họ Tên Đầy Đủ" name="username" required />
                                     </div>
                                     <div class="form-group">
-                                        <input type="text" class="form-control" placeholder="Location" name="address"/>
+                                        <input type="text" class="form-control" placeholder="Địa Chỉ" name="address"/>
                                     </div>
                                     <div class="form-group">
-                                        <input type="password" class="form-control" placeholder="Password" name="password" required/>
+                                        <input type="password" class="form-control" placeholder="Mật Khẩu" name="password" id="pass" required/>
                                     </div>
                                     <div class="form-group">
-                                        <input type="password" class="form-control"  placeholder="Confirm Password" name="repassword" required/>
+                                            <div class="maxl">
+                                                    <label class="radio inline"> 
+                                                        <input type="radio" name="gender" value="Nam" checked>
+                                                        <span>Nam</span> 
+                                                    </label>
+                                                    <label class="radio inline"> 
+                                                        <input type="radio" name="gender" value="Nữ">
+                                                        <span>Nữ</span> 
+                                                    </label>
+                                                </div>
                                     </div>
-                                    <div class="form-group">
-                                        <div class="maxl">
-                                            <label class="radio inline"> 
-                                                <input type="radio" name="gender" value="male" checked>
-                                                <span> Male </span> 
-                                            </label>
-                                            <label class="radio inline"> 
-                                                <input type="radio" name="gender" value="female">
-                                                <span>Female </span> 
-                                            </label>
-                                        </div>
-                                    </div>
+                           
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <input type="text" class="form-control" placeholder="Your Email" name="email" required/>
+                                        <input type="text" class="form-control" placeholder="Địa Chỉ Email" name="email" required/>
                                     </div>
                                     <div class="form-group">
-                                        <input type="text" minlength="10" maxlength="10" name="txtEmpPhone" class="form-control" placeholder="Your Phone Number" required/>
+                                        <input type="text" minlength="10" maxlength="10" name="txtEmpPhone" class="form-control" placeholder="Số Điện Thoại" required/>
                                     </div>
                                  
-                                   
-                                    <div class="form-group">
-                                      <input type="file" class="form-control" name="image">
                                 
-                                  </div>
+                                 
                                   <div class="form-group">
-                                      
-                                      
-                                          <select class="form-control" name="groupagency">
-                                         
-                                                <option value="1">aaaaa</option>          
-                                         
-                                          </select>
-                                        </div>
-                                      </div>
-                                  
+                                        <input type="password" class="form-control"  placeholder="Xác Nhật Mật Khẩu" name="repassword" id="repass" required/>
+                                   
+                                </div>
                                    
                                 </div>
                                 <div>
-                                        <input type="submit" class="btnRegister btn btn-primary active" style="margin-bottom:50px;margin-left:520px;width: 101px;font-family: 'PT Serif', serif;font-weight: 900;font-size: 20px;"  value="Đăng Ký"/>
+                                        <input type="submit" class="btnRegister btn btn-primary active" style="margin-bottom:50px;margin-left: 350px;    margin-top: 26px;;width: 101px;font-family: 'PT Serif', serif;font-weight: 900;font-size: 20px;"  value="Đăng Ký"/>
                                         <a href="./listuser">
-                                                <button type="button" class="btn btn-warning"  style="margin-bottom:50px;margin-left:480px;width: 180px;display:block;font-family: 'PT Serif', serif;font-weight: 900;font-size: 20px;">Xem Danh Sách</button>
+                                                <button type="button" class="btn btn-warning"  style="margin-bottom:50px;    margin-left: 312px;;width: 180px;display:block;font-family: 'PT Serif', serif;font-weight: 900;font-size: 20px;">Xem Danh Sách</button>
                                         </a>
                                 </div>
                                
@@ -96,6 +88,5 @@
 
 
     
- 
       
  

@@ -1,53 +1,7 @@
 
-<script>
-(function($) {
-  $(function() {
-    var $shareLink = $('#sharelink'),
-      $downloadLink = $('#downloadlink'),
-      $copyButton = $('#copylinkbtn'),
-      clipboard;
-
-    $shareLink.on('keyup paste', function() {
-      var link = $shareLink.val(),
-        l = link.replace(/\/file\/d\/(.+)\/(.+)/, "/uc?export=download&id=$1");
-      if(l !== link) {
-        $downloadLink.val(l);
-        $copyButton.removeAttr('disabled');
-      } else {
-        $downloadLink.val('');
-        $copyButton.attr('disabled', 'disabled');
-      }
-    });
-
-    $downloadLink.on('click', function() {
-      $downloadLink.select();
-    });
-
-    clipboard = new Clipboard('#copylinkbtn');
-    clipboard.on('success', function(e) {
-      $.notify({
-        icon: 'glyphicon glyphicon-ok-circle',
-        title: 'Link copied to clipboard:',
-        message: e.text,
-        url: e.text,
-        target: '_blank'
-      }, {
-        // settings
-        type: "success",
-        placement: {
-          from: "top",
-          align: "center"
-        }
-      });
-
-      // $.notify(e.text + " copied to clipboard.");
-
-      e.clearSelection();
-    });
-
-  });
-})(jQuery);
-</script>
+<style>
+.form-control{height: 50px;}
+</style>
 <div class="kt-pagebody">
 
     <!-- row -->
@@ -57,100 +11,77 @@
           <div class="card bd-blue-300" style="background-color:#BFE0E7;">
             <div class="card-header bg-gray-100 pd-y-15 pd-x-20" style="background-color:#BFE0E7;">
              <center><h3 class="register-heading" style="color:
-              #606445;font-family: 'PT Serif', serif;font-weight: 900;margin-left:-3px ;">THÊM MỚI LOẠI SẢN PHẨM</h3></center> 
+              #606445;font-family: 'PT Serif', serif;font-weight: 900;margin-left:-40px ;">THÊM MỚI LOẠI SẢN PHẨM</h3></center> 
             </div><!-- card-header -->
             <div class="col-md-10 register-right">
                       
               <div class="tab-content" id="myTabContent" style="margin-right: -5px;">
                   <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                     <form action="./addgroupproduct" method="post" >
-                          <div class="row register-form" style="margin-left: 197px;
+                     <form action="./addcats" method="post" enctype="multipart/form-data">
+                          <div class="row register-form" style="margin-left: 180px;
                           margin-top: 36px;">
                         
                               <div class="col-md-12">
                                   <div class="form-group">
-                                      <input type="text" class="form-control" placeholder="Tên Loại_Tiếng Anh" name="name1" />
+                                      <input type="text" class="form-control" placeholder="Tên Loại_Tiếng Anh" name="name_en" required />
                                   </div>
                                   <div class="form-group">
-                                      <input type="text" class="form-control" placeholder="Tên Loại_Tiếng Việt" name="name" />
+                                      <input type="text" class="form-control" placeholder="Tên Loại_Tiếng Việt" name="name_vi" required />
                                   </div>
-                        
-                                 
+                                  
                                   <div class="form-group">
-                                      <div class="panel panel-default panel-primary" id="mainpanel">
+                                    <input style="padding: 2px;padding-top: 9px;" type="file" class="form-control"  name="image"  />
+                                </div>
+                            
+                               
+                                          
+                            </div>
                                         
-                                        <div class="panel-body">
-                                          <form>
-                                            <div class="input-group">
-                           
-                                              <input type="text" class="form-control" id="sharelink" placeholder="Link Drive Hình Ảnh" autofocus="true">
-                                              <span class="input-group-btn">
-                                            <a href="https://drive.google.com/drive/u/0/my-drive" target="_blank">
-                                              <button type="button" class="btn btn-secondary">Go To Drive</button>
-                                            </a>  
-                                            <span>
-                                            </div>
-                                            <div class="form-group">
-                                             
-                                              <div class="input-group">
-                                                <input style="margin-top: 19px;" type="text" class="form-control" id="downloadlink" name="downloadlink" placeholder="Link Sau Chyển Đổi" readonly>
-                                                <span style="margin-top: 19px;" class="input-group-btn">
-                                            <button id="copylinkbtn" class="btn btn-primary" type="button" data-clipboard-target="#downloadlink" disabled>Copy link</button>
-                                          </span>
-                                              </div>
-                                            </div>
-                                          </form>
+                          </div>
+                        </div>
+                    
+                     
+                     
+                    <center>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary" id="btn_Add"  style="font-family: 'PT Serif', serif;font-weight: 900;font-size: 20px;MARGIN-LEFT: 144PX;">Thêm</button>
+                            
+                            
+                        </div>
+                   
+                    </center>
+                   
+                      
+         </form>
+              </div>
+              <center>
+                  <a href="./listcats">
+                    <button type="button" class="btn btn-warning"  style="margin-bottom:50px;width: 180px;display:block;font-family: 'PT Serif', serif;font-weight: 900;font-size: 20px; MARGIN-LEFT: 144PX;">Xem Danh Sách</button>
+            </a>
+              </center>
+         
+         
+      </div>
+      
+  </div>
+</div>
+<!-- table-responsive -->
+<!-- card-footer -->
+</div><!-- card -->
+
+
+
+
+</div><!-- col-8 -->
+<!-- col-4 -->
+</div><!-- row -->
+</div>
+
+          
+                               
                                     
                                       
-                                      <div class="collapse" id="collapseExample">
-                                       <br />
-                                        <div class="well text-center">
-                                          <img src="https://drive.google.com/uc?export=download&id=0B-B__6JMBt-jb1MxWHY5UE5QUXM" alt="" />
-                                        </div>
-                                      </div>      
-                                          
-                                        </div>
-                                        
-                                      </div>
-                                    </div>
-                                
-                                 
-                                 
-                                <center>
-                                    <div class="form-group">
-                                        <button type="submit" class="btn btn-primary" id="btn_Add"  style="font-family: 'PT Serif', serif;font-weight: 900;font-size: 20px">Thêm</button>
-                                        
-                                        
-                                    </div>
-                               
-                                </center>
-                                <center>
-                                    <a href="./listuser">
-                                      <button type="button" class="btn btn-warning"  style="margin-bottom:50px;width: 180px;display:block;font-family: 'PT Serif', serif;font-weight: 900;font-size: 20px;">Xem Danh Sách</button>
-                              </a>
-                                </center>
-                              
-                               
-                          </div>
-                     </form>
-                     
-                  </div>
                   
-              </div>
-          </div>
-           <!-- table-responsive -->
-         <!-- card-footer -->
-          </div><!-- card -->
-  
-          
-  
-          
-        </div><!-- col-8 -->
-        <!-- col-4 -->
-      </div><!-- row -->
-    </div>
-
-
   
 
     
