@@ -515,7 +515,7 @@ app.post("/addcats", function (req, res) {
                     let docRef = db.collection('Category').doc(req.body.name_en).set({
         
                         catID:req.body.name_en,
-                        imgURL:req.file.filename,
+                        imgURL:"http://nguyengiaminh.herokuapp.com/Upload/"+req.file.filename,
                         name:req.body.name_vi,
                       
                         time:date,
