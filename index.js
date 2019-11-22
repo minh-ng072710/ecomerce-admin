@@ -759,16 +759,16 @@ app.post("/addproduct",(req,res)=>{
 
                 catID:req.body.category,
                 description:req.body.description,
-                discount:req.body.discount_percent,
+                discount:parseInt(req.body.discount_percent),
                 endSale:dateend,
-                imgURL:"https://nguyengiaminh.herokuapp.com/Upload/"+req.file.filename,
-                isSale:req.body.discount,
+                imgURL:req.file.filename,
+                isSale:parseInt(req.body.discount),
                 name:req.body.name,
-                price:req.body.price,
+                price:parseInt(req.body.price),
                 proID:id,
                 quantity: parseInt(req.body.quantity),
                 stratSale:datestart,
-                volumetric:req.body.volumtric,
+                volumetric:parseInt(req.body.volumtric),
                 
                 
 
