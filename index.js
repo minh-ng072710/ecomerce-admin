@@ -761,7 +761,7 @@ app.post("/addproduct",(req,res)=>{
                 description:req.body.description,
                 discount:parseInt(req.body.discount_percent),
                 endSale:dateend,
-                imgURL:req.file.filename,
+                imgURL:"https://nguyengiaminh.herokuapp.com/Upload/"+req.file.filename,
                 isSale:parseInt(req.body.discount),
                 name:req.body.name,
                 price:parseInt(req.body.price),

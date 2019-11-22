@@ -47,14 +47,14 @@ db.collection("Receipt")
         .then(snapshot => {
           snapshot.forEach(doc => {
             var element = doc.data()
-           
+           if(element.status=="Đã giao"){
             HTML += `
             <tr role="row" >
               <td style="width: 130px;text-align: center;padding-top: 33px;color: black;">
              
                 `+ element.receiptID + `
                 
-                <select id="myDropDown" class="selectpicker btn btn-warning" style=""><option value=`+ element.status + `>`+ element.status + `</option></select>
+                <select id="myDropDown" class="selectpicker btn btn-success"><option value=`+ element.status + `>`+ element.status + `</option></select>
 
 
 
@@ -64,14 +64,162 @@ db.collection("Receipt")
     <td style="width: 130px;text-align: center;padding-top: 33px;color: black;">`+ element.date + `</td>
    
     <td style="width:200px;text-align: center;padding-top: 33px">
-        <a href="./editfeedback/?id=`+ element._id_feedback + `"><button class="btn btn-warning" type="reset">Chi Tiết</button></a>
+        <button data-toggle="modal" data-target="#myModal" class="btn btn-warning" type="reset">Chi Tiết</button>
       <a href="./editfeedback/?id=`+ element._id_feedback + `"><button class="btn btn-success" type="reset">Sửa</button></a>
       <a href="./deletefeedback/?id=`+ element._id_feedback + `"><button onclick=" return confirm('Bấm vào là xóa đó nha????')" type="button"
           class="btn btn-danger">Xóa</button></a>
 
     </td>
+    <div class="modal fade" id="myModal" role="dialog" >
+    <div class="modal-dialog" style="width: 700px;">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title" style="margin-right: 154px;">Chi Tiết Hóa Đơn</h4>
+        </div>
+        <div class="modal-body">
+          <center>
+            <div>
+              <p>Mã Hóa Đơn:`+ element.receiptID + `</p>
+              <p>Chi Tiết Sản Phẩm:</p>
+              <p>`+ element.orders + `</p>
+
+              <p>Mã Hóa Đơn:`+ element.totalPrice + `</p>
+              <p>Mã Hóa Đơn:`+ element.receiptID + `</p>
+              <p>Mã Hóa Đơn:`+ element.receiptID + `</p>
+              <p>Mã Hóa Đơn:`+ element.receiptID + `</p>
+             
+              </div>
+              </center>
+            
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
     </tr>
       `;
+           }else if(element.status=="Hủy"){
+            HTML += `
+            <tr role="row" >
+              <td style="width: 130px;text-align: center;padding-top: 33px;color: black;">
+             
+                `+ element.receiptID + `
+                
+                <select id="myDropDown" class="selectpicker btn btn-danger"><option value=`+ element.status + `>`+ element.status + `</option></select>
+
+
+
+                </td>
+    <td style="width: 130px;text-align: center;padding-top: 33px;color: black;">`+ element.totalPro + `</td>
+    <td style="width: 130px;text-align: center;padding-top: 33px;color: black;">`+ element.totalPrice+ `</td>
+    <td style="width: 130px;text-align: center;padding-top: 33px;color: black;">`+ element.date + `</td>
+   
+    <td style="width:200px;text-align: center;padding-top: 33px">
+        <button data-toggle="modal" data-target="#myModal" class="btn btn-warning" type="reset">Chi Tiết</button>
+      <a href="./editfeedback/?id=`+ element._id_feedback + `"><button class="btn btn-success" type="reset">Sửa</button></a>
+      <a href="./deletefeedback/?id=`+ element._id_feedback + `"><button onclick=" return confirm('Bấm vào là xóa đó nha????')" type="button"
+          class="btn btn-danger">Xóa</button></a>
+
+    </td>
+    <div class="modal fade" id="myModal" role="dialog" >
+    <div class="modal-dialog" style="width: 700px;">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title" style="margin-right: 154px;">Chi Tiết Hóa Đơn</h4>
+        </div>
+        <div class="modal-body">
+          <center>
+            <div>
+              <p>Mã Hóa Đơn:`+ element.receiptID + `</p>
+              <p>Chi Tiết Sản Phẩm:</p>
+              <p>`+ element.orders + `</p>
+
+              <p>Mã Hóa Đơn:`+ element.totalPrice + `</p>
+              <p>Mã Hóa Đơn:`+ element.receiptID + `</p>
+              <p>Mã Hóa Đơn:`+ element.receiptID + `</p>
+              <p>Mã Hóa Đơn:`+ element.receiptID + `</p>
+             
+              </div>
+              </center>
+            
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+    </tr>
+      `;
+           }else if(element.status=="Đang giao"){
+            HTML += `
+            <tr role="row" >
+              <td style="width: 130px;text-align: center;padding-top: 33px;color: black;">
+             
+                `+ element.receiptID + `
+                
+                <select id="myDropDown" class="selectpicker btn btn-warning"><option value=`+ element.status + `>`+ element.status + `</option></select>
+
+
+
+                </td>
+    <td style="width: 130px;text-align: center;padding-top: 33px;color: black;">`+ element.totalPro + `</td>
+    <td style="width: 130px;text-align: center;padding-top: 33px;color: black;">`+ element.totalPrice+ `</td>
+    <td style="width: 130px;text-align: center;padding-top: 33px;color: black;">`+ element.date + `</td>
+   
+    <td style="width:200px;text-align: center;padding-top: 33px">
+        <button data-toggle="modal" data-target="#myModal" class="btn btn-warning" type="reset">Chi Tiết</button>
+      <a href="./editfeedback/?id=`+ element._id_feedback + `"><button class="btn btn-success" type="reset">Sửa</button></a>
+      <a href="./deletefeedback/?id=`+ element._id_feedback + `"><button onclick=" return confirm('Bấm vào là xóa đó nha????')" type="button"
+          class="btn btn-danger">Xóa</button></a>
+
+    </td>
+    <div class="modal fade" id="myModal" role="dialog" >
+    <div class="modal-dialog" style="width: 700px;">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title" style="margin-right: 154px;">Chi Tiết Hóa Đơn</h4>
+        </div>
+        <div class="modal-body">
+          <center>
+            <div>
+              <p>Mã Hóa Đơn:`+ element.receiptID + `</p>
+              <p>Chi Tiết Sản Phẩm:</p>
+              <p>`+ element.orders + `</p>
+
+              <p>Mã Hóa Đơn:`+ element.totalPrice + `</p>
+              <p>Mã Hóa Đơn:`+ element.receiptID + `</p>
+              <p>Mã Hóa Đơn:`+ element.receiptID + `</p>
+              <p>Mã Hóa Đơn:`+ element.receiptID + `</p>
+             
+              </div>
+              </center>
+            
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+    </tr>
+      `;
+           }
+           
           });
 
           var showHTML = document.getElementById("text");
