@@ -543,8 +543,9 @@ app.get("/editcats", (req, res) => {
                 });
                 res.render("Home", {
                     pages: "Edit_Cats",
-                    listcats:list,  username: req.session.username,
-                    url:  req.session.image
+                    listcats:list,  
+                    username: req.session.username,
+                    url:req.session.image
             
                 });
     
@@ -575,7 +576,7 @@ app.post("/editcats/:id", (req, res) => {
            
      
             imgURL:req.file.filename,
-            name:req.body.name_vi,
+            name:"https://nguyengiaminh.herokuapp.com/Upload/"+req.body.name_vi,
            
             
             Time:date,
