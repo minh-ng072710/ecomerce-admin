@@ -23,7 +23,7 @@
                             <input type="radio" name="discount" value="1" >
                             <span>Đang Khuyến Mãi</span>) 
                         </label>
-                    </div></center>`````
+                    </div></center>
               </div><!-- card-header -->
               <div class="col-md-10 register-right">
                         
@@ -61,18 +61,19 @@
                                     <div class="form-group">
                                             <label for="startsale">Ngày Bắt Đầu Khuyến Mãi:</label>
                                       
-                                            <input type="date" class="form-control"  name="startsale"  required/>
+                                            <input type="date" class="form-control"  name="startsale"/>
                                         
                                     </div>
                                     <div class="form-group">
-                                            <label for="discount">Giảm Giá(%):</label>
+                                            <label for="discount_percent">Giảm Giá(%):</label>
                                    
 
                                    
-                                            <select class="form-control" name="discount" id="discount">
+                                            <select class="form-control" name="discount_percent" id="discount_percent">
                                                     
                                                    
-                                                      
+                                                    <option value="0%">0%</option>
+
                                                     <option value="5%">5%</option>
                                                     <option value="15%">15%</option>
                                                     <option value="25%">25%</option>
@@ -111,7 +112,7 @@
                                    <div class="form-group">
                                         <label for="startsale">Ngày Kết Thúc Khuyến Mãi:</label>
                                       
-                                        <input type="date" class="form-control"  name="endsale"  required/>
+                                        <input type="date" class="form-control"  name="endsale"/>
                                    </div>
                                     <div class="form-group">
                                             
@@ -128,10 +129,13 @@
                                    
                                 </div>
                                 <div>
-                                        <input type="submit" class="btnRegister btn btn-primary active" style="margin-bottom:50px;margin-left: 303px;    margin-top: 26px;;width: 200px;font-family: 'PT Serif', serif;font-weight: 900;font-size: 20px;"  value="Thêm Sản Phẩm"/>
+
+                                        <input type="submit" class="btnRegister btn btn-primary active" style="margin-bottom:50px;margin-left: 303px;margin-top: 26px;;width: 200px;font-family: 'PT Serif', serif;font-weight: 900;font-size: 20px;"  value="Thêm Sản Phẩm"/>
                                         <a href="./listproduct">
                                                 <button type="button" class="btn btn-warning"  style="margin-bottom:50px;    margin-left: 312px;;width: 180px;display:block;font-family: 'PT Serif', serif;font-weight: 900;font-size: 20px;">Xem Danh Sách</button>
                                         </a>
+                                        <input type="button" class="btn btn-success active" style="margin-bottom:50px;margin-left: 303px;    margin-top: 26px;width: 180px;font-family: 'PT Serif', serif;font-weight: 900;font-size: 17px;"  value="Khuyến Mãi"/>
+
                                 </div>
                                
                             </div>

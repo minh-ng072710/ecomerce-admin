@@ -692,6 +692,28 @@ app.get("/listproduct",(req,res)=>{
         res.redirect("/login_admin")
     }
 })
+app.get("/listproduct",(req,res)=>{
+    if(req.session.email&&req.session.pass){
+    let list = [];
+    let observer = db.collection('Product').get()
+        .then(snapshot => {
+            snapshot.forEach(doc => {
+                list.push(doc.data())
+            });
+      
+            return res.render("Home", {
+                pages: "Product_List",
+                username: req.session.username,
+                url:  req.session.image,
+                list: list,
+                
+            });
+              
+        })
+    }else{
+        res.redirect("/login_admin")
+    }
+})
 app.get("/addproduct",(req,res)=>{
     if(req.session.email&&req.session.pass){
         let list=[];
@@ -723,6 +745,7 @@ app.post("/addproduct",(req,res)=>{
             console.log("An unknown error occurred when uploading." + err);
           }else{
             console.log("Upload is okay");
+
             let tsstart = req.body.startsale;
             let date_ob_start = (new Date(tsstart)).toISOString();
             let datestart = moment(date_ob_start).format("DD/MM/YY  00:00:00");
@@ -732,13 +755,13 @@ app.post("/addproduct",(req,res)=>{
             
             
 
-            let docRef = db.collection('Category').doc(id).set({
+            let docRef = db.collection('Product').doc(id).set({
 
                 catID:req.body.category,
                 description:req.body.description,
-                discount:req.body.category,
+                discount:req.body.discount_percent,
                 endSale:dateend,
-                imgURL:req.file.filename,
+                imgURL:"https://nguyengiaminh.herokuapp.com/Upload/"+req.file.filename,
                 isSale:req.body.discount,
                 name:req.body.name,
                 price:req.body.price,
@@ -753,7 +776,7 @@ app.post("/addproduct",(req,res)=>{
             });
 
 
-            res.redirect("./listcats")
+            res.redirect("./listproduct")
 
         }
     });
@@ -762,22 +785,34 @@ app.post("/addproduct",(req,res)=>{
 }
 });
 app.get("/editproduct", (req, res) => {
+    // let  tssend;
+    let datesend ;
+    
     if(req.session.email&&req.session.pass){
-    let list = [];
+      
     var db1 = db.collection('Product').where('proID','=',req.query.id).get()
         .then((snapshot) => {
             snapshot.forEach((doc) => {
             
-                return list.push(doc.data())
-            
+               list=doc.data()
+            //    console.log(list)
+            console.log(list.endSale)
+            // var date = new Date(list.endSale); // some mock date
+            //  milliseconds = date.getTime();\
+            tssend= list.endSale;
+            datesend = moment(tssend).format("DD/MM/YY");
+
+            tsstart=list.startSale
+                console.log(datesend)
             });
-            console.log(list)
+        
             res.render("Home", {
                 pages: "Edit_Product",
                 username: req.session.username,
                 url:  req.session.image,
-                listcats:list
-        
+                listcats:list,
+                time_start:tsstart,
+                time_end:datesend 
             });
 
         });
@@ -786,7 +821,7 @@ app.get("/editproduct", (req, res) => {
     }
 
 
-});   
+});  
 app.post("/editproduct/:id", (req, res) => {
     if(req.session.email&&req.session.pass){
     Upload(req,res,(err)=>{
