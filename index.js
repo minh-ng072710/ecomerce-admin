@@ -593,7 +593,7 @@ app.post("/editcats/:id", (req, res) => {
 app.get("/deletecats", (req, res) => {
     if(req.session.email&&req.session.pass){
     if(req.query.url!=""){
-        const path = 'Public/Upload/' + req.query.url;
+        const path = 'https://nguyengiaminh.herokuapp.com/Upload/' + req.query.url;
         try {
             if (fs.existsSync(path)) {
                 fs.unlinkSync(path);
