@@ -751,7 +751,7 @@ app.post("/addproduct",(req,res)=>{
             let datestart = moment(date_ob_start).format("YYYY-MM-DD 00:00:00");
             let tssend=req.body.endsale;
             let date_ob_end=(new Date(tssend)).toISOString();
-            let dateend = moment(date_ob_end).format("YYYY-MM-DD  00:00:00");
+            let dateend = moment(date_ob_end).format("YYYY-MM-DD 00:00:00");
             
             
 
