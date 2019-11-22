@@ -767,7 +767,7 @@ app.post("/addproduct",(req,res)=>{
                 price:parseInt(req.body.price),
                 proID:id,
                 quantity: parseInt(req.body.quantity),
-                stratSale:datestart,
+                startSale:datestart,
                 volumetric:parseInt(req.body.volumtric),
                 
                 
