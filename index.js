@@ -961,9 +961,9 @@ app.post("/editproduct/:id", (req, res) => {
              
                 catID:req.body.category,
                 description:req.body.description,
-                discount:'',
+                discount:0,
                 endSale:'',
-                imgURL:req.file.filename,
+                imgURL:"https://nguyengiaminh.herokuapp.com/Upload/"+req.file.filename,
                 isSale:0,
                 name:req.body.name,
                 price:parseInt(req.body.price),
@@ -983,7 +983,7 @@ app.post("/editproduct/:id", (req, res) => {
              
                 catID:req.body.category,
                 description:req.body.description,
-                discount:'',
+                discount:0,
                 endSale:'',
                 imgURL:oldimage,
                 isSale:0,
