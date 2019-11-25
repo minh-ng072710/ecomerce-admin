@@ -28,9 +28,10 @@ label{font-weight: 500;}
                 #606445;font-family: 'PT Serif', serif;font-weight: 900;margin-left:-3px ;">CHỈNH SỬA ADMIN</h3></center> 
                         
                         <form action="./edituser_admin/<%=arr.id%>" method="post" enctype="multipart/form-data">
-                <image id="profileImage" class="wd-70 rounded-circle"  src="./Upload/<%=arr.url%>" />
+                <image id="profileImage" class="wd-70 rounded-circle"  src="<%=arr.url%>" />
                   <input id="imageUpload" type="file" 
                          name="image" placeholder="Photo" capture>
+                         <input type="hidden" name="oldimage" value="<%=arr.url%>">
               </div><!-- card-header -->
               <div class="col-md-10 register-right">
                         
@@ -65,7 +66,8 @@ label{font-weight: 500;}
                                     <div class="form-group">
                                       <label for="pass">Nhập Mật Khẩu:</label>
                                         <input type="password" class="form-control" value="<%=arr.Passwords%>" name="pass" id="pass" required/>
-                                    </div>
+                                        <input type="hidden" value="<%=arr.Passwords%>" name="oldpass">
+                                      </div>
                                    
                                 
 

@@ -201,7 +201,7 @@ app.post("/adduser_admin", function (req, res) {
                             Email: req.body.email,
                             Phone: req.body.txtEmpPhone,
                             Time: date,
-                            url: req.file.filename,
+                            url:"https://nguyengiaminh.herokuapp.com/Upload/"+req.file.filename,
                             id: id,
             
             
@@ -278,7 +278,7 @@ app.get("/edituser_admin", (req, res) => {
                                 Email: req.body.email,
                                 Phone: req.body.txtEmpPhone,
                                 Time: date,
-                                url: req.file.filename,
+                                url:"https://nguyengiaminh.herokuapp.com/Upload/"+req.file.filename,
                            
                 
                             });
@@ -293,7 +293,7 @@ app.get("/edituser_admin", (req, res) => {
                                 Email: req.body.email,
                                 Phone: req.body.txtEmpPhone,
                                 Time: date,
-                                url: req.file.filename,
+                                url:"https://nguyengiaminh.herokuapp.com/Upload/"+req.file.filename,
                            
                 
                             });
