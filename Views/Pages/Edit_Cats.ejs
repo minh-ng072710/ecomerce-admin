@@ -33,10 +33,10 @@
             <div class="card-header bg-gray-100 pd-y-15 pd-x-20" style="background-color:#BFE0E7;">
              <center><h3 class="register-heading" style="color:
               #606445;font-family: 'PT Serif', serif;font-weight: 900;margin-left:-3px ;">SỬA THÔNG TIN LOẠI SẢN PHẨM</h3></center> 
-          <image id="profileImage" class="wd-70 rounded-circle"  src="./Upload/<%=arr.imgURL%>" />
+          <image id="profileImage" class="wd-70 rounded-circle"  src="<%=arr.imgURL%>" />
             <h4 style="font-family: 'Oswald', sans-serif;">Mã Loại Sản Phẩm:<%=arr.catID%></h4>
             <input id="imageUpload" type="file" 
-                   name="image" placeholder="Photo" required="" capture>
+                   name="image" placeholder="Photo"  capture>
         </div><!-- card-header --> 
             <div class="col-md-10 register-right">
                       
@@ -55,6 +55,8 @@
                                   
                                   <div class="form-group">
                                     <input type="file" class="form-control"  name="image" />
+                                    <input type="hidden" name="oldimage" value="<%=arr.imgURL%>">
+
                                 </div>
                        
                                 

@@ -48,6 +48,7 @@ admin.initializeApp({
 });
 
 let db = admin.firestore();
+
 const util = require('util');
 console.log(util.inspect('index.js', { showHidden: false, depth: null }));
 //-----------------------------Connect FireStore----------------------------//
@@ -60,7 +61,9 @@ app.get("/", (req, res) => {
     if(req.session.email&&req.session.pass){
 
     res.render("Home", {
-        pages: "Product_List"
+        pages: "Product_List",
+        username: req.session.username,
+        url:  req.session.image
     });
 }else{
     res.redirect("/login_admin")
@@ -175,7 +178,7 @@ app.get("/adduser_admin", (req, res) => {
 });
 app.post("/adduser_admin", function (req, res) {
 
-
+    if(req.session.email&&req.session.pass){
     var id = makeid(20);
     Upload(req, res, (err) => { 
         bcrypt.hash(req.body.password,saltRounds,(err,hash)=>{
@@ -210,88 +213,147 @@ app.post("/adduser_admin", function (req, res) {
                 });
                
             })
-       
+        }else{
+            res.redirect("/login_admin")    
+        }
+    });        
             
            
         
          
-         
-        });    
+app.get("/edituser_admin", (req, res) => {
+    if(req.session.email&&req.session.pass){
+            let list = [];
+            var db1 = db.collection('Admin').where('id', '=', req.query.id).get()
+                .then((snapshot) => {
+                    snapshot.forEach((doc) => {
+                        // console.log(doc.id, '=>', doc.data());
+                        return list.push(doc.data())
+                        // console.log(list)
+                    });
+                    res.render("Home", {
+                        pages: "Edit_User_Admin",
+                        username: req.session.username,
+                        url:  req.session.image,
+                        listuser:list
+                
+                    });
+        
+                });
+            }else{
+                res.redirect("/login_admin")    
+            }
+            
+        
+        
+});
+        
             
  app.post("/edituser_admin/:id", (req, res) => {
-
-            if(req.session.email&&req.session.pass){
-
+    if(req.session.email&&req.session.pass){
+        Upload(req, res, (err) => { 
+            bcrypt.hash(req.body.pass,saltRounds,(err,hash)=>{
+                if (err instanceof multer.MulterError) {
+                    console.log("A Multer error occurred when uploading."); 
+                  } else if (err) {
+                      console.log("An unknown error occurred when uploading." + err);
+                  }else{
+                    let oldimage=req.body.oldimage;
+                    let oldpass=req.body.oldpass;
+                    if( typeof req.file !== undefined && req.file){
+                        console.log("Upload is okay");
+                        let ts = Date.now();
+                        let date_ob = (new Date(ts)).toString();
+                        let date = moment(date_ob).format("YYYY-MM-DD hh:mm:ss")
+             
+                        let cityRef = db.collection('Admin').doc(req.params.id);
+                        if(oldpass==req.body.pass){
+                            let updateMany = cityRef.update({
             
-                Upload(req, res, (err) => { 
-                    bcrypt.hash(req.body.pass,saltRounds,(err,hash)=>{
-                        if(err){
-                            console.log(err);
-                        }else{
+            
+                                AcFullName: req.body.username,
+                                Address: req.body.address,
+                                Passwords: oldpass,
+                                Gender: req.body.gender,
+                                Email: req.body.email,
+                                Phone: req.body.txtEmpPhone,
+                                Time: date,
+                                url: req.file.filename,
                            
-                                    console.log("Upload is okay");
-                                    let ts = Date.now();
-                                    let date_ob = (new Date(ts)).toString();
-                                    let date = moment(date_ob).format("DD/MM/YYYY","hh:mm:ss")
-                         
-                let cityRef = db.collection('Admin').doc(req.params.id);
-                                    let updateMany = cityRef.update({
-                        
-                        
-                                        AcFullName: req.body.username,
-                                        Address: req.body.address,
-                                        Passwords: hash,
-                                        Gender: req.body.gender,
-                                        Email: req.body.email,
-                                        Phone: req.body.txtEmpPhone,
-                                        Time: date,
-                                        url: req.file.filename,
-                                   
-                        
-                                    });
-                        
-                                    res.redirect("/listadmin")
-                                }
+                
+                            });
+                        }else{
+                            let updateMany = cityRef.update({
+            
+            
+                                AcFullName: req.body.username,
+                                Address: req.body.address,
+                                Passwords: hash,
+                                Gender: req.body.gender,
+                                Email: req.body.email,
+                                Phone: req.body.txtEmpPhone,
+                                Time: date,
+                                url: req.file.filename,
+                           
+                
+                            });
+                        }
+                      
+            
+                        res.redirect("/listadmin")
+                    }else{
+                        console.log("Upload is okay");
+                        let ts = Date.now();
+                        let date_ob = (new Date(ts)).toString();
+                        let date = moment(date_ob).format("YYYY-MM-DD hh:mm:ss")
+             
+                        let cityRef = db.collection('Admin').doc(req.params.id);
+                        if(oldpass==req.body.pass){
+                            let updateMany = cityRef.update({
+            
+            
+                                AcFullName: req.body.username,
+                                Address: req.body.address,
+                                Passwords: oldpass,
+                                Gender: req.body.gender,
+                                Email: req.body.email,
+                                Phone: req.body.txtEmpPhone,
+                                Time: date,
+                                url:oldimage,
+                           
+                
+                            });
+                        }else{
+                            let updateMany = cityRef.update({
+            
+            
+                                AcFullName: req.body.username,
+                                Address: req.body.address,
+                                Passwords: hash,
+                                Gender: req.body.gender,
+                                Email: req.body.email,
+                                Phone: req.body.txtEmpPhone,
+                                Time: date,
+                                url: oldimage,
+                           
+                
+                            });
+                        }
+            
+                        res.redirect("/listadmin")
+                
+                      }
+                        }
                 
                             });
                            
                         })
-                    }else{
-                        
-                         res.redirect("/login_admin")
-                    }
+    }else{
+        res.redirect("/login_admin")    
+    }
                      
             });                 
-         
-    
-app.get("/edituser_admin", (req, res) => {
-    if(req.session.email&&req.session.pass){
-    let list = [];
-    var db1 = db.collection('Admin').where('id', '=', req.query.id).get()
-        .then((snapshot) => {
-            snapshot.forEach((doc) => {
-                // console.log(doc.id, '=>', doc.data());
-                return list.push(doc.data())
-                // console.log(list)
-            });
-            res.render("Home", {
-                pages: "Edit_User_Admin",
-                username: req.session.username,
-                url:  req.session.image,
-                listuser:list
-        
-            });
-
-        });
-    }else{
-        res.redirect("/login_admin")
-    }
-
-
-});
-
-
-app.get("/delete", (req, res) => {
+app.get("/deleteuser_admin", (req, res) => {
     if(req.session.email&&req.session.pass){
     if(req.query.url!=""){
         const path = 'Public/Upload/' + req.query.url;
@@ -542,10 +604,9 @@ app.get("/editcats", (req, res) => {
                 
                 });
                 res.render("Home", {
-                    pages: "Edit_Cats",
-                    listcats:list,  
-                    username: req.session.username,
-                    url:req.session.image
+                    pages:"Edit_Cats",
+                    listcats:list,  username: req.session.username,
+                    url:  req.session.image
             
                 });
     
@@ -565,26 +626,51 @@ app.post("/editcats/:id", (req, res) => {
           } else if (err) {
               console.log("An unknown error occurred when uploading." + err);
           }else{
+            let oldimage=req.body.oldimage
+            if( typeof req.file !== undefined && req.file)
+            {
               console.log("Upload is okay");
                let ts = Date.now();
 
-        let date_ob = (new Date(ts)).toString();
-        let date = moment(date_ob).format("DD/MM/YY  hh:mm")
-        let cityRef = db.collection('Category').doc(req.params.id);
-            
-        let updateMany = cityRef.update({
+                let date_ob = (new Date(ts)).toString();
+                let date = moment(date_ob).format("DD/MM/YY  hh:mm")
+                let cityRef = db.collection('Category').doc(req.params.id);
+                    
+                let updateMany = cityRef.update({
            
      
-            imgURL:req.file.filename,
-            name:"https://nguyengiaminh.herokuapp.com/Upload/"+req.body.name_vi,
-           
-            
-            Time:date,
-            
-          
-        });
+                    imgURL:"http://nguyengiaminh.herokuapp.com/Upload/"+req.file.filename, 
+                    name:req.body.name_vi,
+                
+                    
+                    Time:date,
+                    
+                
+                });
               
-    res.redirect("/listcats")
+             res.redirect("/listcats")
+            }else{
+                
+                let ts = Date.now();
+ 
+                 let date_ob = (new Date(ts)).toString();
+                 let date = moment(date_ob).format("DD/MM/YY  hh:mm")
+                 let cityRef = db.collection('Category').doc(req.params.id);
+                     
+                 let updateMany = cityRef.update({
+            
+      
+                     imgURL:oldimage,
+                     name:req.body.name_vi,
+                 
+                     
+                     Time:date,
+                     
+                 
+                 });
+               
+            res.redirect("/listcats")
+            }
     }
     })
 }else{
@@ -594,7 +680,7 @@ app.post("/editcats/:id", (req, res) => {
 app.get("/deletecats", (req, res) => {
     if(req.session.email&&req.session.pass){
     if(req.query.url!=""){
-        const path = 'https://nguyengiaminh.herokuapp.com/Upload/' + req.query.url;
+        const path = 'Public/Upload/' + req.query.url;
         try {
             if (fs.existsSync(path)) {
                 fs.unlinkSync(path);
@@ -672,6 +758,11 @@ app.get("/deletecats", (req, res) => {
 //-----------------------------Route 4:PRODUCT----------------------------//
 
 app.get("/listproduct",(req,res)=>{
+    let ts = Date.now();
+    let date_ob = (new Date(ts)).toString();
+    let date = moment(date_ob).format("YYYY-MM-DD 00:00:00")
+    console.log(date)
+
     if(req.session.email&&req.session.pass){
     let list = [];
     let observer = db.collection('Product').get()
@@ -679,28 +770,7 @@ app.get("/listproduct",(req,res)=>{
             snapshot.forEach(doc => {
                 list.push(doc.data())
             });
-      
-            return res.render("Home", {
-                pages: "Product_List",
-                username: req.session.username,
-                url:  req.session.image,
-                list: list,
-                
-            });
-              
-        })
-    }else{
-        res.redirect("/login_admin")
-    }
-})
-app.get("/listproduct",(req,res)=>{
-    if(req.session.email&&req.session.pass){
-    let list = [];
-    let observer = db.collection('Product').get()
-        .then(snapshot => {
-            snapshot.forEach(doc => {
-                list.push(doc.data())
-            });
+          
       
             return res.render("Home", {
                 pages: "Product_List",
@@ -736,61 +806,110 @@ app.get("/addproduct",(req,res)=>{
     }
    
 }) 
+app.post("/flashsale",(req,res)=>{
+                let tsstart = req.body.startsale;
+                let date_ob_start = (new Date(tsstart)).toISOString();
+                let datestart = moment(date_ob_start).format("YYYY-MM-DD 00:00:00");
+                let tssend=req.body.endsale;
+                let date_ob_end=(new Date(tssend)).toISOString();
+                let dateend = moment(date_ob_end).format("YYYY-MM-DD 00:00:00");
+        let cityRef = db.collection('Product').doc(req.query.id);
+    
+        let updateMany = cityRef.update({
+           
+            
+            discount:parseInt(req.body.discount_percent),
+            endSale:dateend,
+            startSale:datestart,
+          
+        });
+        res.redirect("/listproduct")
+    })
+    
+app.post("/deletesale/:id",(req,res)=>{
+    let cityRef = db.collection('Product').doc(req.params.id);
+    
+    let updateMany = cityRef.update({
+       
+        
+        discount:'',
+        endSale:'',
+        startSale:'',
+        isSale:0,
+      
+    });
+    res.redirect("/listproduct")
+})
 app.post("/addproduct",(req,res)=>{
     if(req.session.email&&req.session.pass){
     var id=makeid(20)
-    Upload(req, res, (err) => {
-        if (err instanceof multer.MulterError) {
-            console.log("A Multer error occurred when uploading."); 
-        }else if (err) {
-            console.log("An unknown error occurred when uploading." + err);
-          }else{
-            console.log("Upload is okay");
-
-            let tsstart = req.body.startsale;
-            let date_ob_start = (new Date(tsstart)).toISOString();
-            let datestart = moment(date_ob_start).format("YYYY-MM-DD 00:00:00");
-            let tssend=req.body.endsale;
-            let date_ob_end=(new Date(tssend)).toISOString();
-            let dateend = moment(date_ob_end).format("YYYY-MM-DD 00:00:00");
-            
-            
-
-            let docRef = db.collection('Product').doc(id).set({
-
-                catID:req.body.category,
-                description:req.body.description,
-                discount:parseInt(req.body.discount_percent),
-                endSale:dateend,
-                imgURL:"https://nguyengiaminh.herokuapp.com/Upload/"+req.file.filename,
-                isSale:parseInt(req.body.discount),
-                name:req.body.name,
-                price:parseInt(req.body.price),
-                proID:id,
-                quantity: parseInt(req.body.quantity),
-                startSale:datestart,
-                volumetric:parseInt(req.body.volumtric),
+    
+    
+        Upload(req, res, (err) => {
+            if (err instanceof multer.MulterError) {
+                console.log("A Multer error occurred when uploading."); 
+            }else if (err) {
+                console.log("An unknown error occurred when uploading." + err);
+              }else{
+                console.log("Upload is okay");
+    
+                // let tsstart = req.body.startsale;
+                // let date_ob_start = (new Date(tsstart)).toISOString();
+                // let datestart = moment(date_ob_start).format("DD/MM/YY  00:00:00");
+                // let tssend=req.body.endsale;
+                // let date_ob_end=(new Date(tssend)).toISOString();
+                // let dateend = moment(date_ob_end).format("YY-MM-DD  00:00:00");
                 
                 
-
-
-            });
-
-
-            res.redirect("./listproduct")
-
-        }
-    });
+                let docRef = db.collection('Product').doc(id).set({
+    
+                    catID:req.body.category,
+                    description:req.body.description,
+                    discount:0,
+                    endSale:'',
+                    imgURL:req.file.filename,
+                    isSale:0,
+                    name:req.body.name,
+                    price:parseInt(req.body.price),
+                    proID:id,
+                    quantity: parseInt(req.body.quantity),
+                    startSale:'',
+                    volumetric:parseInt(req.body.volumtric),
+                    
+                    
+    
+    
+                });
+    
+    
+                res.redirect("./listproduct")
+    
+            }
+        });
+    
+   
 }else{
     res.redirect("/login_admin")
 }
 });
+app.post("/flashsale",(req,res)=>{
+
+})
 app.get("/editproduct", (req, res) => {
     // let  tssend;
     let datesend ;
+    let list;
+    let list1=[];
     
     if(req.session.email&&req.session.pass){
-      
+
+        let cats =db.collection("Category").get().then((snapshot)=>{
+            snapshot.forEach((arr)=>{
+               list1.push(arr.data())
+            })
+        
+    
+        })
     var db1 = db.collection('Product').where('proID','=',req.query.id).get()
         .then((snapshot) => {
             snapshot.forEach((doc) => {
@@ -812,6 +931,7 @@ app.get("/editproduct", (req, res) => {
                 username: req.session.username,
                 url:  req.session.image,
                 listcats:list,
+                listcats1:list1,
                 time_start:tsstart,
                 time_end:datesend 
             });
@@ -822,7 +942,7 @@ app.get("/editproduct", (req, res) => {
     }
 
 
-});  
+});   
 app.post("/editproduct/:id", (req, res) => {
     if(req.session.email&&req.session.pass){
     Upload(req,res,(err)=>{
@@ -831,42 +951,62 @@ app.post("/editproduct/:id", (req, res) => {
         } else if (err) {
             console.log("An unknown error occurred when uploading." + err);
         }else{
-            console.log("Upload is okay");
-             let ts = Date.now();
-             let tsstart = req.body.startsale;
-             let date_ob_start = (new Date(tsstart)).toString();
-             let datestart = moment(date_ob_start).format("DD/MM/YY  00:00:00");
-             let tssend=req.body.endsale;
-             let date_ob_end=(new Date(tssend)).toString();
-             let dateend = moment(date_ob_end).format("YY-MM-DD  00:00:00");
-             let cityRef = db.collection('Product').doc(req.params.id);
-      let updateMany = cityRef.update({
-         
-   
-        catID:req.body.category,
-        description:req.body.description,
-        discount:req.body.category,
-        endSale:dateend,
-        imgURL:req.file.filename,
-        isSale:req.body.discount,
-        name:req.body.name,
-        price:req.body.price,
-        proID:docID++,
-        quantity: parseInt(req.body.quantity),
-        stratSale:datestart,
-        volumetric:req.body.volumtric,
-        
-          
-        
-      });
+            let oldimage=req.body.oldimage
+            if( typeof req.file !== undefined && req.file)
+            {
+                let cityRef = db.collection('Product').doc(req.params.id);
             
-  res.redirect("/listcats")
-  }
-  })
+                let updateMany = cityRef.update({
+                   
+             
+                catID:req.body.category,
+                description:req.body.description,
+                discount:'',
+                endSale:'',
+                imgURL:req.file.filename,
+                isSale:0,
+                name:req.body.name,
+                price:parseInt(req.body.price),
+              
+                quantity: parseInt(req.body.quantity),
+                startSale:'',
+                volumetric:parseInt(req.body.volumtric),
+                    
+                  
+                });
+            
+            }else{
+                let cityRef = db.collection('Product').doc(req.params.id);
+            
+                let updateMany = cityRef.update({
+                   
+             
+                catID:req.body.category,
+                description:req.body.description,
+                discount:'',
+                endSale:'',
+                imgURL:oldimage,
+                isSale:0,
+                name:req.body.name,
+                price:parseInt(req.body.price),
+               
+                quantity: parseInt(req.body.quantity),
+                startSale:'',
+                volumetric:parseInt(req.body.volumtric),
+                    
+                  
+                });
+            }
+            res.redirect("/listproduct")
+        }
+    }) 
 }else{
     res.redirect("/login_admin")
 }
       });
+
+  
+
 app.get("/deleteproduct", (req, res) => {
     if(req.session.email&&req.session.pass){
   if(req.query.url!=""){
@@ -1206,7 +1346,9 @@ app.get("/deletefeedback", (req, res) => {
 
 
 //-----------------------------//Route 6:LIST ORDER//----------------------------//
-
+app.get("/testmodal",(req,res)=>{
+    res.render("Register")
+})
 
 
 

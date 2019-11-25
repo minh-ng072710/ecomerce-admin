@@ -8,6 +8,20 @@
 
 <script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-analytics.js"></script>
 <script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-firestore.js"></script>
+
+<script> 
+  
+  // Use of function Date.now() 
+  var A = Date.now(); 
+  var b=A.toString()
+ 
+
+
+
+  alert("The time elapsed in millisecond is: " + b)
+  // Printing the number of millisecond elapsed  
+  
+</script> 
 <script>
 
 
@@ -45,17 +59,11 @@ db.collection("Product")
         var statust;
         if(element.isSale==0){
           statust="Chưa Tới Thời Gian Khuyến Mãi"
-        }else if(element.isSale==1){
-          statust="Đang Sale"
-          
-        }
-        
-        console.log(doc.data)
-        HTML += `
+          HTML += `
         <tr role="row" >
 <td class="sorting_1">
  <center>
-    <img src="`+element.imgURL+`" class="wd-70 rounded-circle" alt="Image">
+    <img src="`+element.imgURL+ `" class="wd-70 rounded-circle" alt="Image">
 </center>
 </td>
 <td style="width: 130px;text-align: center;padding-top: 33px;color: black;">`+ element.catID + `</td>
@@ -63,16 +71,48 @@ db.collection("Product")
 <td style="width: 800px;text-align: center;padding-top: 33px;color: black;">`+ element.description+ `</td>
 <td style="width: 130px;text-align: center;padding-top: 33px;color: black;">`+ element.quantity + `</td>
 <td style="width: 230px;text-align: center;padding-top: 33px;color: black;">`+ element.discount + `</td>
-<td id="promotion" style="width: 130px;text-align: center;padding-top: 33px;color: red;">`+ statust + `</td>
+<td id="promotion" style="width: 130px;text-align: center;padding-top: 33px;color: black;">`+ statust + `</td>
 <td style="width: 130px;text-align: center;padding-top: 33px;color: black;">`+ element.volumetric+ `</td>
 
-<td style="width:300px;text-align: center;padding-top: 33px">
+<td style="width:400px;text-align: center;padding-top: 33px">
   <a href="./editproduct/?id=`+ element.proID +  `"><button class="btn btn-success" type="reset">Sửa</button></a>
   <a href="./deleteproduct/?id=`+ element.proID + `&&url=` + element.imgURL + `"><button type="button"
       class="btn btn-danger">Xóa</button></a>
 </td>
 </tr>
   `;
+        }else if(element.isSale==1){
+          statust="Sản Phẩm Sale"
+          HTML += `
+          <style>
+@import url('https://fonts.googleapis.com/css?family=Lobster&display=swap');
+</style>
+        <tr role="row" >
+<td class="sorting_1">
+ <center>
+    <img src="`+element.imgURL+ `" class="wd-70 rounded-circle" alt="Image">
+</center>
+</td>
+<td style="width: 130px;text-align: center;padding-top: 33px;color: black;">`+ element.catID + `</td>
+<td style="width: 230px;text-align: center;padding-top: 33px;color: black;">`+ element.name + `</td>
+<td style="width: 800px;text-align: center;padding-top: 33px;color: black;">`+ element.description+ `</td>
+<td style="width: 130px;text-align: center;padding-top: 33px;color: black;">`+ element.quantity + `</td>
+<td style="width: 230px;text-align: center;padding-top: 33px;color: black;">`+ element.discount + `</td>
+<td id="promotion" style="width: 130px;text-align: center;padding-top: 33px;font-size: 26px;;color: red;font-family: 'Lobster', cursive;">`+ statust + `</td>
+<td style="width: 130px;text-align: center;padding-top: 33px;color: black;">`+ element.volumetric+ `</td>
+
+<td style="width:400px;text-align: center;padding-top: 33px">
+  <a href="./editproduct/?id=`+ element.proID +  `"><button class="btn btn-success" type="reset">Sửa</button></a>
+  <a href="./deleteproduct/?id=`+ element.proID + `&&url=` + element.imgURL + `"><button type="button"
+      class="btn btn-danger">Xóa</button></a>
+</td>
+</tr>
+  `;
+          
+        }
+        
+        console.log(doc.data)
+      
       });
 
       var showHTML = document.getElementById("text");
@@ -145,7 +185,7 @@ db.collection("Product")
     aria-label="Position: activate to sort column ascending" style="width:150px ;text-align: center;">DUNG TÍCH</th>
     
     <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1"
-      aria-label="Salary: activate to sort column ascending" style="width: 300px;text-align: center">SỬA/XÓA</th>
+      aria-label="Salary: activate to sort column ascending" style="width:400px;text-align: center">SỬA/XÓA</th>
   </tr>
 </thead>
 <tfoot>
