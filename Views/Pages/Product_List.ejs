@@ -11,15 +11,15 @@
 
 <script> 
   
-  // Use of function Date.now() 
-  var A = Date.now(); 
-  var b=A.toString()
+  // // Use of function Date.now() 
+  // var A = Date.now(); 
+  // var b=A.toString()
  
 
 
 
-  alert("The time elapsed in millisecond is: " + b)
-  // Printing the number of millisecond elapsed  
+  alert("Xin chào:<%=username%>")
+ 
   
 </script> 
 <script>
@@ -57,8 +57,8 @@ db.collection("Product")
       snapshot.forEach(doc => {
         var element = doc.data();
         var statust;
-        if(element.isSale==0){
-          statust="Chưa Tới Thời Gian Khuyến Mãi"
+        if(element.discount==0){
+          statust="Không Có Khuyến Mãi"
           HTML += `
         <tr role="row" >
 <td class="sorting_1">
@@ -72,6 +72,32 @@ db.collection("Product")
 <td style="width: 130px;text-align: center;padding-top: 33px;color: black;">`+ element.quantity + `</td>
 <td style="width: 230px;text-align: center;padding-top: 33px;color: black;">`+ element.discount + `</td>
 <td id="promotion" style="width: 130px;text-align: center;padding-top: 33px;color: black;">`+ statust + `</td>
+<td style="width: 130px;text-align: center;padding-top: 33px;color: black;">`+ element.volumetric+ `</td>
+
+<td style="width:400px;text-align: center;padding-top: 33px">
+  <a href="./editproduct2/?id=`+ element.proID +  `"><button class="btn btn-success" type="reset">Sửa</button></a>
+  <a href="./deleteproduct/?id=`+ element.proID + `&&url=` + element.imgURL + `"><button type="button"
+      class="btn btn-danger">Xóa</button></a>
+</td>
+</tr>
+  `;
+        }
+        if(element.isSale==0&&element.endSale&&element.startSale){
+          statust="Chưa Tới Thời Gian Khuyến Mãi"
+          HTML += `
+        <tr role="row" >
+<td class="sorting_1">
+ <center>
+    <img src="`+element.imgURL+ `" class="wd-70 rounded-circle" alt="Image">
+</center>
+</td>
+<td style="width: 130px;text-align: center;padding-top: 33px;color: black;">`+ element.catID + `</td>
+<td style="width: 230px;text-align: center;padding-top: 33px;color: black;">`+ element.name + `</td>
+<td style="width: 800px;text-align: center;padding-top: 33px;color: black;">`+ element.description+ `</td>
+<td style="width: 130px;text-align: center;padding-top: 33px;color: black;">`+ element.quantity + `</td>
+<td style="width: 230px;text-align: center;padding-top: 33px;color: black;">`+ element.discount + `</td>
+<td id="promotion" style="width: 130px;text-align: center;padding-top: 33px;    color: blueviolet;
+    font-weight: bold;">`+ statust + `</td>
 <td style="width: 130px;text-align: center;padding-top: 33px;color: black;">`+ element.volumetric+ `</td>
 
 <td style="width:400px;text-align: center;padding-top: 33px">
@@ -93,6 +119,7 @@ db.collection("Product")
     <img src="`+element.imgURL+ `" class="wd-70 rounded-circle" alt="Image">
 </center>
 </td>
+
 <td style="width: 130px;text-align: center;padding-top: 33px;color: black;">`+ element.catID + `</td>
 <td style="width: 230px;text-align: center;padding-top: 33px;color: black;">`+ element.name + `</td>
 <td style="width: 800px;text-align: center;padding-top: 33px;color: black;">`+ element.description+ `</td>
@@ -102,7 +129,7 @@ db.collection("Product")
 <td style="width: 130px;text-align: center;padding-top: 33px;color: black;">`+ element.volumetric+ `</td>
 
 <td style="width:400px;text-align: center;padding-top: 33px">
-  <a href="./editproduct/?id=`+ element.proID +  `"><button class="btn btn-success" type="reset">Sửa</button></a>
+  <a href="./editproduct1/?id=`+ element.proID +  `"><button class="btn btn-success" type="reset">Sửa</button></a>
   <a href="./deleteproduct/?id=`+ element.proID + `&&url=` + element.imgURL + `"><button type="button"
       class="btn btn-danger">Xóa</button></a>
 </td>
@@ -168,6 +195,8 @@ db.collection("Product")
       aria-label="Position: activate to sort column ascending" style="width:120px;">
     ẢNH SẢN PHẨM
     </th>
+
+
     <th tabindex="0" aria-controls="datatable" rowspan="1" colspan="1"
       aria-label="Name: activate to sort column descending" style="width:200px ;text-align: center;">LOẠI SẢN PHẨM</th>
     <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1"
@@ -257,6 +286,7 @@ $(document).ready(function(){
 
 
  </script>
+
 <script src="./js/jquery.js"></script>
 <script src="./js/Bootsrap/js/bootstrap.min.js"></script>
 <script src="./js/DataTables/DataTables-1.10.20/js/jquery.dataTables.min.js"></script>

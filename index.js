@@ -147,6 +147,12 @@ function makeid(length) {
     }
     return result;
 }
+app.get("/test4",(req,res)=>{
+    var countDownDate1=new Date("2019-11-28").getTime();
+    console.log(countDownDate1)
+    var now = new Date().getTime();
+    console.log(now)
+})
 app.get("/listadmin", (req, res, next) => {
     if(req.session.email&&req.session.pass){
          var list=[];
@@ -770,7 +776,7 @@ app.get("/listproduct",(req,res)=>{
             snapshot.forEach(doc => {
                 list.push(doc.data())
             });
-          
+
       
             return res.render("Home", {
                 pages: "Product_List",
@@ -924,6 +930,7 @@ app.get("/editproduct", (req, res) => {
 
             tsstart=list.startSale
                 console.log(datesend)
+                tsend=list.endSale
             });
         
             res.render("Home", {
@@ -933,7 +940,7 @@ app.get("/editproduct", (req, res) => {
                 listcats:list,
                 listcats1:list1,
                 time_start:tsstart,
-                time_end:datesend 
+                time_end:tsend
             });
 
         });
@@ -943,6 +950,104 @@ app.get("/editproduct", (req, res) => {
 
 
 });   
+app.get("/editproduct1", (req, res) => {
+    // let  tssend;
+    let datesend ;
+    let list;
+    let list1=[];
+    
+    if(req.session.email&&req.session.pass){
+
+        let cats =db.collection("Category").get().then((snapshot)=>{
+            snapshot.forEach((arr)=>{
+               list1.push(arr.data())
+            })
+        
+    
+        })
+    var db1 = db.collection('Product').where('proID','=',req.query.id).get()
+        .then((snapshot) => {
+            snapshot.forEach((doc) => {
+            
+               list=doc.data()
+            //    console.log(list)
+            console.log(list.endSale)
+            // var date = new Date(list.endSale); // some mock date
+            //  milliseconds = date.getTime();\
+            tssend= list.endSale;
+            datesend = moment(tssend).format("DD/MM/YY");
+
+            tsstart=list.startSale
+                console.log(datesend)
+                tsend=list.endSale
+            });
+        
+            res.render("Home", {
+                pages: "Edit_Product1",
+                username: req.session.username,
+                url:  req.session.image,
+                listcats:list,
+                listcats1:list1,
+                time_start:tsstart,
+                time_end:tsend
+            });
+
+        });
+    }else{
+        res.redirect("/login_admin")
+    }
+
+
+}); 
+app.get("/editproduct2", (req, res) => {
+    // let  tssend;
+    let datesend ;
+    let list;
+    let list1=[];
+    
+    if(req.session.email&&req.session.pass){
+
+        let cats =db.collection("Category").get().then((snapshot)=>{
+            snapshot.forEach((arr)=>{
+               list1.push(arr.data())
+            })
+        
+    
+        })
+    var db1 = db.collection('Product').where('proID','=',req.query.id).get()
+        .then((snapshot) => {
+            snapshot.forEach((doc) => {
+            
+               list=doc.data()
+            //    console.log(list)
+            console.log(list.endSale)
+            // var date = new Date(list.endSale); // some mock date
+            //  milliseconds = date.getTime();\
+            tssend= list.endSale;
+            datesend = moment(tssend).format("DD/MM/YY");
+
+            tsstart=list.startSale
+                console.log(datesend)
+                tsend=list.endSale
+            });
+        
+            res.render("Home", {
+                pages: "Edit_Product2",
+                username: req.session.username,
+                url:  req.session.image,
+                listcats:list,
+                listcats1:list1,
+                time_start:tsstart,
+                time_end:tsend
+            });
+
+        });
+    }else{
+        res.redirect("/login_admin")
+    }
+
+
+}); 
 app.post("/editproduct/:id", (req, res) => {
     if(req.session.email&&req.session.pass){
     Upload(req,res,(err)=>{
