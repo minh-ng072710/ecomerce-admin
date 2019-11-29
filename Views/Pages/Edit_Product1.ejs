@@ -1,0 +1,303 @@
+<style>
+    .form-group{margin-bottom: 2rem }
+    .form-control{height: 48px !important;}
+  
+     #demo{
+      background: aqua;
+      width: 193px;
+      font-size: 24px;
+      border-radius: 11px;
+      color: red;
+      font-weight: bold;
+      padding-left: 6px;
+      height: 41px;
+      margin-left: 135px;
+                    }
+    p {
+      margin-left: 172px;
+      color:yellow;
+      font-size: 24px;
+      font-weight: bold;
+  
+    }
+                  
+    </style>
+    
+    <div class="kt-pagebody">
+        <div class="modal fade" id="addcate"  aria-labelledby="addcateTitle" >
+            <div class="modal-dialog" role="document" style="width: 800px;">
+              <div class="modal-content">
+                <div class="modal-header" style="max-height: 121px; background-color:steelblue; color: floralwhite;">
+             
+                      <h5  class="modal-title" id="addcateTitle">
+                        <p>
+                            FLASH SALE
+                        </p>
+                          <p id="demo"></p>
+                      </h5>
+  
+                  
+                
+             
+                
+  
+                  
+                </div>
+                <div class="modal-body">
+              
+                    <div class="content">
+                        <form class="form-horizontal form-label-left" method="post" action="./flashsale/?id=<%=listcats.proID%>">
+                            <div class="form-group">
+                                    <label class="control-label">Ngày Bắt Đầu Khuyến Mãi: : <span class="required"></span>
+                                    </label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <input type="datetime-local" id="startsale" required="required"  style="width: 450px;" name="startsale" class="form-control" value="">
+  
+                                      </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                    <label class="control-label">Ngày Kết Thúc Khuyến Mãi: : <span class="required"></span>
+                                    </label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                      <input type="date" id="endsale" required="required"  style="width: 450px;" name="endsale" class="form-control" value="">
+                                    </div>
+                            </div>
+                         
+                            <div class="form-group" style="margin-top: 30px;">
+                             
+                                    <label class="control-label">Giảm Giá(%) <span class="required"></span>
+  
+                                       
+    
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <select class="form-control" name="discount_percent" id="discount_percent" style="width: 450px;">
+                                           
+                                            <option value="0">0</option>
+  
+                                            <option value="5">5</option>
+                                            <option value="15">15</option>
+                                            <option value="25">25</option>
+                                            <option value="50">50</option>
+                                          </select>
+                                        </div>
+                                          
+                                   
+                            </div>   
+                            <button type="submit" style="margin-left: 170px;" class="btn btn-primary">Thêm Khuyến Mãi</button>
+                        </form>
+                       
+                    </div>
+                   
+               
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                  <form action="/deletesale/<%=listcats.proID%>" method="post">
+                    <button type="submit" class="btn btn-warning">Kết Thúc Khuyến Mãi</button>
+  
+                </form>
+  
+                </div>
+            
+              </div>
+            </div>
+          </div>
+          <!-- row -->
+  
+            <div class="row row-lg">
+              <div class="col-xl-12">
+                <div class="card bd-blue-300" style="background-color:#BFE0E7;">
+                  <div class="card-header bg-gray-100 pd-y-15 pd-x-20" style="background-color:#BFE0E7;">
+                   <center><h3 class="register-heading" style="color:
+                    #606445;font-family: 'PT Serif', serif;font-weight: 900;margin-left:-3px ;">SỬA SẢN PHẨM</h3></center> 
+                    <center>
+                  
+  
+          
+                               
+                                 
+                            <form action="./editproduct/<%=listcats.proID%>" method="post" enctype="multipart/form-data">
+                        <div class="maxl">
+                                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#addcate">
+                                        Thêm Khuyến Mãi
+                                  </button>
+                        </div></center>
+                         <image id="profileImage" class="wd-100 rounded-circle"  src="<%=listcats.imgURL%>" style="margin-left: 71px;
+                            margin-top: -90px;" />
+                                    <h5 style="font-family: 'Oswald', sans-serif; margin-left: 42px;
+                                    margin-top: 7px;font-weight: 700;font-size: 13px">MSP:<%=listcats.proID%></h5>
+                                          <h4 style="font-family: 'Oswald', sans-serif;font-size: 13px;font-weight: 700;margin-left: 40px;">Tên Sản Phẩm: <%=listcats.name%> </h4>
+                                          <h4 style="font-family: 'Oswald', sans-serif;font-size: 13px;font-weight: 700;margin-left: 40px;">Loại Sản Phẩm: <%=listcats.catID%> </h4>
+  
+                  </div><!-- card-header -->
+                  <div class="col-md-10 register-right">
+                            
+                    <div class="tab-content" id="myTabContent" style="margin-right: -5px;">
+                        <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                         
+                                <div class="row register-form" style="margin-left: 197px;
+                                margin-top: 36px;">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="name">
+                                                Nhập Tên Sản Phẩm:
+                                            </label>
+                                            <input type="text" class="form-control" value="<%=listcats.name%>"  name="name" required />
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="category">Chọn Loại Sản Phẩm:</label>
+                                       
+    
+                                       
+                                                <select class="form-control" name="category">
+                                                  <!-- <option value="<%=listcats.catID%>" selected><%=listcats.catID%></option> -->
+  
+                                                  <% listcats1.forEach(function(item){ %>
+                                                        
+                                                    <option value="<%=item.catID%>"><%=item.catID%></option>
+  
+                                                        <% }) %>
+                                                      </select>
+                                                    
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="price">Giá Sản Phẩm (VND):</label>
+                                            <input type="text" name="price" value="<%=listcats.price%>" id="price" class="form-control">
+    
+                                        </div>
+                                       
+                                   
+                                       
+                                    
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="image">
+                                                Chọn Hình Ảnh:
+                                            </label>
+                                                <input type="file"  class="form-control" name="image">
+                                                <input type="hidden" value="<%=listcats.imgURL%>" name="oldimage">
+                                        </div>
+                                        <div class="form-group">
+                                                <label for="name">
+                                                        Nhập Số Lượng Sản Phẩm:
+                                                    </label>
+                                                    <input type="number" value="<%=listcats.quantity%>" class="form-control"  name="quantity" required />
+                                         
+                                        </div>
+                                     <div class="form-group">
+                                         <label for="volumtric">
+                                             Dung Tích Chai (ML):
+                                         </label>
+                                         <input type="text" value="<%=listcats.volumetric%>" class="form-control" name="volumtric" id="volumtric">
+    
+                                     </div>
+                                  
+                                        <div class="form-group">
+                                                
+                                      </div>
+                                     
+                                  
+                                    </div>
+                                    <div class="form-group" style="margin-left: 270px;">
+                                        
+                                          
+                                
+                                            <textarea rows="5" cols="50"  name="description"><%=listcats.description%></textarea>
+                                            
+                                                 
+                                                   
+                                    </div>
+                                       
+                                    <div>
+    
+                                            <input type="submit" class="btnRegister btn btn-primary active" style="margin-bottom:50px;margin-left: 303px;margin-top: 26px;;width: 200px;font-family: 'PT Serif', serif;font-weight: 900;font-size: 20px;"  value="Lưu Thay Đổi"/>
+                                            <a href="./listproduct">
+                                                    <button type="button" class="btn btn-warning"  style="margin-bottom:50px;    margin-left: 312px;;width: 180px;display:block;font-family: 'PT Serif', serif;font-weight: 900;font-size: 20px;">Xem Danh Sách</button>
+                                            </a>
+                                         
+    
+                                    </div>
+                                   
+                                </div>
+                           </form>
+                           
+                        </div>
+                        
+                    </div>
+                </div>
+                 <!-- table-responsive -->
+               <!-- card-footer -->
+                </div><!-- card -->
+        
+                
+        
+                
+              </div><!-- col-8 -->
+              <!-- col-4 -->
+            </div><!-- row -->
+          </div>
+          <script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-app.js"></script>
+  
+          <script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-analytics.js"></script>
+          <script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-firestore.js"></script>
+  <script>
+  var firebaseConfig = {
+  apiKey: "AIzaSyAVBtWsFEvEZVT4A7rcTV2nRtfj13I5BI0",
+  authDomain: "ecommerce-3b4a8.firebaseapp.com",
+  databaseURL: "https://ecommerce-3b4a8.firebaseio.com",
+  projectId: "ecommerce-3b4a8",
+  storageBucket: "ecommerce-3b4a8.appspot.com",
+  messagingSenderId: "359580994105",
+  appId: "1:359580994105:web:cd475d76e870b4169f1be8",
+  measurementId: "G-PC5T29FZVN"
+  };
+  
+  firebase.initializeApp(firebaseConfig);
+  firebase.analytics();
+  const db = firebase.firestore(firebase)
+  // Set the date we're counting down to
+  var countDownDate = new Date("<%=time_end%>").getTime();
+  
+  // Update the count down every 1 second
+  var x = setInterval(function() {
+  
+  // Get today's date and time
+  var now = new Date().getTime();
+  
+  // Find the distance between now and the count down date
+  var distance = countDownDate - now;
+  
+  // Time calculations for days, hours, minutes and seconds
+  var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+  var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+  var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+  
+  
+  
+  
+  // Output the result in an element with id="demo"
+  document.getElementById("demo").innerHTML = days + "d " + hours + "h "
+  + minutes + "m " + seconds + "s ";
+  
+  
+  // If the count down is over, write some text 
+  if (distance < 0) {
+  
+    clearInterval(x);
+    alert("Hêt Tgian Khuyến Mãi");
+    let cityRef = db.collection('Product').doc("<%=listcats.proID%>");
+      let updateMany = cityRef.update({
+      isSale:0,
+      })
+    document.getElementById("demo")="";
+    }
+  }, 1000);
+  
+  </script>       
+        
+  
+          
+    
