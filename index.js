@@ -578,7 +578,7 @@ app.post("/addcats", function (req, res) {
                     console.log("Upload is okay");
                     let ts = Date.now();
                     let date_ob = (new Date(ts)).toString();
-                    let date = moment(date_ob).format("DD/MM/YY  hh:mm")
+                    let date = moment(date_ob).format("YYYY-MM-DD  hh:mm:ss")
         
                     let docRef = db.collection('Category').doc(req.body.name_en).set({
         
@@ -873,7 +873,7 @@ app.post("/addproduct",(req,res)=>{
                     description:req.body.description,
                     discount:0,
                     endSale:'',
-                    imgURL:req.file.filename,
+                    imgURL:"https://nguyengiaminh.herokuapp.com/Upload/"+req.file.filename,
                     isSale:0,
                     name:req.body.name,
                     price:parseInt(req.body.price),
