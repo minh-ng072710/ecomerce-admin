@@ -974,8 +974,6 @@ app.get("/editproduct1", (req, res) => {
             console.log(list.endSale)
             // var date = new Date(list.endSale); // some mock date
             //  milliseconds = date.getTime();\
-            tssend= list.endSale;
-            datesend = moment(tssend).format("DD/MM/YY");
 
             tsstart=list.startSale
                 console.log(datesend)

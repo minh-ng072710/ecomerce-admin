@@ -1,9 +1,5 @@
 
-<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.20/datatables.min.css"/>
  
-<script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.20/datatables.min.js"></script>
-<link rel="stylesheet" href="./js/Bootstrap/css/bootstrap.min.css">
-<link rel="stylesheet" href="./js/DataTables/DataTables-1.10.20/css/dataTables.bootstrap.min.css">
 <script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-app.js"></script>
 
 <script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-analytics.js"></script>
@@ -75,7 +71,7 @@ db.collection("Product")
 <td style="width: 130px;text-align: center;padding-top: 33px;color: black;">`+ element.volumetric+ `</td>
 
 <td style="width:400px;text-align: center;padding-top: 33px">
-  <a href="./editproduct2/?id=`+ element.proID +  `"><button class="btn btn-success" type="reset">Sửa</button></a>
+  <a href="/editproduct2/?id=`+ element.proID +  `"><button class="btn btn-success" type="reset">Sửa</button></a>
   <a href="./deleteproduct/?id=`+ element.proID + `&&url=` + element.imgURL + `"><button type="button"
       class="btn btn-danger">Xóa</button></a>
 </td>
@@ -138,7 +134,7 @@ db.collection("Product")
           
         }
         
-        console.log(doc.data)
+     
       
       });
 
@@ -289,5 +285,3 @@ $(document).ready(function(){
 
 <script src="./js/jquery.js"></script>
 <script src="./js/Bootsrap/js/bootstrap.min.js"></script>
-<script src="./js/DataTables/DataTables-1.10.20/js/jquery.dataTables.min.js"></script>
-<script src="./js/DataTables/DataTables-1.10.20/js/dataTables.bootstrap.min.js"></script>
