@@ -815,11 +815,14 @@ app.get("/addproduct",(req,res)=>{
 app.post("/flashsale",(req,res)=>{
     
                 let tsstart = req.body.startsale;
+                let date_ob_start = (new Date(tsstart)).toISOString();
+                let datestart = moment(date_ob_start).format("YYYY-MM-DD HH:MM:SS");
+
                 let oldstart=req.body.startsale_old;
                 let tssend=req.body.endsale;
                 let date_ob_end = (new Date(tssend)).toISOString();
                 let dateend = moment(date_ob_end).format("YYYY-MM-DD HH:MM:SS");
-                console.log("ddddd:"+dateend)
+
                 let oldend=req.body.endsale_old;
                
                     let cityRef = db.collection('Product').doc(req.query.id);
@@ -827,8 +830,8 @@ app.post("/flashsale",(req,res)=>{
            
             
                         discount:parseInt(req.body.discount_percent),
-                        endSale: req.body.endsale,
-                        startSale:req.body.startsale,
+                        endSale:dateend,
+                        startSale:datestart,
                       
                    
                 })
