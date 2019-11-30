@@ -958,6 +958,7 @@ app.get("/editproduct", (req, res) => {
             hourend= moment(date_ob_end).format("HH:MM:SS"); 
 
             });
+            console.log(list1)
         
             res.render("Home", {
                 pages: "Edit_Product",
@@ -982,7 +983,12 @@ app.get("/editproduct", (req, res) => {
 });   
 app.get("/editproduct1", (req, res) => {
     // let  tssend;
-    let datesend ;
+    let datestart;
+    let hourstart;
+    let fulldatestart
+    let dateend;
+    let hourend;
+    let fulldateend;
     let list;
     let list1=[];
     
@@ -1006,18 +1012,31 @@ app.get("/editproduct1", (req, res) => {
             //  milliseconds = date.getTime();\
 
             tsstart=list.startSale
-                console.log(datesend)
-                tsend=list.endSale
+          
+            let date_ob_start = (new Date(tsstart)).toISOString();
+            datestart = moment(date_ob_start).format("YYYY-MM-DD");
+            hourstart= moment(date_ob_start).format("HH:MM:SS");
+            
+            tsend=list.endSale
+            let date_ob_end=(new Date(tsend)).toISOString();
+            dateend = moment(date_ob_end).format("YYYY-MM-DD");
+            hourend= moment(date_ob_end).format("HH:MM:SS"); 
+
             });
+            console.log(list1)
         
             res.render("Home", {
-                pages: "Edit_Product1",
+                pages: "Edit_Product",
                 username: req.session.username,
                 url:  req.session.image,
                 listcats:list,
                 listcats1:list1,
-                time_start:tsstart,
-                time_end:tsend
+                time_start:datestart,
+                hour_start:hourstart,
+                full_timestart: tsstart,
+                time_end:dateend,
+                hour_end:hourend,
+                full_timeend: tsend,
             });
 
         });
@@ -1116,15 +1135,15 @@ app.post("/editproduct/:id", (req, res) => {
              
                 catID:req.body.category,
                 description:req.body.description,
-                discount:0,
-                endSale:'',
+             
+              
                 imgURL:oldimage,
-                isSale:0,
+             
                 name:req.body.name,
                 price:parseInt(req.body.price),
                
                 quantity: parseInt(req.body.quantity),
-                startSale:'',
+          
                 volumetric:parseInt(req.body.volumtric),
                 date:date   
                   

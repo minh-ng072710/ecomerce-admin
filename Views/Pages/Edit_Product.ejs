@@ -168,10 +168,19 @@
                                      
                                               <select class="form-control" name="category">
                                                 <!-- <option value="<%=listcats.catID%>" selected><%=listcats.catID%></option> -->
-
+                                                 
                                                 <% listcats1.forEach(function(item){ %>
                                                       
-                                                  <option value="<%=item.catID%>"><%=item.catID%></option>
+                                                  <option 
+                                                  <% if( item.catID == listcats.catID ){ %>
+                                                    "selected"
+                                                    <% }else {%>
+                                                      ""
+                                                      <% }%> 
+
+                                                  >
+                                                    <%=item.catID%>
+                                                  </option>
 
                                                       <% }) %>
                                                     </select>
@@ -319,8 +328,8 @@ if (distance < 0) {
     var minutes1 = Math.floor((distance1 % (1000 * 60 * 60)) / (1000 * 60));
     var seconds1 = Math.floor((distance1 % (1000 * 60)) / 1000);
 
-    document.getElementById("demo").innerHTML ="Còn "+days1 + "ngày " + hours1 + "tiếng "
-+ minutes1 + "phút" + seconds1 + "giây";
+    document.getElementById("demo").innerHTML ="Còn "+days1 + " ngày " + hours1 + " tiếng "
++ minutes1 + " phút " + seconds1 + " giây";
     if(distance1<0){
       clearInterval(y);
       document.getElementById("demo").innerHTML=""
@@ -346,4 +355,3 @@ if (distance < 0) {
         </script>
 
         
-  
