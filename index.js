@@ -195,7 +195,7 @@ app.post("/adduser_admin", function (req, res) {
                         console.log("Upload is okay");
                         let ts = Date.now();
                         let date_ob = (new Date(ts)).toString();
-                        let date = moment(date_ob).format("DD/MM/YYYY hh:mm:ss")
+                        let date = moment(date_ob).format("YYYY-MM-DD hh:mm:ss")
             
                         let docRef = db.collection('Admin').doc(id).set({
             
@@ -639,7 +639,7 @@ app.post("/editcats/:id", (req, res) => {
                let ts = Date.now();
 
                 let date_ob = (new Date(ts)).toString();
-                let date = moment(date_ob).format("DD/MM/YY  hh:mm")
+                let date = moment(date_ob).format("YYYY-MM-DD  hh:mm:ss")
                 let cityRef = db.collection('Category').doc(req.params.id);
                     
                 let updateMany = cityRef.update({
@@ -660,7 +660,7 @@ app.post("/editcats/:id", (req, res) => {
                 let ts = Date.now();
  
                  let date_ob = (new Date(ts)).toString();
-                 let date = moment(date_ob).format("DD/MM/YY  hh:mm")
+                 let date = moment(date_ob).format("YYYY-MM-DD  hh:mm:ss")
                  let cityRef = db.collection('Category').doc(req.params.id);
                      
                  let updateMany = cityRef.update({
@@ -813,22 +813,37 @@ app.get("/addproduct",(req,res)=>{
    
 }) 
 app.post("/flashsale",(req,res)=>{
-                let tsstart = req.body.startsale;
-                let date_ob_start = (new Date(tsstart)).toISOString();
-                let datestart = moment(date_ob_start).format("YYYY-MM-DD 00:00:00");
-                let tssend=req.body.endsale;
-                let date_ob_end=(new Date(tssend)).toISOString();
-                let dateend = moment(date_ob_end).format("YYYY-MM-DD 00:00:00");
-        let cityRef = db.collection('Product').doc(req.query.id);
     
-        let updateMany = cityRef.update({
+                let tsstart = req.body.startsale;
+                let oldstart=req.body.startsale_old;
+                let tssend=req.body.endsale;
+                let date_ob_end = (new Date(tssend)).toISOString();
+                let dateend = moment(date_ob_end).format("YYYY-MM-DD HH:MM:SS");
+                console.log("ddddd:"+dateend)
+                let oldend=req.body.endsale_old;
+               
+                    let cityRef = db.collection('Product').doc(req.query.id);
+                    let updateMany = cityRef.update({
            
             
-            discount:parseInt(req.body.discount_percent),
-            endSale:dateend,
-            startSale:datestart,
-          
-        });
+                        discount:parseInt(req.body.discount_percent),
+                        endSale: req.body.endsale,
+                        startSale:req.body.startsale,
+                      
+                   
+                })
+
+                
+                // let date_ob_start = (new Date(tsstart)).toISOString();
+                // let datestart = moment(date_ob_start).format("YYYY-MM-DD HH:MM:SS");
+                
+                // console.log("ddd:"+datestart)
+                // let tssend=req.body.endsale;
+                // let date_ob_end=(new Date(tssend)).toISOString();
+                // let dateend = moment(date_ob_end).format("YYYY-MM-DD HH:MM:SS");
+                // console.log("ddd:"+dateend)
+
+  
         res.redirect("/listproduct")
     })
     
@@ -838,7 +853,7 @@ app.post("/deletesale/:id",(req,res)=>{
     let updateMany = cityRef.update({
        
         
-        discount:'',
+        discount:0,
         endSale:'',
         startSale:'',
         isSale:0,
@@ -859,12 +874,10 @@ app.post("/addproduct",(req,res)=>{
               }else{
                 console.log("Upload is okay");
     
-                // let tsstart = req.body.startsale;
-                // let date_ob_start = (new Date(tsstart)).toISOString();
-                // let datestart = moment(date_ob_start).format("DD/MM/YY  00:00:00");
-                // let tssend=req.body.endsale;
-                // let date_ob_end=(new Date(tssend)).toISOString();
-                // let dateend = moment(date_ob_end).format("YY-MM-DD  00:00:00");
+                let ts = Date.now();
+                let date_ob = (new Date(ts)).toString();
+                let date = moment(date_ob).format("YYYY-MM-DD hh:mm:ss")
+                           
                 
                 
                 let docRef = db.collection('Product').doc(id).set({
@@ -881,6 +894,7 @@ app.post("/addproduct",(req,res)=>{
                     quantity: parseInt(req.body.quantity),
                     startSale:'',
                     volumetric:parseInt(req.body.volumtric),
+                    date:date
                     
                     
     
@@ -898,12 +912,15 @@ app.post("/addproduct",(req,res)=>{
     res.redirect("/login_admin")
 }
 });
-app.post("/flashsale",(req,res)=>{
 
-})
 app.get("/editproduct", (req, res) => {
     // let  tssend;
-    let datesend ;
+    let datestart;
+    let hourstart;
+    let fulldatestart
+    let dateend;
+    let hourend;
+    let fulldateend;
     let list;
     let list1=[];
     
@@ -925,12 +942,18 @@ app.get("/editproduct", (req, res) => {
             console.log(list.endSale)
             // var date = new Date(list.endSale); // some mock date
             //  milliseconds = date.getTime();\
-            tssend= list.endSale;
-            datesend = moment(tssend).format("DD/MM/YY");
 
             tsstart=list.startSale
-                console.log(datesend)
-                tsend=list.endSale
+          
+            let date_ob_start = (new Date(tsstart)).toISOString();
+            datestart = moment(date_ob_start).format("YYYY-MM-DD");
+            hourstart= moment(date_ob_start).format("HH:MM:SS");
+            
+            tsend=list.endSale
+            let date_ob_end=(new Date(tsend)).toISOString();
+            dateend = moment(date_ob_end).format("YYYY-MM-DD");
+            hourend= moment(date_ob_end).format("HH:MM:SS"); 
+
             });
         
             res.render("Home", {
@@ -939,8 +962,12 @@ app.get("/editproduct", (req, res) => {
                 url:  req.session.image,
                 listcats:list,
                 listcats1:list1,
-                time_start:tsstart,
-                time_end:tsend
+                time_start:datestart,
+                hour_start:hourstart,
+                full_timestart: tsstart,
+                time_end:dateend,
+                hour_end:hourend,
+                full_timeend: tsend,
             });
 
         });
@@ -1047,6 +1074,10 @@ app.get("/editproduct2", (req, res) => {
 
 }); 
 app.post("/editproduct/:id", (req, res) => {
+    let ts = Date.now();
+    let date_ob = (new Date(ts)).toString();
+    let date = moment(date_ob).format("YYYY-MM-DD hh:mm:ss")
+            
     if(req.session.email&&req.session.pass){
     Upload(req,res,(err)=>{
       if (err instanceof multer.MulterError) {
@@ -1064,17 +1095,13 @@ app.post("/editproduct/:id", (req, res) => {
              
                 catID:req.body.category,
                 description:req.body.description,
-                discount:0,
-                endSale:'',
                 imgURL:"https://nguyengiaminh.herokuapp.com/Upload/"+req.file.filename,
-                isSale:0,
                 name:req.body.name,
                 price:parseInt(req.body.price),
               
                 quantity: parseInt(req.body.quantity),
-                startSale:'',
                 volumetric:parseInt(req.body.volumtric),
-                    
+                date:date
                   
                 });
             
@@ -1096,7 +1123,7 @@ app.post("/editproduct/:id", (req, res) => {
                 quantity: parseInt(req.body.quantity),
                 startSale:'',
                 volumetric:parseInt(req.body.volumtric),
-                    
+                date:date   
                   
                 });
             }

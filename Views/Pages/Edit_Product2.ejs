@@ -50,7 +50,7 @@
                                     <label class="control-label">Ngày Bắt Đầu Khuyến Mãi: : <span class="required"></span>
                                     </label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
-                                        <input type="date" id="startsale" required="required"  style="width: 450px;" name="startsale" class="form-control" value="">
+                                        <input type="datetime-local" id="startsale" required="required"  style="width: 450px;" name="startsale" class="form-control" value="">
   
                                       </div>
                             </div>
@@ -59,7 +59,7 @@
                                     <label class="control-label">Ngày Kết Thúc Khuyến Mãi: : <span class="required"></span>
                                     </label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
-                                      <input type="date" id="endsale" required="required"  style="width: 450px;" name="endsale" class="form-control" value="">
+                                      <input type="datetime-local" id="endsale" required="required"  style="width: 450px;" name="endsale" class="form-control" value="">
                                     </div>
                             </div>
                          
@@ -92,10 +92,7 @@
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
-                  <form action="/deletesale/<%=listcats.proID%>" method="post">
-                    <button type="submit" class="btn btn-warning">Kết Thúc Khuyến Mãi</button>
-  
-                </form>
+                
   
                 </div>
             

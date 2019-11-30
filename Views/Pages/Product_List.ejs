@@ -104,7 +104,7 @@ db.collection("Product")
 </tr>
   `;
         }else if(element.isSale==1){
-          statust="Sản Phẩm Sale"
+          statust="Sản Phẩm Đang Sale"
           HTML += `
           <style>
 @import url('https://fonts.googleapis.com/css?family=Lobster&display=swap');
@@ -121,7 +121,7 @@ db.collection("Product")
 <td style="width: 800px;text-align: center;padding-top: 33px;color: black;">`+ element.description+ `</td>
 <td style="width: 130px;text-align: center;padding-top: 33px;color: black;">`+ element.quantity + `</td>
 <td style="width: 230px;text-align: center;padding-top: 33px;color: black;">`+ element.discount + `</td>
-<td id="promotion" style="width: 130px;text-align: center;padding-top: 33px;font-size: 26px;;color: red;font-family: 'Lobster', cursive;">`+ statust + `</td>
+<td id="promotion" style="width: 330px;text-align: center;padding-top: 33px;font-size: 26px;;color: red;font-family: 'Lobster', cursive;">`+ statust + `</td>
 <td style="width: 130px;text-align: center;padding-top: 33px;color: black;">`+ element.volumetric+ `</td>
 
 <td style="width:400px;text-align: center;padding-top: 33px">
@@ -205,7 +205,7 @@ db.collection("Product")
     <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1"
     aria-label="Position: activate to sort column ascending" style="width:150px ;text-align: center;">GIẢM GIÁ(%)</th>
     <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1"
-    aria-label="Position: activate to sort column ascending" style="width:150px ;text-align: center;">TRẠNG THÁI</th>
+    aria-label="Position: activate to sort column ascending" style="width:330px ;text-align: center;">TRẠNG THÁI</th>
     <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1"
     aria-label="Position: activate to sort column ascending" style="width:150px ;text-align: center;">DUNG TÍCH</th>
     

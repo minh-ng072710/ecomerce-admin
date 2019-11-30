@@ -4,14 +4,17 @@
 
    #demo{
     background: aqua;
-    width: 270px;
-    font-size: 22px;
+    width: 383px;
+    font-size: 20px;
     border-radius: 11px;
     color: red;
     font-weight: bold;
-    padding-left: 44px;
-    height: 41px;
-    margin-left: 106px;
+    padding-left: 12px;
+    padding-top: 7px;
+    /* padding-bottom: 23px; */
+    height: 48px;
+    margin-left: 58px;
+
                   }
   p {
     margin-left: 172px;
@@ -32,9 +35,12 @@
                     <h5  class="modal-title" id="addcateTitle">
                       <p>
                           FLASH SALE
+                        
                       </p>
+                     
                         <p id="demo"></p>
                     </h5>
+                   
 
                 
               
@@ -51,7 +57,8 @@
                                   <label class="control-label">Ngày Bắt Đầu Khuyến Mãi: : <span class="required"></span>
                                   </label>
                                   <div class="col-md-6 col-sm-6 col-xs-12">
-                                      <input type="datetime" id="startsale" required="required"  style="width: 450px;" name="startsale" class="form-control" value="2013-01-08 00:00:00">
+                                      <input type="datetime-local" id="startsale" required="required"  style="width: 450px;" name="startsale_old" class="form-control" value="<%=time_start%>T<%=hour_start%>" disabled>
+                                      <input type="datetime-local" id="startsale"  style="width: 450px;" name="startsale" class="form-control" >
 
                                     </div>
                           </div>
@@ -60,7 +67,10 @@
                                   <label class="control-label">Ngày Kết Thúc Khuyến Mãi: : <span class="required"></span>
                                   </label>
                                   <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <input type="date" id="endsale" required="required"  style="width: 450px;" name="endsale" class="form-control" value="">
+                                    
+                                    <input type="datetime-local" id="endsale_old" required="required"  style="width: 450px;" name="endsale_old" class="form-control" value="<%=time_end%>T<%=hour_end%>" disabled>
+                                    <input type="datetime-local" id="endsale"  style="width: 450px;" name="endsale" class="form-control">
+
                                   </div>
                           </div>
                        
@@ -73,18 +83,21 @@
                                       <div class="col-md-6 col-sm-6 col-xs-12">
                                   <select class="form-control" name="discount_percent" id="discount_percent" style="width: 450px;">
                                          
+                                          <option  value="<%=listcats.proID%>" selected><%=listcats.discount%></option>
                                           <option value="0">0</option>
-
+  
                                           <option value="5">5</option>
                                           <option value="15">15</option>
                                           <option value="25">25</option>
                                           <option value="50">50</option>
+                                        
                                         </select>
                                       </div>
                                         
                                  
                           </div>   
-                          <button type="submit" style="margin-left: 170px;" class="btn btn-primary">Thêm Khuyến Mãi</button>
+                          <button type="submit" class="btn btn-warning" style="margin-left: 154px;">Cập Nhật Khuyến Mãi</button>
+                      
                       </form>
                      
                   </div>
@@ -92,17 +105,19 @@
              
               </div>
               <div class="modal-footer">
+                  <form action="/deletesale/<%=listcats.proID%>" method="post">
+                    <button type="submit" class="btn btn-danger" style="margin-left: 151px;">Kết Thúc Khuyến Mãi</button>
+  
+                </form>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
-                <form action="/deletesale/<%=listcats.proID%>" method="post">
-                  <button type="submit" class="btn btn-warning">Kết Thúc Khuyến Mãi</button>
-
-              </form>
+   
 
               </div>
           
             </div>
           </div>
         </div>
+ 
         <!-- row -->
 
           <div class="row row-lg">
@@ -120,8 +135,9 @@
                           <form action="./editproduct/<%=listcats.proID%>" method="post" enctype="multipart/form-data">
                       <div class="maxl">
                               <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#addcate">
-                                      Thêm Khuyến Mãi
+                                     THÔNG TIN KHUYẾN MÃI
                                 </button>
+                              
                       </div></center>
                        <image id="profileImage" class="wd-100 rounded-circle"  src="<%=listcats.imgURL%>" style="margin-left: 71px;
                           margin-top: -90px;" />
@@ -164,7 +180,7 @@
                                       <div class="form-group">
                                           <label for="price">Giá Sản Phẩm (VND):</label>
                                           <input type="text" name="price" value="<%=listcats.price%>" id="price" class="form-control">
-  
+                                        
                                       </div>
                                      
                                  
@@ -258,7 +274,7 @@ firebase.initializeApp(firebaseConfig);
 firebase.analytics();
 const db = firebase.firestore(firebase)
 // Set the date we're counting down to
-var countDownDate = new Date("<%=time_start%>").getTime();
+var countDownDate = new Date("<%=full_timestart%>").getTime();
 
 // Update the count down every 1 second
 var x = setInterval(function() {
@@ -279,8 +295,8 @@ var seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
 
 // Output the result in an element with id="demo"
-document.getElementById("demo").innerHTML = days + "d " + hours + "h "
-+ minutes + "m " + seconds + "s ";
+document.getElementById("demo").innerHTML ="Còn "+ days + " ngày"+" "+ hours + " tiếng"+" "
++ minutes + " phút"+" " + seconds + " giây"+"</br>"
 
 
 // If the count down is over, write some text 
@@ -291,7 +307,7 @@ if (distance < 0) {
   })
   clearInterval(x);
   alert("Đến Thời Gian Khuyến Mãi")
-  var countDownDate1=new Date("<%=time_end%>").getTime();
+  var countDownDate1=new Date("<%= full_timeend%>").getTime();
  
 
   var y = setInterval(function() {
@@ -303,8 +319,8 @@ if (distance < 0) {
     var minutes1 = Math.floor((distance1 % (1000 * 60 * 60)) / (1000 * 60));
     var seconds1 = Math.floor((distance1 % (1000 * 60)) / 1000);
 
-    document.getElementById("demo").innerHTML =days1 + "d " + hours1 + "h "
-+ minutes1 + "m " + seconds1 + "s ";
+    document.getElementById("demo").innerHTML ="Còn "+days1 + "ngày " + hours1 + "tiếng "
++ minutes1 + "phút" + seconds1 + "giây";
     if(distance1<0){
       clearInterval(y);
       document.getElementById("demo").innerHTML=""
@@ -312,6 +328,9 @@ if (distance < 0) {
       let cityRef = db.collection('Product').doc("<%=listcats.proID%>");
     let updateMany = cityRef.update({
     isSale:0,
+    discount:0,
+    startSale:"",
+    endSale:""
     })
     }
   },1000)
@@ -320,7 +339,11 @@ if (distance < 0) {
 }, 1000);
 
 </script>       
-      
+      <script>
+        function myFunction() {
+          document.getElementById("startsale").value = "2014-01-02T11:42:13.510";
+        }
+        </script>
 
         
   
