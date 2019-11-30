@@ -1498,9 +1498,15 @@ app.get("/deletefeedback", (req, res) => {
 
 
 //-----------------------------//Route 6:LIST ORDER//----------------------------//
-app.get("/testmodal",(req,res)=>{
-    res.render("Register")
+app.get("/chart",(req,res)=>{
+    res.render("Home",{
+        pages:"statistical",
+        username: req.session.username,
+        url:  req.session.image,
+    })
 })
+
+
 
 
 

@@ -13,6 +13,7 @@
     "@google-cloud/storage": "^4.0.0",
     "bcrypt": "^3.0.6",
     "body-parser": "^1.19.0",
+    "chart.js": "^2.9.3",
     "datatables.net": "^1.10.20",
     "datatables.net-dt": "^1.10.20",
     "ejs": "^2.7.1",
