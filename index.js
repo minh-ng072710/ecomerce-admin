@@ -880,7 +880,7 @@ app.post("/addproduct",(req,res)=>{
     
                 let ts = Date.now();
                 let date_ob = (new Date(ts)).toString();
-                let date = moment(date_ob).format("YYYY-MM-DD hh:mm:ss")
+                let date = moment(date_ob).format("YYYY-MM-DD HH:MM:SS")
                            
                 
                 
@@ -1090,7 +1090,7 @@ app.get("/editproduct2", (req, res) => {
 app.post("/editproduct/:id", (req, res) => {
     let ts = Date.now();
     let date_ob = (new Date(ts)).toString();
-    let date = moment(date_ob).format("YYYY-MM-DD hh:mm:ss")
+    let date = moment(date_ob).format("YYYY-MM-DD HH:MM:DD")
             
     if(req.session.email&&req.session.pass){
     Upload(req,res,(err)=>{
