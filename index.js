@@ -917,6 +917,7 @@ app.post("/addproduct",(req,res)=>{
 });
 
 app.get("/editproduct", (req, res) => {
+
     // let  tssend;
     let datestart;
     let hourstart;
@@ -925,59 +926,59 @@ app.get("/editproduct", (req, res) => {
     let hourend;
     let fulldateend;
     let list;
-    let list1=[];
+    let list1=[];//cái này  nè anh vô là mỗi lần request nó hay bioj rỗng phải req lại nó mới có giá trị
+
     
-    if(req.session.email&&req.session.pass){
+// loi bat dong bo vh   có cách nào k anh 
 
         let cats =db.collection("Category").get().then((snapshot)=>{
             snapshot.forEach((arr)=>{
                list1.push(arr.data())
             })
-        
+            var db1 = db.collection('Product').where('proID','=',req.query.id).get()
+            .then((snapshot) => {
+                snapshot.forEach((doc) => {
+                
+                   list=doc.data()
+                //    console.log(list)
+                console.log(list.endSale)
+                // var date = new Date(list.endSale); // some mock date
+                //  milliseconds = date.getTime();\
+    
+                tsstart=list.startSale
+              
+                let date_ob_start = (new Date(tsstart)).toISOString();
+                datestart = moment(date_ob_start).format("YYYY-MM-DD");
+                hourstart= moment(date_ob_start).format("HH:MM:SS");
+                
+                tsend=list.endSale
+                let date_ob_end=(new Date(tsend)).toISOString();
+                dateend = moment(date_ob_end).format("YYYY-MM-DD");
+                hourend= moment(date_ob_end).format("HH:MM:SS"); 
+    
+                });
+                console.log(list1);
+                console.log(list);
+                console.log("----------------------")
+                res.render("Home", {
+                    pages: "Edit_Product",
+                    username: req.session.username,
+                    url:  req.session.image,
+                    listcats:list,
+                    listcats1:list1,
+                    time_start:datestart,
+                    hour_start:hourstart,
+                    full_timestart: tsstart,
+                    time_end:dateend,
+                    hour_end:hourend,
+                    full_timeend: tsend,
+                });
+    
+            });
     
         })
-    var db1 = db.collection('Product').where('proID','=',req.query.id).get()
-        .then((snapshot) => {
-            snapshot.forEach((doc) => {
-            
-               list=doc.data()
-            //    console.log(list)
-            console.log(list.endSale)
-            // var date = new Date(list.endSale); // some mock date
-            //  milliseconds = date.getTime();\
-
-            tsstart=list.startSale
-          
-            let date_ob_start = (new Date(tsstart)).toISOString();
-            datestart = moment(date_ob_start).format("YYYY-MM-DD");
-            hourstart= moment(date_ob_start).format("HH:MM:SS");
-            
-            tsend=list.endSale
-            let date_ob_end=(new Date(tsend)).toISOString();
-            dateend = moment(date_ob_end).format("YYYY-MM-DD");
-            hourend= moment(date_ob_end).format("HH:MM:SS"); 
-
-            });
-            console.log(list1)
-        
-            res.render("Home", {
-                pages: "Edit_Product",
-                username: req.session.username,
-                url:  req.session.image,
-                listcats:list,
-                listcats1:list1,
-                time_start:datestart,
-                hour_start:hourstart,
-                full_timestart: tsstart,
-                time_end:dateend,
-                hour_end:hourend,
-                full_timeend: tsend,
-            });
-
-        });
-    }else{
-        res.redirect("/login_admin")
-    }
+    
+    
 
 
 });   

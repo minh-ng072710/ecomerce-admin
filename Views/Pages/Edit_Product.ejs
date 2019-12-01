@@ -172,17 +172,12 @@
                                                 <% listcats1.forEach(function(item){ %>
                                                       
                                                   <option 
-                                                  <% if( item.catID == listcats.catID ){ %>
-                                                    "selected"
-                                                    <% }else {%>
-                                                      ""
-                                                      <% }%> 
-
-                                                  >
+                                                  <% if( item.catID == listcats.catID ){ %> selected <% }else {%> "" <% }%> >
                                                     <%=item.catID%>
                                                   </option>
+                                                  
 
-                                                      <% }) %>
+                                                <% }) %>
                                                     </select>
                                                   
                                       </div>
