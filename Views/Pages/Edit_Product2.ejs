@@ -150,10 +150,14 @@
                                                   <!-- <option value="<%=listcats.catID%>" selected><%=listcats.catID%></option> -->
   
                                                   <% listcats1.forEach(function(item){ %>
-                                                        
-                                                    <option value="<%=item.catID%>"><%=item.catID%></option>
+                                                      
+                                                    <option 
+                                                    <% if( item.catID == listcats.catID ){ %> selected <% }else {%> "" <% }%> >
+                                                      <%=item.catID%>
+                                                    </option>
+                                                    
   
-                                                        <% }) %>
+                                                  <% }) %>
                                                       </select>
                                                     
                                         </div>

@@ -56,19 +56,6 @@ console.log(util.inspect('index.js', { showHidden: false, depth: null }));
 //-----------------------------Port Option----------------------------//
 app.listen(process.env.PORT || 3000)
 
-//-----------------------------Route Main:Home----------------------------//
-app.get("/", (req, res) => {
-    if(req.session.email&&req.session.pass){
-
-    res.render("Home", {
-        pages: "Product_List",
-        username: req.session.username,
-        url:  req.session.image
-    });
-}else{
-    res.redirect("/login_admin")
-}
-})
 //-----------------------------Route Login----------------------------//
 //bccrypt
 const bcrypt = require('bcrypt');
@@ -91,7 +78,7 @@ app.get("/login_admin",(req,res)=>{
 app.post("/login_admin",async (req,res)=>{
     let list = [];
     
-    console.log(req.body.pass)
+   
         let observer = db.collection('Admin').where('Email','=',req.body.email).get()
        .then(snapshot => {
            snapshot.forEach(doc => {
@@ -134,6 +121,20 @@ app.get("/logout",(req,res)=>{
 
 })
 //-----------------------------//Route Login//----------------------------//
+
+//-----------------------------Route Main:Home----------------------------//
+app.get("/", (req, res) => {
+    if(req.session.email&&req.session.pass){
+
+    res.render("Home", {
+        pages: "Product_List",
+        username: req.session.username,
+        url:  req.session.image
+    });
+}else{
+    res.redirect("/login_admin")
+}
+})
 //-----------------------------Route 1:USER_ADMIN----------------------------//
 //code generate id
 const fs = require('fs')
@@ -930,6 +931,70 @@ app.get("/editproduct", (req, res) => {
 
     
 // loi bat dong bo vh   có cách nào k anh 
+if(req.session.email&&req.session.pass){
+        let cats =db.collection("Category").get().then((snapshot)=>{
+            snapshot.forEach((arr)=>{
+               list1.push(arr.data())
+            })
+            var db1 = db.collection('Product').where('proID','=',req.query.id).get()
+            .then((snapshot) => {
+                snapshot.forEach((doc) => {
+                
+                   list=doc.data()
+                //    console.log(list)
+                console.log(list.endSale)
+                // var date = new Date(list.endSale); // some mock date
+                //  milliseconds = date.getTime();\
+    
+                tsstart=list.startSale
+              
+                let date_ob_start = (new Date(tsstart)).toISOString();
+                datestart = moment(date_ob_start).format("YYYY-MM-DD");
+                hourstart= moment(date_ob_start).format("HH:MM:SS");
+                
+                tsend=list.endSale
+                let date_ob_end=(new Date(tsend)).toISOString();
+                dateend = moment(date_ob_end).format("YYYY-MM-DD");
+                hourend= moment(date_ob_end).format("HH:MM:SS"); 
+    
+                });
+             
+                res.render("Home", {
+                    pages: "Edit_Product",
+                    username: req.session.username,
+                    url:  req.session.image,
+                    listcats:list,
+                    listcats1:list1,
+                    time_start:datestart,
+                    hour_start:hourstart,
+                    full_timestart: tsstart,
+                    time_end:dateend,
+                    hour_end:hourend,
+                    full_timeend: tsend,
+                });
+    
+            });
+    
+        })
+    
+}else{
+    res.redirect("/login_admin")
+}
+
+
+});   
+app.get("/editproduct1", (req, res) => {
+    // let  tssend;
+    let datestart;
+    let hourstart;
+    let fulldatestart
+    let dateend;
+    let hourend;
+    let fulldateend;
+    let list;
+    let list1=[];
+    
+    if(req.session.email&&req.session.pass){
 
         let cats =db.collection("Category").get().then((snapshot)=>{
             snapshot.forEach((arr)=>{
@@ -957,9 +1022,8 @@ app.get("/editproduct", (req, res) => {
                 hourend= moment(date_ob_end).format("HH:MM:SS"); 
     
                 });
-                console.log(list1);
-                console.log(list);
-                console.log("----------------------")
+                console.log(list1)
+            
                 res.render("Home", {
                     pages: "Edit_Product",
                     username: req.session.username,
@@ -977,70 +1041,7 @@ app.get("/editproduct", (req, res) => {
             });
     
         })
-    
-    
-
-
-});   
-app.get("/editproduct1", (req, res) => {
-    // let  tssend;
-    let datestart;
-    let hourstart;
-    let fulldatestart
-    let dateend;
-    let hourend;
-    let fulldateend;
-    let list;
-    let list1=[];
-    
-    if(req.session.email&&req.session.pass){
-
-        let cats =db.collection("Category").get().then((snapshot)=>{
-            snapshot.forEach((arr)=>{
-               list1.push(arr.data())
-            })
-        
-    
-        })
-    var db1 = db.collection('Product').where('proID','=',req.query.id).get()
-        .then((snapshot) => {
-            snapshot.forEach((doc) => {
-            
-               list=doc.data()
-            //    console.log(list)
-            console.log(list.endSale)
-            // var date = new Date(list.endSale); // some mock date
-            //  milliseconds = date.getTime();\
-
-            tsstart=list.startSale
-          
-            let date_ob_start = (new Date(tsstart)).toISOString();
-            datestart = moment(date_ob_start).format("YYYY-MM-DD");
-            hourstart= moment(date_ob_start).format("HH:MM:SS");
-            
-            tsend=list.endSale
-            let date_ob_end=(new Date(tsend)).toISOString();
-            dateend = moment(date_ob_end).format("YYYY-MM-DD");
-            hourend= moment(date_ob_end).format("HH:MM:SS"); 
-
-            });
-            console.log(list1)
-        
-            res.render("Home", {
-                pages: "Edit_Product",
-                username: req.session.username,
-                url:  req.session.image,
-                listcats:list,
-                listcats1:list1,
-                time_start:datestart,
-                hour_start:hourstart,
-                full_timestart: tsstart,
-                time_end:dateend,
-                hour_end:hourend,
-                full_timeend: tsend,
-            });
-
-        });
+  
     }else{
         res.redirect("/login_admin")
     }
@@ -1059,37 +1060,27 @@ app.get("/editproduct2", (req, res) => {
             snapshot.forEach((arr)=>{
                list1.push(arr.data())
             })
-        
+            var db1 = db.collection('Product').where('proID','=',req.query.id).get()
+            .then((snapshot) => {
+                snapshot.forEach((doc) => {
+                
+                   list=doc.data()
+               
+                });
+            
+                res.render("Home", {
+                    pages: "Edit_Product2",
+                    username: req.session.username,
+                    url:  req.session.image,
+                    listcats:list,
+                    listcats1:list1,
+                 
+                });
+    
+            });
     
         })
-    var db1 = db.collection('Product').where('proID','=',req.query.id).get()
-        .then((snapshot) => {
-            snapshot.forEach((doc) => {
-            
-               list=doc.data()
-            //    console.log(list)
-            console.log(list.endSale)
-            // var date = new Date(list.endSale); // some mock date
-            //  milliseconds = date.getTime();\
-            tssend= list.endSale;
-            datesend = moment(tssend).format("DD/MM/YY");
-
-            tsstart=list.startSale
-                console.log(datesend)
-                tsend=list.endSale
-            });
-        
-            res.render("Home", {
-                pages: "Edit_Product2",
-                username: req.session.username,
-                url:  req.session.image,
-                listcats:list,
-                listcats1:list1,
-                time_start:tsstart,
-                time_end:tsend
-            });
-
-        });
+  
     }else{
         res.redirect("/login_admin")
     }
