@@ -126,7 +126,7 @@ app.get("/logout",(req,res)=>{
 app.get("/", (req, res) => {
     if(req.session.email&&req.session.pass){
 
-    res.render("Home", {
+    res.render("Home", {    
         pages: "Product_List",
         username: req.session.username,
         url:  req.session.image
@@ -879,12 +879,12 @@ app.post("/addproduct",(req,res)=>{
                 console.log("Upload is okay");
     
                 let ts = Date.now();
-                let date_ob = (new Date(ts)).toString();
-                let date = moment(date_ob).format("YYYY-MM-DD HH:MM:SS")
+                // let date_ob = (new Date(ts)).toString();
+                // let date = moment(date_ob).format("YYYY-MM-DD HH:MM:SS")
                            
                 
                 
-                let docRef = db.collection('Product').doc(id).set({
+                let docRef = db.collection('Product').doc(id+"_"+req.body.name).set({
     
                     catID:req.body.category,
                     description:req.body.description,
@@ -894,11 +894,11 @@ app.post("/addproduct",(req,res)=>{
                     isSale:0,
                     name:req.body.name,
                     price:parseInt(req.body.price),
-                    proID:id,
+                    proID:id+"_"+req.body.name,
                     quantity: parseInt(req.body.quantity),
                     startSale:'',
                     volumetric:parseInt(req.body.volumtric),
-                    date:date
+                    date:ts
                     
                     
     
@@ -1089,8 +1089,8 @@ app.get("/editproduct2", (req, res) => {
 }); 
 app.post("/editproduct/:id", (req, res) => {
     let ts = Date.now();
-    let date_ob = (new Date(ts)).toString();
-    let date = moment(date_ob).format("YYYY-MM-DD HH:MM:DD")
+    // let date_ob = (new Date(ts)).toString();
+    // let date = moment(date_ob).format("YYYY-MM-DD HH:MM:DD")
             
     if(req.session.email&&req.session.pass){
     Upload(req,res,(err)=>{
@@ -1115,7 +1115,7 @@ app.post("/editproduct/:id", (req, res) => {
               
                 quantity: parseInt(req.body.quantity),
                 volumetric:parseInt(req.body.volumtric),
-                date:date
+                date:ts
                   
                 });
             
@@ -1137,7 +1137,7 @@ app.post("/editproduct/:id", (req, res) => {
                 quantity: parseInt(req.body.quantity),
           
                 volumetric:parseInt(req.body.volumtric),
-                date:date   
+                date:ts
                   
                 });
             }
