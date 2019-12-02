@@ -68,13 +68,7 @@ var HTML = '';
 
 db.collection("Product")
 .onSnapshot(function (doc) {
-  doc.docChanges().forEach((change) => {
-
-
-
-
-
-  })
+ 
   db.collection("Product").orderBy('date','desc').get()
     .then(snapshot => {
       snapshot.forEach(doc => {
