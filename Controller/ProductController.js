@@ -1,5 +1,6 @@
 module.exports=function(app,makeid,db,multer,moment,fs,Upload){
-    app.get("/listproduct",(req,res)=>{
+    //listproduct
+app.get("/listproduct",(req,res)=>{
         let ts = Date.now();
         let date_ob = (new Date(ts)).toString();
         let date = moment(date_ob).format("YYYY-MM-DD 00:00:00")
@@ -26,8 +27,9 @@ module.exports=function(app,makeid,db,multer,moment,fs,Upload){
         }else{
             res.redirect("/login_admin")
         }
-    })
-    app.get("/addproduct",(req,res)=>{
+})
+    //addproduct
+app.get("/addproduct",(req,res)=>{
         if(req.session.email&&req.session.pass){
             let list=[];
             let cats =db.collection("Category").get().then((snapshot)=>{
@@ -387,7 +389,7 @@ module.exports=function(app,makeid,db,multer,moment,fs,Upload){
     
     app.get("/deleteproduct", (req, res) => {
         if(req.session.email&&req.session.pass){
-      if(req.query.url!=""){
+      if(req.query.url!=""){    
           const path = 'Public/Upload/' + req.query.url;
           try {
               if (fs.existsSync(path)) {
@@ -402,7 +404,7 @@ module.exports=function(app,makeid,db,multer,moment,fs,Upload){
               console.error(err)
             }
           res.redirect("/listproduct")
-      }
+      } 
     }else{
         res.redirect("/login_admin")
     }

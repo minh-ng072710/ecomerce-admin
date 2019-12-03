@@ -74,9 +74,7 @@ app.get("/login_admin",(req,res)=>{
 });
 app.post("/login_admin",async (req,res)=>{
     let list = [];
-    
-   
-        let observer = db.collection('Admin').where('Email','=',req.body.email).get()
+    let observer = db.collection('Admin').where('Email','=',req.body.email).get()
        .then(snapshot => {
            snapshot.forEach(doc => {
           
@@ -91,6 +89,11 @@ app.post("/login_admin",async (req,res)=>{
                     req.session.pass=req.body.pass;
                     req.session.image=arr.url;
                     req.session.username=arr.AcFullName
+                    // res.redirect('/listproduct',{
+                    //     username: req.session.username,
+                    //     url:  req.session.image
+
+                    // })
                     res.render("Home",{
                         pages:"Product_List",
                         username: req.session.username,
@@ -106,7 +109,7 @@ app.post("/login_admin",async (req,res)=>{
             
         });
     })  
-    })
+})
 
 })
 app.get("/logout",(req,res)=>{
@@ -150,7 +153,9 @@ require("./Controller/UserController")(app,makeid,db,bcrypt,saltRounds,multer,mo
 require("./Controller/CategoryController")(app,makeid,db,multer,moment,fs,Upload)         
 require("./Controller/ProductController")(app,makeid,db,multer,moment,fs,Upload)         
 require("./Controller/FeedbackController")(app,makeid,db,moment)     
-require("./Controller/ReceiptController")(app,makeid,db,moment)     
+require("./Controller/ReceiptController")(app,makeid,db,moment)  
+
+
 
 
 
