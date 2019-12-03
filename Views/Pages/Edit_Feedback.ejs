@@ -57,10 +57,16 @@ label{font-weight: 500;}
                     <div class="form-group">
                       <label for="nameedit">Sửa Tên Sản Phẩm:</label>
                         <select id="nameedit" class="form-control" name="nameedit">
-
+      
+                         
                             <% list3.forEach(function(item){ %>
                           
-                            <option value="<%=item.proID%>"><%= item.name%></option>
+                              <option 
+                              <% if( item.proID == listfeedback.proID ){ %> selected <% }else {%> "" <% }%> >
+                                <%=item.name%>
+                              </option>
+                              
+    
                             <% }) %>
                           </select> 
 

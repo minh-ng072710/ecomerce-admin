@@ -9,7 +9,7 @@ module.exports=function(app,makeid,db,moment){
                 console.log(list)
         
                 return res.render("Home", {
-                    pages: "Order_List",
+                    pages: "Order_List_Test",
                     username: req.session.username,
                     url:  req.session.image,
                     list: list,
@@ -17,25 +17,7 @@ module.exports=function(app,makeid,db,moment){
                 });
             })
     });
-    app.get("/addfeedback",(req,res)=>{
-        let list = [];
-        
-        let observer = db.collection('Product').get()
-            .then(snapshot => {
-                snapshot.forEach(doc => {
-                    list.push(doc.data())
-                });
-          
-                res.render("Home",{
-                    pages:"Add_FeedBack",
-                    listfeedback:list
-                })
-        
-                  
-            })
-         
-       
-    }) 
+ 
     app.post("/addfeedback",(req,res)=>{
                 id=makeid(20)
                 let ts = Date.now();

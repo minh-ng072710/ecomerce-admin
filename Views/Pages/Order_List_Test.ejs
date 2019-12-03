@@ -1,0 +1,96 @@
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.20/datatables.min.css"/>
+ 
+<script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.20/datatables.min.js"></script>
+<link rel="stylesheet" href="./js/Bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" href="./js/DataTables/DataTables-1.10.20/css/dataTables.bootstrap.min.css">
+<script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-app.js"></script>
+
+<script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-analytics.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-firestore.js"></script>
+
+
+<div class="container" onload="page_Load()" >
+    <div class="x_title">
+            <center><h2 style="color:
+                #606445;font-family: 'PT Serif', serif;font-weight: 900;margin-left:91px;margin-top: 14px;">DANH SÁCH KHÁCH HÀNG</h2>
+            <div class="clearfix"></div>
+          </div>
+<table class="table table-srtriped table-bordered table-hover" id="mydata">
+
+</table>
+</div>
+
+
+
+
+
+
+
+
+
+
+<script>
+var firebaseConfig = {
+      apiKey: "AIzaSyAVBtWsFEvEZVT4A7rcTV2nRtfj13I5BI0",
+      authDomain: "ecommerce-3b4a8.firebaseapp.com",
+      databaseURL: "https://ecommerce-3b4a8.firebaseio.com",
+      projectId: "ecommerce-3b4a8",
+      storageBucket: "ecommerce-3b4a8.appspot.com",
+      messagingSenderId: "359580994105",
+      appId: "1:359580994105:web:cd475d76e870b4169f1be8",
+      measurementId: "G-PC5T29FZVN"
+    };
+  
+    firebase.initializeApp(firebaseConfig);
+    firebase.analytics();
+    const db = firebase.firestore(firebase);
+function page_Load() {
+  getAll();
+}
+function getAll() {
+    var list=[];
+    db.collection("Receipt")
+    .onSnapshot(function (doc) {
+     
+      db.collection('Receipt').get()
+        .then(snapshot => {
+          snapshot.forEach(doc => {
+            list.push(doc.data())
+          })
+          renderBookList(list);
+        })
+    })
+}
+
+function renderBookList(list) {
+var rows = "";
+  for (var book of list) {
+    rows += "<tr>";
+    rows += "<td><a href='#' onclick='lnkID_Click(" + book.IDNews + ")'>" + book.userID + "</a></td>";
+    rows += "<td>" + book.accFullName + "</td>";
+    rows += "<td>" + book.phone+ "</td>";
+    rows += "<td>" + book.email + "</td>";
+
+    rows += "<td>" + book.signupdate + "</td>";
+ 
+
+    rows += "</tr>";
+  }
+  var header = `<tr>
+  <th>TOKEN_ID</th>
+  <th>TDN</th>
+  <th>SDT</th>
+  <th>EMAIL</th>
+  <th>Date</th>
+
+  </tr>`;
+  document.getElementById("mydata").innerHTML = header + rows;
+                
+            
+       
+
+
+}
+   
+   
+</script>

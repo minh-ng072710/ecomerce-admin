@@ -43,20 +43,22 @@ db.collection("Product")
             list.push(doc.data())
             
     })
-  
-        
+  let price=[]
+  let name=[]
+        list.forEach((arr)=>{
+            price.push(arr.price)
+            name.push(arr.name)
+           
+        })
         let mychart1=document.getElementById('mychart').getContext('2d')
-        for(var i=0;i<=list.length;i++){
-            var price=  list[i].price
+     
             let barchart= new Chart(mychart1,{
                 type:'bar',
                 data:{
-                    labels:['a','b','c'],
+                    labels:name,
                     datasets:[{
                         label:'Thống Kê Doanh Thu',
-                        data:[
-                            100,200,300
-                    ]
+                        data:price
                            
                         ,
                         backgroundColor:[
@@ -77,7 +79,7 @@ db.collection("Product")
    
        
 
-        }
+        
            
     })    
               
