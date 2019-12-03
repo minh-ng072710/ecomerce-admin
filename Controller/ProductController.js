@@ -126,7 +126,7 @@ app.get("/addproduct",(req,res)=>{
                         description:req.body.description,
                         discount:0,
                         endSale:'',
-                        imgURL:req.file.filename,
+                        imgURL:"https://nguyengiaminh.herokuapp.com/Upload/"+req.file.filename,
                         isSale:0,
                         name:req.body.name,
                         price:parseInt(req.body.price),
