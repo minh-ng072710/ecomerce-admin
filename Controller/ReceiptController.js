@@ -9,7 +9,7 @@ module.exports=function(app,makeid,db,moment){
                 console.log(list)
         
                 return res.render("Home", {
-                    pages: "Order_List_Test",
+                    pages: "Order_List",
                     username: req.session.username,
                     url:  req.session.image,
                     list: list,

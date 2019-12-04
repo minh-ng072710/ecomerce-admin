@@ -31,13 +31,7 @@ var HTML="";
 
 db.collection("Admin")
 .onSnapshot(function (doc) {
-  doc.docChanges().forEach((change) => {
 
-
-
-
-
-  })
   db.collection('Admin').get()
     .then(snapshot => {
       snapshot.forEach(doc => {

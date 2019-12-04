@@ -14,9 +14,13 @@
 </head>
 <body>
     <div class="container">
-        <canvas id="mychart">
+        <canvas id="mychart" width="600" height="250">
 
         </canvas>
+        <canvas id="mychart1">
+
+        </canvas>
+    </div>
        
 <script>
 var firebaseConfig = {
@@ -34,7 +38,8 @@ firebase.initializeApp(firebaseConfig);
 firebase.analytics();
 const db = firebase.firestore(firebase)
 let list=[];
-let list2=[]
+let price=[]
+  let name=[]
 db.collection("Product")
 .onSnapshot(function (doc) {
     
@@ -43,8 +48,7 @@ db.collection("Product")
             list.push(doc.data())
             
     })
-  let price=[]
-  let name=[]
+  
         list.forEach((arr)=>{
             price.push(arr.price)
             name.push(arr.name)
@@ -75,10 +79,10 @@ db.collection("Product")
                     }]
                 },
             })
-            
 
-   
-       
+         
+     
+  
 
         
            

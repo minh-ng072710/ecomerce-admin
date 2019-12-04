@@ -2,8 +2,8 @@
 module.exports=function(app,makeid,db,bcrypt,saltRounds,multer,moment,fs,Upload){
 
 app.get("/chart",(req,res)=>{
-    res.render("statistical",{
-        
+    res.render("Home",{
+        pages: "Statistical",
         username: req.session.username,
         url:  req.session.image,
     })
