@@ -134,12 +134,12 @@ if(req.session.email&&req.session.pass){
               
                 let date_ob_start = (new Date(tsstart)).toISOString();
                 datestart = moment(date_ob_start).format("YYYY-MM-DD");
-                hourstart= moment(date_ob_start).format("HH:MM:SS");
+                hourstart= moment(date_ob_start).format("HH:mm:ss");
                 
                 tsend=list.endSale
                 let date_ob_end=(new Date(tsend)).toISOString();
                 dateend = moment(date_ob_end).format("YYYY-MM-DD");
-                hourend= moment(date_ob_end).format("HH:MM:SS"); 
+                hourend= moment(date_ob_end).format("HH:mm:ss"); 
     
                 });
              
@@ -340,47 +340,53 @@ app.post("/flashsale",(req,res)=>{
         
                     let tsstart = req.body.startsale;
                     let date_ob_start = (new Date(tsstart)).toISOString();
-                    let datestart = moment(date_ob_start).format("YYYY-MM-DD HH:MM:SS");
+                    let datestart = moment(date_ob_start).format("YYYY-MM-DD HH:mm:ss");
+
+                    let tssend=req.body.endsale;
+                    let date_ob_end = (new Date(tssend)).toISOString();
+                    let dateend = moment(date_ob_end).format("YYYY-MM-DD HH:mm:ss");
     
-                    if(tsstart==Date.now()){
-                        let cityRef = db.collection('Product').doc(req.query.id);
-                        let updateMany = cityRef.update({
-               
-                            isSale:1,
-                            // discount:parseInt(req.body.discount_percent),
-                            // endSale:dateend,
-                            // startSale:datestart,
-                          
-                       
-                    })
-    
-                    }else if(tsstart>Date.now()){
-                        let cityRef1 = db.collection('Product').doc(req.query.id);
-                        let updateMany1 = cityRef1.update({
-               
-                            isSale:0,
-                            // discount:parseInt(req.body.discount_percent),
-                            // endSale:dateend,
-                            // startSale:datestart,
-                    })
-                    // let tssend=req.body.endsale;
-                    // let date_ob_end = (new Date(tssend)).toISOString();
-                    // let dateend = moment(date_ob_end).format("YYYY-MM-DD HH:MM:SS");
-    
-                    // let oldend=req.body.endsale_old;
+
+                    let oldend=req.body.endsale_old;
                    
+                    let cityRef = db.collection('Product').doc(req.query.id);
+                    let updateMany = cityRef.update({
+           
+            
+                        discount:parseInt(req.body.discount_percent),
+                        endSale:dateend,
+                        startSale:datestart,
+                      
+                   
+                    })
+
+                   
+        res.redirect("/listproduct")
+    }) 
+                    // if(tsstart==Date.now()){
                     //     let cityRef = db.collection('Product').doc(req.query.id);
                     //     let updateMany = cityRef.update({
                
-                
-                    //         discount:parseInt(req.body.discount_percent),
-                    //         endSale:dateend,
-                    //         startSale:datestart,
+                    //         isSale:1,
+                    //         // discount:parseInt(req.body.discount_percent),
+                    //         // endSale:dateend,
+                    //         // startSale:datestart,
                           
                        
-                    }
+                    // })
     
+                    // }else if(tsstart>Date.now()){
+                    //     let cityRef1 = db.collection('Product').doc(req.query.id);
+                    //     let updateMany1 = cityRef1.update({
+               
+                    //         isSale:0,
+                            // discount:parseInt(req.body.discount_percent),
+                            // endSale:dateend,
+                            // startSale:datestart,
                     
+                 
+    
+                 
                     // let date_ob_start = (new Date(tsstart)).toISOString();
                     // let datestart = moment(date_ob_start).format("YYYY-MM-DD HH:MM:SS");
                     
@@ -390,9 +396,7 @@ app.post("/flashsale",(req,res)=>{
                     // let dateend = moment(date_ob_end).format("YYYY-MM-DD HH:MM:SS");
                     // console.log("ddd:"+dateend)
     
-      
-            res.redirect("/listproduct")
-        })
+  
         
     app.post("/deletesale/:id",(req,res)=>{
         let cityRef = db.collection('Product').doc(req.params.id);
