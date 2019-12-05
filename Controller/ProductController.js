@@ -300,6 +300,7 @@ app.post("/editproduct/:id", (req, res) => {
               
                 quantity: parseInt(req.body.quantity),
                 volumetric:parseInt(req.body.volumtric),
+                
                 date:ts
                   
                 });

@@ -67,7 +67,7 @@ module.exports = function (app, makeid, db, moment) {
 
         let docRef = db.collection('Receipt').doc(req.params.id)
         let updateMany = docRef.update({
-
+            status:req.body.statuss,
 
               deliveryAdd:req.body.address
         });
@@ -83,5 +83,15 @@ module.exports = function (app, makeid, db, moment) {
 
 
     })
+    app.get("/deleteorder", (req, res) => {
+        if(req.session.email&&req.session.pass){
+            var db1 = db.collection('Receipt').doc(req.query.id).delete();
+    
+        }else{
+            res.redirect("/login_admin")
+    
+        }
+    })
 
 }
+

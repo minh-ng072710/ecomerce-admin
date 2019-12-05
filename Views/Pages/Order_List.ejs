@@ -80,7 +80,7 @@ db.collection("Receipt")
       <button type="button" class="btn btn-info" data-toggle="modal" data-target="#` + element.receiptID + `"> 
         Chi Tiết </button>        
         <a href="./editorder/?id=`+ element.receiptID+ `"><button class="btn btn-success" type="reset">Sửa</button></a>
-        <a href="./deletefeedback/?id=`+ element._id_feedback + `"><button onclick=" return confirm('Bấm vào là xóa đó nha????')" type="button"
+        <a href="./deleteorder/?id=`+ element.receiptID + `"><button onclick=" return confirm('Bấm vào là xóa đó nha????')" type="button"
           class="btn btn-danger">Xóa</button></a>
 
     </td>
@@ -201,7 +201,7 @@ db.collection("Receipt")
       <button type="button" class="btn btn-info" data-toggle="modal" data-target="#` + element.receiptID + `"> 
         Chi Tiết </button>        
         <a href="./editorder/?id=`+ element.receiptID+ `"><button class="btn btn-success" type="reset">Sửa</button></a>
-        <a href="./deletefeedback/?id=`+ element._id_feedback + `"><button onclick=" return confirm('Bấm vào là xóa đó nha????')" type="button"
+        <a href="./deleteorder/?id=`+ element.receiptID + `"><button onclick=" return confirm('Bấm vào là xóa đó nha????')" type="button"
           class="btn btn-danger">Xóa</button></a>
 
     </td>
@@ -322,7 +322,7 @@ db.collection("Receipt")
       <button type="button" class="btn btn-info" data-toggle="modal" data-target="#` + element.receiptID + `"> 
         Chi Tiết </button>        
         <a href="./editorder/?id=`+ element.receiptID+ `"><button class="btn btn-success" type="reset">Sửa</button></a>
-        <a href="./deletefeedback/?id=`+ element._id_feedback + `"><button onclick=" return confirm('Bấm vào là xóa đó nha????')" type="button"
+        <a href="./deleteorder/?id=`+ element.receiptID + `"><button onclick=" return confirm('Bấm vào là xóa đó nha????')" type="button"
           class="btn btn-danger">Xóa</button></a>
 
     </td>
@@ -442,8 +442,8 @@ db.collection("Receipt")
     <td style="width:200px;text-align: center;padding-top: 33px">
       <button type="button" class="btn btn-info" data-toggle="modal" data-target="#` + element.receiptID + `"> 
         Chi Tiết </button>        
-        <a href="./editfeedback/?id=`+ element._id_feedback + `"><button class="btn btn-success" type="reset">Sửa</button></a>
-        <a href="./deletefeedback/?id=`+ element._id_feedback + `"><button onclick=" return confirm('Bấm vào là xóa đó nha????')" type="button"
+        <a href="./editorder/?id=`+ element.receiptID+ `"><button class="btn btn-success" type="reset">Sửa</button></a>
+        <a href="./deleteorder/?id=`+ element.receiptID + `"><button onclick=" return confirm('Bấm vào là xóa đó nha????')" type="button"
           class="btn btn-danger">Xóa</button></a>
 
     </td>

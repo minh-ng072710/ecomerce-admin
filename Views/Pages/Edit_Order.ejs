@@ -43,7 +43,7 @@
               <div class="tab-content" id="myTabContent" style="margin-right: -5px;">
                   <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                      
-                     <form action="./editorder/<%=list.receiptID%>" method="post" enctype="multipart/form-data">
+                     <form action="./editorder/<%=list.receiptID%>" method="post">
                           <div class="row register-form" style="margin-left: 197px;
                           margin-top: 36px;">
                         
@@ -53,16 +53,22 @@
                                       <select  id="myDropDown" class="form-control selectpicker btn btn-danger" style="width: 280px;font-size: 32px;padding-left: 61px;margin-left:255px;padding-top: 0px;
                                       padding-bottom: 0px;" name="statuss">
                                         
-                                          <% list1.forEach(function(item){ %>
 
                                                 
                                             <option 
-                                            <% if( item.status == list.status ){ %> selected <% }else {%> "" <% }%> >
-                                            <%=item.status%>
-
+                                            <% if( list.status ){ %> selected <% }else {%> "" <% }%> >
+                                            <%=list.status%>
                                             </option>
-                                            <% }) %>
-          
+                                            <option value="Đang giao">
+                                                Đang giao
+                                            </option>
+
+                                            <option value="Đã giao">
+                                              Đã giao
+                                          </option>
+                                          <option value="Đã hủy">
+                                            Đã hủy
+                                        </option>
 
                                       
                                               </select>
