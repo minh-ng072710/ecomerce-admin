@@ -318,12 +318,13 @@
     document.getElementById("demo").innerHTML = "Còn " + days + " ngày" + " " + hours + " tiếng" + " "
       + minutes + " phút" + " " + seconds + " giây" + "</br>"
 
-
+      let ts = Date.now();
     // If the count down is over, write some text 
     if (distance < 0) {
       let cityRef = db.collection('Product').doc("<%=listcats.proID%>");
       let updateMany = cityRef.update({
         isSale: 1,
+        date:Date.now(),
       })
       clearInterval(x);
       alert("Đến Thời Gian Khuyến Mãi")
@@ -350,7 +351,8 @@
             isSale: 0,
             discount: 0,
             startSale: "",
-            endSale: ""
+            endSale: "",
+            date:ts,
           })
         }
       }, 1000)

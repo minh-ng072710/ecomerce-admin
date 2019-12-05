@@ -294,7 +294,7 @@ app.post("/editproduct/:id", (req, res) => {
              
                 catID:req.body.category,
                 description:req.body.description,
-                imgURL:"https://nguyengiaminh.herokuapp.com/Upload/"+req.file.filename,
+                imgURL:req.file.filename,
                 name:req.body.name,
                 price:parseInt(req.body.price),
               
@@ -346,7 +346,7 @@ app.post("/flashsale",(req,res)=>{
                     let date_ob_end = (new Date(tssend)).toISOString();
                     let dateend = moment(date_ob_end).format("YYYY-MM-DD HH:mm:ss");
     
-
+                    let ts = Date.now();
                     let oldend=req.body.endsale_old;
                    
                     let cityRef = db.collection('Product').doc(req.query.id);
@@ -356,6 +356,7 @@ app.post("/flashsale",(req,res)=>{
                         discount:parseInt(req.body.discount_percent),
                         endSale:dateend,
                         startSale:datestart,
+                        date:ts,
                       
                    
                     })
