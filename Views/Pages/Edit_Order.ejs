@@ -1,0 +1,141 @@
+<style>
+  @import url('https://fonts.googleapis.com/css?family=Oswald&display=swap');
+  </style>
+<style>
+  #imageUpload
+  {
+     display: none;
+  }
+  
+  #profileImage
+  {
+    margin-top: -49px;
+      cursor: pointer;
+      width: 100px;
+      height: 100px;
+      margin-left: 45px;
+  }
+  .form-control{height: 48px !important;}
+  label{font-weight: 500;}
+  .form-group {
+    margin-bottom: 2rem;
+}                        
+  </style>
+
+<div class="kt-pagebody">
+
+    <!-- row -->
+  
+      <div class="row row-sm mg-t-20">
+        <div class="col-xl-12">
+          <div class="card bd-blue-300" style="background-color: aquamarine;
+          border-radius: 100%;">
+            <div class="card-header bg-gray-100 pd-y-15 pd-x-20" style="background-color:yellow;">
+             <center><h3 class="register-heading" style="color: red;
+              font-family: 'PT Serif', serif;
+              font-weight: 900;
+              margin-left: -3px;
+              font-size: 40px;">SỬA THÔNG TIN HÓA ĐƠN</h3></center> 
+        
+        </div><!-- card-header --> 
+            <div class="col-md-10 register-right">
+                      
+              <div class="tab-content" id="myTabContent" style="margin-right: -5px;">
+                  <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                     
+                     <form action="./editorder/<%=list.receiptID%>" method="post" enctype="multipart/form-data">
+                          <div class="row register-form" style="margin-left: 197px;
+                          margin-top: 36px;">
+                        
+                              <div class="col-md-12">
+                                 
+                                  <div class="form-group">
+                                      <select  id="myDropDown" class="form-control selectpicker btn btn-danger" style="width: 280px;font-size: 32px;padding-left: 61px;margin-left:255px;padding-top: 0px;
+                                      padding-bottom: 0px;" name="statuss">
+                                        
+                                          <% list1.forEach(function(item){ %>
+
+                                                
+                                            <option 
+                                            <% if( item.status == list.status ){ %> selected <% }else {%> "" <% }%> >
+                                            <%=item.status%>
+
+                                            </option>
+                                            <% }) %>
+          
+
+                                      
+                                              </select>
+                                  </div>
+                                  
+                                  <div class="form-group">
+                                    <input class="form-control" style="    width: 779px;
+                                    margin-left: 26px;
+                                    font-size: 40px;
+                                    background: antiquewhite;
+                                    font-weight: 700;" type="text" name="address" value="<%=list.deliveryAdd%>">
+                                </div>
+                       
+                                
+                               
+                                    
+                                      
+                                       
+                                          
+                                        </div>
+                                        
+                                      </div>
+                                    </div>
+                                
+                                 
+                                 
+                                <center>
+                                    <div class="form-group">
+                                        <button type="submit" class="btn btn-primary" id="btn_Add"  style="    font-family: 'PT Serif', serif;
+                                        font-weight: 900;
+                                        font-size: 27px;
+                                        margin-left: 193px;
+                                        margin-top: 56px;
+                                        width: 203px;">Cập Nhật</button>
+                                        
+                                        
+                                    </div>
+                               
+                                </center>
+                                <center>
+                                    <a href="./listorder">
+                                      <button type="button" class="btn btn-warning"  style="    font-family: 'PT Serif', serif;
+                                      font-weight: 900;
+                                      font-size: 27px;
+                                      margin-left: 187px;
+                                      margin-top: 9px;
+                                      width: 203px;
+                                      margin-bottom: 23px;">Xem Danh Sách</button>
+                              </a>
+                                </center>
+                              
+                               
+                          </div>
+                     </form>
+                     
+                     
+                  </div>
+                  
+              </div>
+          </div>
+           <!-- table-responsive -->
+         <!-- card-footer -->
+          </div><!-- card -->
+  
+          
+  
+          
+        </div><!-- col-8 -->
+        <!-- col-4 -->
+      </div><!-- row -->
+    </div>
+
+
+  
+
+    

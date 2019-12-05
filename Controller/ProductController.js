@@ -1,10 +1,10 @@
 module.exports=function(app,makeid,db,multer,moment,fs,Upload){
     //listproduct
 app.get("/listproduct",(req,res)=>{
-        let ts = Date.now();
-        let date_ob = (new Date(ts)).toString();
-        let date = moment(date_ob).format("YYYY-MM-DD 00:00:00")
-        console.log(date)
+        // let ts = Date.now();
+        // let date_ob = (new Date(ts)).toString();
+        // let date = moment(date_ob).format("YYYY-MM-DD 00:00:00")
+        // console.log(date)
     
         if(req.session.email&&req.session.pass){
         let list = [];

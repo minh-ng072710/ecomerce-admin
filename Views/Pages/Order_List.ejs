@@ -32,7 +32,7 @@ $('#myDropDown').prepend($('<option></option>').html('Loading...'));
   firebase.analytics();
   const db = firebase.firestore(firebase)
   var HTML = '';
-  
+  let list=[]
 
 db.collection("Receipt")
     .onSnapshot(function (doc) {
@@ -46,7 +46,17 @@ db.collection("Receipt")
       db.collection('Receipt').get()
         .then(snapshot => {
           snapshot.forEach(doc => {
-            var element = doc.data()
+            var element = doc.data();
+            
+            // element.forEach((arr)=>{
+            //   db.collection('OrderDetail').where('receiptID','=',arr.receiptID).get()
+            //   .then(snapshot1=>{
+            //     snapshot.forEach(doc1=>{
+            //       list.push(doc1.proID)
+            //     })
+            //   })
+            // })
+          
             if(element.status=="Chờ xử lý"){
             HTML += `
             <tr role="row" >
@@ -69,7 +79,7 @@ db.collection("Receipt")
     <td style="width:200px;text-align: center;padding-top: 33px">
       <button type="button" class="btn btn-info" data-toggle="modal" data-target="#` + element.receiptID + `"> 
         Chi Tiết </button>        
-        <a href="./editfeedback/?id=`+ element._id_feedback + `"><button class="btn btn-success" type="reset">Sửa</button></a>
+        <a href="./editorder/?id=`+ element.receiptID+ `"><button class="btn btn-success" type="reset">Sửa</button></a>
         <a href="./deletefeedback/?id=`+ element._id_feedback + `"><button onclick=" return confirm('Bấm vào là xóa đó nha????')" type="button"
           class="btn btn-danger">Xóa</button></a>
 
@@ -190,7 +200,7 @@ db.collection("Receipt")
     <td style="width:200px;text-align: center;padding-top: 33px">
       <button type="button" class="btn btn-info" data-toggle="modal" data-target="#` + element.receiptID + `"> 
         Chi Tiết </button>        
-        <a href="./editfeedback/?id=`+ element._id_feedback + `"><button class="btn btn-success" type="reset">Sửa</button></a>
+        <a href="./editorder/?id=`+ element.receiptID+ `"><button class="btn btn-success" type="reset">Sửa</button></a>
         <a href="./deletefeedback/?id=`+ element._id_feedback + `"><button onclick=" return confirm('Bấm vào là xóa đó nha????')" type="button"
           class="btn btn-danger">Xóa</button></a>
 
@@ -311,7 +321,7 @@ db.collection("Receipt")
     <td style="width:200px;text-align: center;padding-top: 33px">
       <button type="button" class="btn btn-info" data-toggle="modal" data-target="#` + element.receiptID + `"> 
         Chi Tiết </button>        
-        <a href="./editfeedback/?id=`+ element._id_feedback + `"><button class="btn btn-success" type="reset">Sửa</button></a>
+        <a href="./editorder/?id=`+ element.receiptID+ `"><button class="btn btn-success" type="reset">Sửa</button></a>
         <a href="./deletefeedback/?id=`+ element._id_feedback + `"><button onclick=" return confirm('Bấm vào là xóa đó nha????')" type="button"
           class="btn btn-danger">Xóa</button></a>
 
