@@ -199,12 +199,12 @@ app.get("/editproduct1", (req, res) => {
               
                 let date_ob_start = (new Date(tsstart)).toISOString();
                 datestart = moment(date_ob_start).format("YYYY-MM-DD");
-                hourstart= moment(date_ob_start).format("HH:MM:SS");
+                hourstart= moment(date_ob_start).format("HH:mm:SS");
                 
                 tsend=list.endSale
                 let date_ob_end=(new Date(tsend)).toISOString();
                 dateend = moment(date_ob_end).format("YYYY-MM-DD");
-                hourend= moment(date_ob_end).format("HH:MM:SS"); 
+                hourend= moment(date_ob_end).format("HH:mm:SS"); 
     
                 });
                 console.log(list1)

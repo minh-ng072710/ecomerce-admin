@@ -19,6 +19,10 @@
         <canvas id="mychart" width="600" height="250" style=" margin-top: 84px;">
 
         </canvas>
+     
+    </div>
+    <div class="container">
+
         <canvas id="mychart1">
 
         </canvas>
@@ -50,16 +54,16 @@
                         list.push(doc.data())
 
                     })
-
                     list.forEach((arr) => {
                         price.push(arr.price)
                         name.push(arr.name)
 
                     })
+                     
                     let mychart1 = document.getElementById('mychart').getContext('2d')
                     var html = `
-        Thống Kê Doanh Thu
-        `
+                    Thống Kê Doanh Thu
+                         `
                     let barchart = new Chart(mychart1, {
                         type: 'bar',
                         data: {
@@ -100,15 +104,18 @@
                         }
                     })
 
-
-
-
-
-
-
                 })
 
-            })
+                  
+
+
+
+
+
+
+                
+
+            })  
 
 
 
