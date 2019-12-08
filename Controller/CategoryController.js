@@ -31,6 +31,7 @@ module.exports=function(app,makeid,db,multer,moment,fs,Upload){
        res.redirect("/login_admin")
     }
     });
+    
     app.post("/addcats", function (req, res) {
         if(req.session.email&&req.session.pass){
                 Upload(req, res, (err) => {
@@ -107,55 +108,5 @@ module.exports=function(app,makeid,db,multer,moment,fs,Upload){
     }
       
     })    
-    // /*--check trung san pham---*/
-    // app.post("/addcats", (req, res) => {
-    //     var list=[];
-    // Upload(req,res,(err)=>{
-    //     let query = db.collection('Catgories')
-    //     .get()
-    //     .then(snapshot => {
-    //       snapshot.forEach(doc => {
-    //         // console.log(doc.id, '=>', doc.data());
-    //         list.push(doc.data())
-    //       });
-    //       list.forEach((arr)=>{
-             
-    //         if(arr.catID!=req.body.name_en||arr.name!=req.body.name_vi){
-    //             var id=makeid(20)
-    //             Upload(req, res, (err) => {
-                
-    //                 console.log(req.body.name_en)
-    //                 let ts = Date.now();
-    //                 let date_ob = (new Date(ts)).toString();
-    //                 let date = moment(date_ob).format("DD/MM/YY  hh:mm")
-        
-    //                 let docRef = db.collection('Catgories').doc(req.body.name_en).set({
-        
-        
-    //                    catID:req.body.name_en,
-    //                    imgURL:req.file.filename,
-    //                    name:req.body.name_vi,
-    //                    quantity:req.body.quantity,
-    //                    id:id,
-    //                    Time:date,
-        
-        
-    //                 });
-        
-    //                 res.redirect("./listcats")
-    //             })
-             
-        
-    //         }else{
-    //             console.log("trung ten roi")
-    //             res.end();
-            
-    //         }
-             
-    //     })
-    // })
     
-    // })
-    // })
-    /*--check trung san pham---*/
 }

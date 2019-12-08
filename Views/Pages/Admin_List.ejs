@@ -32,7 +32,7 @@ var HTML="";
 db.collection("Admin")
 .onSnapshot(function (doc) {
 
-  db.collection('Admin').get()
+  db.collection('Admin').orderBy('Time','desc').get()
     .then(snapshot => {
       snapshot.forEach(doc => {
         var element = doc.data()
