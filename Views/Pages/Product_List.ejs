@@ -1,11 +1,18 @@
 
  
 <script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-app.js"></script>
+<style>
 
+
+
+
+
+
+
+</style>
 <script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-analytics.js"></script>
 <script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-firestore.js"></script>
 <script>
-
 
 
 var firebaseConfig = {
@@ -52,8 +59,8 @@ db.collection("Product")
 <td style="width: 130px;text-align: center;padding-top: 33px;color: black;">`+ element.volumetric+ `</td>
 
 <td style="width:400px;text-align: center;padding-top: 33px">
-  <a href="/editproduct2/?id=`+ element.proID +  `"><button class="btn btn-success" type="reset">Sửa</button></a>
-  <a href="./deleteproduct/?id=`+ element.proID + `&&url=` + element.imgURL + `"><button type="button"
+  <a href="/editproduct2/?id=`+ element.proID +  `"><button onclick=" return confirm('Bấm vào là sửa đó nha????')" class="btn btn-success" type="reset">Sửa</button></a>
+  <a href="./deleteproduct/?id=`+ element.proID + `&&url=` + element.imgURL + `"><button onclick=" return confirm('Bấm vào là xóa đó nha????')" type="button"
       class="btn btn-danger">Xóa</button></a>
 </td>
 </tr>
@@ -78,8 +85,8 @@ db.collection("Product")
 <td style="width: 130px;text-align: center;padding-top: 33px;color: black;">`+ element.volumetric+ `</td>
 
 <td style="width:400px;text-align: center;padding-top: 33px">
-  <a href="./editproduct/?id=`+ element.proID +  `"><button class="btn btn-success" type="reset">Sửa</button></a>
-  <a href="./deleteproduct/?id=`+ element.proID + `&&url=` + element.imgURL + `"><button type="button"
+  <a href="./editproduct/?id=`+ element.proID +  `"><button class="btn btn-success" onclick=" return confirm('Bấm vào là sửa đó nha????')" type="reset">Sửa</button></a>
+  <a href="./deleteproduct/?id=`+ element.proID + `&&url=` + element.imgURL + `"><button onclick=" return confirm('Bấm vào là xóa đó nha????')" type="button"
       class="btn btn-danger">Xóa</button></a>
 </td>
 </tr>
@@ -106,8 +113,8 @@ db.collection("Product")
 <td style="width: 130px;text-align: center;padding-top: 33px;color: black;">`+ element.volumetric+ `</td>
 
 <td style="width:400px;text-align: center;padding-top: 33px">
-  <a href="./editproduct1/?id=`+ element.proID +  `"><button class="btn btn-success" type="reset">Sửa</button></a>
-  <a href="./deleteproduct/?id=`+ element.proID + `&&url=` + element.imgURL + `"><button type="button"
+  <a href="./editproduct1/?id=`+ element.proID +  `"><button class="btn btn-success" onclick=" return confirm('Bấm vào là sửa đó nha????')" type="reset">Sửa</button></a>
+  <a href="./deleteproduct/?id=`+ element.proID + `&&url=` + element.imgURL + `"><button type="button" onclick=" return confirm('Bấm vào là xóa đó nha????')"
       class="btn btn-danger">Xóa</button></a>
 </td>
 </tr>

@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -40,74 +39,83 @@
         firebase.initializeApp(firebaseConfig);
         firebase.analytics();
         const db = firebase.firestore(firebase)
-        let list = [];
+        // let list = []
         let proID = []
         let feedback = []
+        let listname = []
         db.collection("Product")
             .onSnapshot(function (doc) {
 
                 db.collection("Product").get().then(snapshot => {
                     snapshot.forEach(doc => {
-                        list.push(doc.data())
+                        list.push(doc.data())//feedback
 
                     })
                     list.forEach((arr) => {
+
                         proID.push(arr.proID)
-                        name.push(arr.name)
+                    })
 
+                    proID.forEach((arr3) => {
+                        var db1 = db.collection('Feedback').where('proID', '=', arr3).get()
+                            .then((snapshot) => {
+                                snapshot.forEach((doc) => {
+                                    // console.log(doc.id, '=>', doc.data());
+                                    feedback.push(doc.data())
+                                    // console.log(list)
+
+
+                                });
+                                feedback.forEach((arrname) => {
+                                    listname.push(arrname.proID)
+                                })                             // console.log(feedback)
+                            })
                     })
-                    
-                    db.collection("Favorite").where('proID','=',proID).get().then(snapshot1=>{
-                        snapshot1.forEach(doc1=>{
-                            feedback.push(doc1.data())
-                        })
-                    })
+
                 })
+            })
 
-                
-                    let mychart1 = document.getElementById('mychart').getContext('2d')
-                    var html = `
+
+                let mychart1 = document.getElementById('mychart').getContext('2d')
+                var html = `
         Thống Kê Doanh Thu
         `
-                    let barchart = new Chart(mychart1, {
-                        type: 'bar',
-                        data: {
-                            labels: name,
-                            datasets: [{
-                                barPercentage: 0.5,
-                                barThickness: 6,
-                                maxBarThickness: 8,
-                                minBarLength: 2,
-                                label: html,
-                                data: price,
-                                pointBackgroundColor: 'rgba(255,99,132,0.6)',
-
-
-                                backgroundColor: [
-                                    'rgba(255,99,132,0.6)',
-                                    'rgba(45,162,235,0.6)',
-                                    'rgba(20,206,86,0.6)',
-                                    'rgba(255,99,86,0.6)'
-                                ],
-                                borderWidth: 4,
-                                borderColor: '#777',
-                                hoverBorderWidth: 3,
-                                hoverBorderColor: '#000'
+                var myChart = new Chart(mychart1, {
+                    type: 'bar',
+                    data: {
+                        labels: listname,
+                        datasets: [{
+                            label: '# of Votes',
+                            data: [12, 19, 3, 5, 2, 3],
+                            backgroundColor: [
+                                'rgba(255, 99, 132, 0.2)',
+                                'rgba(54, 162, 235, 0.2)',
+                                'rgba(255, 206, 86, 0.2)',
+                                'rgba(75, 192, 192, 0.2)',
+                                'rgba(153, 102, 255, 0.2)',
+                                'rgba(255, 159, 64, 0.2)'
+                            ],
+                            borderColor: [
+                                'rgba(255, 99, 132, 1)',
+                                'rgba(54, 162, 235, 1)',
+                                'rgba(255, 206, 86, 1)',
+                                'rgba(75, 192, 192, 1)',
+                                'rgba(153, 102, 255, 1)',
+                                'rgba(255, 159, 64, 1)'
+                            ],
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            yAxes: [{
+                                ticks: {
+                                    beginAtZero: true
+                                }
                             }]
-                        },
-                        options: {
-                            scales: {
-                                yAxes: [{
-                                    ticks: {
-                                        // Include a dollar sign in the ticks
-                                        callback: function (value, index, values) {
-                                            return value + " (VND)";
-                                        }
-                                    }
-                                }]
-                            }
                         }
-                    })
+                    }
+                });
 
 
 
@@ -115,9 +123,7 @@
 
 
 
-                })
 
-            
 
 
 

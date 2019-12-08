@@ -1,93 +1,70 @@
 
 
+var Feedback = require("../Model/Feedback.js")
+module.exports = function (app, makeid, db, multer, moment, fs, Upload) {
 
-module.exports=function(app,makeid,db,moment){
-    
-    app.get("/listfeedback",(req,res)=>{
+    app.get("/listfeedback", async (req, res) => {
+        if (req.session.email && req.session.pass) {
+            var ListFeedBack = await Feedback.GetAll()
+            return res.render("Home", {
+                pages: "Feedback_List",
+                username: req.session.username,
+                url: req.session.image,
+                list: ListFeedBack,
 
-        if(req.session.email&&req.session.pass){
+            });
+        } else {
+            res.redirect("/login_admin")
+        }
+
+    });
+    app.get("/addfeedback", async (req, res) => {
+        if (req.session.email && req.session.pass) {
             let list = [];
-            let observer = db.collection('Product').get()
+            let observer = await db.collection('Product').get()
                 .then(snapshot => {
                     snapshot.forEach(doc => {
                         list.push(doc.data())
                     });
-              
+
                     return res.render("Home", {
-                        pages: "Feedback_List",
+                        pages: "Add_FeedBack",
                         username: req.session.username,
-                        url:  req.session.image,
-                        list: list,
-                        
-                    });
+                        url: req.session.image,
+                        listfeedback: list
+                    })
                 })
-        }else{
+        } else {
             res.redirect("/login_admin")
         }
-      
+
+
+    })
+    app.post("/addfeedback",async (req, res) => {
+        var content = req.body.content
+        var email = req.body.email
+        var proID = req.body.nameproduct
+        var rating=req.body.rating
+        if (req.session.email && req.session.pass) {
+            var insert =await Feedback.AddFeedBack(content, email, proID,rating)
+
+            res.redirect("./listfeedback")
+        } else {
+            res.redirect("/login_admin")
+
+        }
     });
-    app.get("/addfeedback",(req,res)=>{
-        if(req.session.email&&req.session.pass){
-        let list = [];
-        
-        let observer = db.collection('Product').get()
-            .then(snapshot => {
-                snapshot.forEach(doc => {
-                    list.push(doc.data())
-                });
-          
-                res.render("Home",{
-                    pages:"Add_FeedBack",
-                    username: req.session.username,
-                    url:  req.session.image,
-                    listfeedback:list
-                })
-        
-                  
-            })
-        }else{
+
+    app.get("/deletefeedback",async (req, res) => {
+        var id = req.query.id
+        if (req.session.email && req.session.pass) {
+
+            var delele = await Feedback.Delete(id)
+            res.redirect("/listfeedback")
+        } else {
             res.redirect("/login_admin")
         }
-         
-       
-    }) 
-app.post("/addfeedback",(req,res)=>{
-        if(req.session.email&&req.session.pass){
-                id=makeid(20)
-                let ts = Date.now();
-                let date_ob = (new Date(ts)).toString();
-                let date = moment(date_ob).format("YYYY-MM-DD  hh:mm:ss")
-    
-                
-                
-    
-                let docRef = db.collection('Feedback').doc(id+'pro'+req.body.nameproduct).set({
-    
-                    content:req.body.content,
-                    date:date,
-                    email:req.body.email,
-                    proID:req.body.nameproduct,
-                    fbID:id+'pro'+req.body.nameproduct
-                });
-                res.redirect("./listfeedback")
-    
-            
-            }else{
-                res.redirect("/login_admin")
-            
-            }
-            });  
-        
-app.get("/deletefeedback", (req, res) => {
-    
-        if(req.session.email&&req.session.pass){
-        var db1 = db.collection('Feedback').doc(req.query.id).delete();
-           
-          res.redirect("/listfeedback")
-        }else{
-            res.redirect("/login_admin")
-        }
-      
-    
-    })   
+
+
+    })
 }

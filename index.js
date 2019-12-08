@@ -153,7 +153,7 @@ require("./Controller/UserController")(app,makeid,db,bcrypt,saltRounds,multer,mo
 require("./Controller/CategoryController")(app,makeid,db,multer,moment,fs,Upload)         
 require("./Controller/ProductController")(app,makeid,db,multer,moment,fs,Upload)         
 require("./Controller/FeedbackController")(app,makeid,db,moment)     
-require("./Controller/ReceiptController")(app,makeid,db,moment)  
+require("./Controller/ReceiptController")(app, makeid, db, multer, moment, fs, Upload) 
 require("./Controller/ChartController")(app,makeid,db,moment)  
 
 

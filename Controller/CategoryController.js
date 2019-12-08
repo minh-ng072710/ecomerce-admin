@@ -1,13 +1,8 @@
+const Category =require("../Model/Category")
 module.exports=function(app,makeid,db,multer,moment,fs,Upload){
-    app.get("/listcats",(req,res)=>{
-        if(req.session.email&&req.session.pass){
-        let list = [];
-        let observer = db.collection('Catgories').get()
-            .then(snapshot => {
-                snapshot.forEach(doc => {
-                    list.push(doc.data())
-                });
-              
+    app.get("/listcats",async (req,res)=>{
+ 
+          let list=  await Category.CategoryModel.getAll()
                 return res.render("Home", {
                     pages: "Categories_List",
                     username: req.session.username,
@@ -17,10 +12,8 @@ module.exports=function(app,makeid,db,multer,moment,fs,Upload){
                 }
                 
                 );
-            }) 
-        }else{
-            res.redirect("/login_admin")
-        }
+         
+       
         }); 
     app.get("/addcats", (req, res) => {
         if(req.session.email&&req.session.pass){

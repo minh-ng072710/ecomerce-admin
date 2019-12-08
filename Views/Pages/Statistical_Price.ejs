@@ -19,7 +19,7 @@
         <canvas id="mychart" width="600" height="250" style=" margin-top: 84px;">
 
         </canvas>
-     
+
     </div>
     <div class="container">
 
@@ -43,12 +43,12 @@
         firebase.initializeApp(firebaseConfig);
         firebase.analytics();
         const db = firebase.firestore(firebase)
-        let list = [];
-        let price = []
-        let name = []
+
         db.collection("Product")
             .onSnapshot(function (doc) {
-
+                let list = [];
+                let price = []
+                let name = []
                 db.collection("Product").get().then(snapshot => {
                     snapshot.forEach(doc => {
                         list.push(doc.data())
@@ -59,7 +59,7 @@
                         name.push(arr.name)
 
                     })
-                     
+
                     let mychart1 = document.getElementById('mychart').getContext('2d')
                     var html = `
                     Thống Kê Doanh Thu
@@ -106,16 +106,16 @@
 
                 })
 
-                  
 
 
 
 
 
 
-                
 
-            })  
+
+
+            })
 
 
 

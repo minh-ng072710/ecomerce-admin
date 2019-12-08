@@ -43,7 +43,7 @@ db.collection("Receipt")
 
 
       })
-      db.collection('Receipt').get()
+      db.collection('Receipt').orderBy('date','desc').get()
         .then(snapshot => {
           snapshot.forEach(doc => {
             var element = doc.data();

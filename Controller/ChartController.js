@@ -15,21 +15,22 @@ app.get("/chart/statistical_favorite",(req,res)=>{
         url:  req.session.image,
     })
 })
-app.get("/chart/statistical_sale",(req,res)=>{
+app.get("/chart/statistical_receipt",(req,res)=>{
     res.render("Home",{
-        pages: "Statistical_Sale",
+        pages: "Statistical_Receipt",
         username: req.session.username,
         url:  req.session.image,
     })
 })
-app.get('/testabc',(req,res)=>{
-    let list = [];
+app.get('/testfavor',(req,res)=>{
+    let list =[]
     let proID = []
     let feedback = []
-    db.collection("Favorite")
+    let listid=[]
+    db.collection("Product")
         .onSnapshot(function (doc) {
 
-            db.collection("Favorite").get().then(snapshot => {
+            db.collection("Product").get().then(snapshot => {
                 snapshot.forEach(doc => {
                     list.push(doc.data())//feedback
 
@@ -38,37 +39,49 @@ app.get('/testabc',(req,res)=>{
                     
                     proID.push(arr.proID)
                 })
-                console.log(proID)
 
                 proID.forEach((arr3)=>{
-                    var db1 = db.collection('Product').where('proID','=',arr3).get()
+                    var db1 = db.collection('Feedback').where('proID','=',arr3).get()
                     .then((snapshot) => {
                         snapshot.forEach((doc) => {
                             // console.log(doc.id, '=>', doc.data());
                             feedback.push(doc.data())
                             // console.log(list)
-                            console.log(feedback)
+                         
 
                         });
-                        
-                        // console.log(feedback)
+                        feedback.forEach((arr5)=>{
+                            listid.push(arr5.proID)
+                        })
+               
+                        console.log(listid)
                 })
-
-                
-     
-
-              
-
-                // console.log(feedback)
-             
-
+               
         
-                
-              
             })
 
             })
 
+})
+})
+app.get('/testreceipt',(req,res)=>{
+    let list =[]
+    let listname=[]
+    let listprice=[]
+    db.collection("Receipt")
+    .onSnapshot(function (doc) {
+        db.collection("Receipt").get().then(snapshot => {
+            snapshot.forEach(doc => {
+                list.push(doc.data())//feedback
+
+            })
+            list.forEach(arr=>{
+                listname.push(arr.status),
+                listprice.push(arr.totalPrice)
+
+            })
+            
+    })
 })
 })
 }
