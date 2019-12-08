@@ -121,6 +121,7 @@ const ProductModel = {
             discount: parseInt(discount),
             endSale: dateend,
             startSale: datestart,
+            isSale:0,
             date: ts,
 
 

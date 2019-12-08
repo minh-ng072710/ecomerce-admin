@@ -28,18 +28,6 @@ const ReceiptModel = {
     getOrderDetail:async function(){
        const Orderdetail = await this.cmpReceiptID()
        const listOrderdetail = []
-       
-        // Orderdetail.forEach(async(ar2) => {
-        //     let Orders = []
-        //     await db.collection('OrderDetail')
-        //     .where('receiptID', '==', ar2).get()
-        //         .then(snapshot => {
-        //             snapshot.forEach(doc => {
-        //                 listOrderdetail.push(doc.data())
-        //             })
-                   
-        //         })
-        // })
         for (var i = 0; i < Orderdetail.length ; i++){
             console.log("Current Item :" + Orderdetail[i])
             await db.collection('OrderDetail')

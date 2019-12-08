@@ -1,5 +1,5 @@
 
-
+scr
    
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.20/datatables.min.css"/>
  
@@ -32,7 +32,7 @@ $('#myDropDown').prepend($('<option></option>').html('Loading...'));
   firebase.analytics();
   const db = firebase.firestore(firebase)
   var HTML = '';
-  let list=[]
+
 
 db.collection("Receipt")
     .onSnapshot(function (doc) {
@@ -48,15 +48,7 @@ db.collection("Receipt")
           snapshot.forEach(doc => {
             var element = doc.data();
             
-            // element.forEach((arr)=>{
-            //   db.collection('OrderDetail').where('receiptID','=',arr.receiptID).get()
-            //   .then(snapshot1=>{
-            //     snapshot.forEach(doc1=>{
-            //       list.push(doc1.proID)
-            //     })
-            //   })
-            // })
-          
+   
             if(element.status=="Chờ xử lý"){
             HTML += `
             <tr role="row" >
@@ -128,8 +120,8 @@ db.collection("Receipt")
                                 <label class="control-label" style="font-weight: bold; margin-left: 16px;font-family: cursive;color: red;font-size: 17px;">Số Sản Phẩm Đã Mua(`+ element.totalPro+ `):<span class="required"></span>
                                 </label>
                                 <div  class="col-md-9 col-sm-9 col-xs-12">
-                                  <textarea rows="4" cols="50" style="width: 400px;color: black;background: antiquewhite;" disabled class="form-control" value="">`+ element.orders+ `</textarea>
-                                  
+                                  <textarea rows="4" cols="50" style="width: 400px;color: black;background: antiquewhite;" disabled class="form-control" value=""><%=arr.proID%></textarea>
+                                  <%}%>
                                   
                                 </div>
                         </div>
