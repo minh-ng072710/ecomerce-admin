@@ -1,7 +1,8 @@
 const Category =require("../Model/Category")
 module.exports=function(app,makeid,db,multer,moment,fs,Upload){
     app.get("/listcats",async (req,res)=>{
- 
+        if(req.session.email&&req.session.pass){
+
           let list=  await Category.CategoryModel.getAll()
                 return res.render("Home", {
                     pages: "Categories_List",
@@ -12,7 +13,10 @@ module.exports=function(app,makeid,db,multer,moment,fs,Upload){
                 }
                 
                 );
-         
+            }else{
+        
+                res.redirect("/login_admin")
+             }
        
         }); 
     app.get("/addcats", (req, res) => {
@@ -35,22 +39,9 @@ module.exports=function(app,makeid,db,multer,moment,fs,Upload){
                     }else if (err) {
                         console.log("An unknown error occurred when uploading." + err);
                       }else{
-                        console.log("Upload is okay");
-                        let ts = Date.now();
-                        let date_ob = (new Date(ts)).toString();
-                        let date = moment(date_ob).format("YYYY-MM-DD  hh:mm:ss")
-            
-                        let docRef = db.collection('Category').doc(req.body.name_en).set({
-            
-                            catID:req.body.name_en,
-                            imgURL:"http://nguyengiaminh.herokuapp.com/Upload/"+req.file.filename,
-                            name:req.body.name_vi,
-                          
-                            time:date,
-            
-            
-                        });
-            
+                     
+                       
+                        Category.CategoryModel.addCat(req.body.name_en,req.body.name_vi,req.file.filename)
                         res.redirect("./listcats")
             
                     }
@@ -58,33 +49,28 @@ module.exports=function(app,makeid,db,multer,moment,fs,Upload){
             }else{
                 res.redirect("/login_admin")
             }
+       
             })
-    app.get("/editcats", (req, res) => {
+    app.get("/editcats",async (req, res) => {
         if(req.session.email&&req.session.pass){
-            let list = [];
-            var db1 = db.collection('Category').where('catID', '=', req.query.id).get()
-                .then((snapshot) => {
-                    snapshot.forEach((doc) => {
-                    
-                        return list.push(doc.data())
-                    
-                    });
+
+         let list =await Category.CategoryModel.editCat(req.query.id)
+                
                     res.render("Home", {
                         pages:"Edit_Cats",
-                        listcats:list,  username: req.session.username,
+                        listcats:list,  
+                        username: req.session.username,
                         url:  req.session.image
                 
                     });
-        
-                });
-            }else{
-                res.redirect("/login_admin")
-            }
-        
+                }else{
+                    res.redirect("/login_admin")
+                }
+           
         
         });    
              
-    app.post("/editcats/:id", (req, res) => {
+    app.post("/editcats/:id",async (req, res) => {
         if(req.session.email&&req.session.pass){
           Upload(req,res,(err)=>{
             if (err instanceof multer.MulterError) {
@@ -95,45 +81,14 @@ module.exports=function(app,makeid,db,multer,moment,fs,Upload){
                 let oldimage=req.body.oldimage
                 if( typeof req.file !== undefined && req.file)
                 {
-                  console.log("Upload is okay");
-                   let ts = Date.now();
-    
-                    let date_ob = (new Date(ts)).toString();
-                    let date = moment(date_ob).format("YYYY-MM-DD  hh:mm:ss")
-                    let cityRef = db.collection('Category').doc(req.params.id);
-                        
-                    let updateMany = cityRef.update({
-               
-         
-                        imgURL:"http://nguyengiaminh.herokuapp.com/Upload/"+req.file.filename, 
-                        name:req.body.name_vi,
+
+                    Category.CategoryModel.editCat_Post_Image(req.params.id,req.file.filename,req.body.name_vi)
                     
-                        
-                        Time:date,
-                        
-                    
-                    });
                   
-                 res.redirect("/listcats")
+                    res.redirect("/listcats")
                 }else{
                     
-                    let ts = Date.now();
-     
-                     let date_ob = (new Date(ts)).toString();
-                     let date = moment(date_ob).format("YYYY-MM-DD  hh:mm:ss")
-                     let cityRef = db.collection('Category').doc(req.params.id);
-                         
-                     let updateMany = cityRef.update({
-                
-          
-                         imgURL:oldimage,
-                         name:req.body.name_vi,
-                     
-                         
-                         Time:date,
-                         
-                     
-                     });
+                    Category.CategoryModel.editCat_Post_NoImage(req.params.id,oldimage,req.body.name_vi)
                    
                 res.redirect("/listcats")
                 }
@@ -143,24 +98,10 @@ module.exports=function(app,makeid,db,multer,moment,fs,Upload){
         res.redirect("/login_admin")
     }
             });
-    app.get("/deletecats", (req, res) => {
+    app.get("/deletecats", async (req, res) => {
         if(req.session.email&&req.session.pass){
-        if(req.query.url!=""){
-            const path = 'Public/Upload/' + req.query.url;
-            try {
-                if (fs.existsSync(path)) {
-                    fs.unlinkSync(path);
-                    var db1 = db.collection('Category').doc(req.query.id).delete();
-                }else{
-                  
-                    var db1 = db.collection('Category').doc(req.query.id).delete();
-        
-                }
-              } catch(err) {
-                console.error("Lỗi: "+err)
-              }
+            await Category.CategoryModel.deletCat(req.query.id)
             res.redirect("/listcats")
-        }
     }else{
         res.redirect("/login_admin")
     }
