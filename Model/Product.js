@@ -20,7 +20,7 @@ const ProductModel = {
                 });
             })
     },
-    AddProduct: async function (catID, description, name, price, quantity, volumetric, image) {
+    AddProduct:function (catID, description, name, price, quantity, volumetric, image) {
         var id = makeid(20)
         let ts = Date.now();
 
