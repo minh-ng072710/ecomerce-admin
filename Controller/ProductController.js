@@ -38,28 +38,22 @@ module.exports = function (app, makeid, db, multer, moment, fs, Upload) {
     })
     app.post("/addproduct",async (req, res) => {
       if (req.session.email && req.session.pass) {
-        await Upload(req, res, (err) => {
+        Upload(req, res, (err) => {
                 if (err instanceof multer.MulterError) {
                     console.log("A Multer error occurred when uploading.");
                 } else if (err) {
                     console.log("An unknown error occurred when uploading." + err);
                 } else {
-                    var catID = req.body.category
-                    var description = req.body.description
-                    var name = req.body.name
-                    var price = req.body.price
-                    var quantity = req.body.quantity
-                    var volumetric = req.body.volumtric
-                    var image = req.file.filename
-
+                  
                     Product.ProductModel.AddProduct(
-                        catID, 
-                        description,
-                         name, 
-                         price, 
-                         quantity, 
-                         volumetric, 
-                         image)
+                        req.body.category, 
+                        req.body.description,
+                        req.body.name, 
+                        req.body.price, 
+                        req.body.quantity, 
+                        req.body.volumtric, 
+                        req.file.filename
+)
                 }
             })
 
