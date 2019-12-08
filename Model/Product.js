@@ -59,8 +59,8 @@ const ProductModel = {
             name: name,
             price: parseInt(price),
 
-            quantity: quantity,
-            volumetric: volumetric,
+            quantity:parseInt(quantity),
+            volumetric:parseInt(volumetric),
 
             date: ts
 
@@ -77,10 +77,11 @@ const ProductModel = {
             description: description,
             imgURL: image,
             name: name,
-            price: price,
+            price: parseInt(price),
 
-            quantity: parseInt(quantity),
-            volumetric: parseInt(volumetric),
+            quantity:parseInt(quantity),
+            volumetric:parseInt(volumetric),
+
 
             date: ts
 

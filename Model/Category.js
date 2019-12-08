@@ -30,7 +30,7 @@ const CategoryModel={
             catID:name_en,
             imgURL:"http://nguyengiaminh.herokuapp.com/Upload/"+image,
             name:name_vi,
-          
+            
             time:date,
 
 

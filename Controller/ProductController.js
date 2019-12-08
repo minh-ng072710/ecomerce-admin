@@ -7,22 +7,16 @@ module.exports = function (app, makeid, db, multer, moment, fs, Upload) {
         // let date_ob = (new Date(ts)).toString();
         // let date = moment(date_ob).format("YYYY-MM-DD 00:00:00")
         // console.log(date)
-        
-
-        if (req.session.email && req.session.pass) {
+    if (req.session.email && req.session.pass) {
             var listproduct = await Product.ProductModel.GetALL()
-
-
-            return res.render("Home", {
+ return res.render("Home", {
                 pages: "Product_List",
                 username: req.session.username,
                 url: req.session.image,
                 list: listproduct,
+});
 
-            });
-
-
-        } else {
+} else {
             res.redirect("/login_admin")
         }
     })
@@ -53,12 +47,19 @@ module.exports = function (app, makeid, db, multer, moment, fs, Upload) {
                     var catID = req.body.category
                     var description = req.body.description
                     var name = req.body.name
-                    var price = parseInt(req.body.price)
-                    var quantity = parseInt(req.body.quantity)
-                    var volumetric = parseInt(req.body.volumtric)
+                    var price = req.body.price
+                    var quantity = req.body.quantity
+                    var volumetric = req.body.volumtric
                     var image = req.file.filename
 
-                    var insert = Product.ProductModel.AddProduct(catID, description, name, price, quantity, volumetric, image)
+                    Product.ProductModel.AddProduct(
+                        catID, 
+                        description,
+                         name, 
+                         price, 
+                         quantity, 
+                         volumetric, 
+                         image)
                 }
             })
 
@@ -148,6 +149,7 @@ module.exports = function (app, makeid, db, multer, moment, fs, Upload) {
 
     });
     app.get("/editproduct2", async (req, res) => {
+        if (req.session.email && req.session.pass) {
         let listcategory = await Product.ProductModel.listcategory()
         console.log(listcategory)
         let newlist = await Product.ProductModel.getProID(req.query.id)
@@ -161,7 +163,9 @@ module.exports = function (app, makeid, db, multer, moment, fs, Upload) {
 
         });
 
-
+    } else {
+        res.redirect("/login_admin")
+    }
 
     })
     
