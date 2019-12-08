@@ -35,27 +35,10 @@ module.exports = function (app, makeid, db, multer, moment, fs, Upload) {
 
     })
 
-
-    app.post("/addfeedback", async (req, res) => {
-
-        var content = req.body.content
-        var email = req.body.email
-        var proID = req.body.nameproduct
-        var rating = req.body.rating
-        if (req.session.email && req.session.pass) {
-            var insert = await Feedback.AddFeedBack(content, email, proID, rating)
-
-            res.redirect("./listfeedback")
-        } else {
-            res.redirect("/login_admin")
-
-        }
-    });
-
     app.get("/deleteorder", async (req, res) => {
 
         await Receipt.ReceiptModel.delete(req.query.id)
-        res.redirect("/listfeedback")
+        res.redirect("/listorder")
 
     })
 }
