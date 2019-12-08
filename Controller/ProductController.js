@@ -7,16 +7,16 @@ module.exports = function (app, makeid, db, multer, moment, fs, Upload) {
         // let date_ob = (new Date(ts)).toString();
         // let date = moment(date_ob).format("YYYY-MM-DD 00:00:00")
         // console.log(date)
-    if (req.session.email && req.session.pass) {
+        if (req.session.email && req.session.pass) {
             var listproduct = await Product.ProductModel.GetALL()
- return res.render("Home", {
+            return res.render("Home", {
                 pages: "Product_List",
                 username: req.session.username,
                 url: req.session.image,
                 list: listproduct,
-});
+            });
 
-} else {
+        } else {
             res.redirect("/login_admin")
         }
     })
@@ -36,29 +36,30 @@ module.exports = function (app, makeid, db, multer, moment, fs, Upload) {
         }
 
     })
-    app.post("/addproduct",(req, res) => {
-      if (req.session.email && req.session.pass) {
-        Upload(req, res, (err) => {
+    app.post("/addproduct", (req, res) => {
+        if (req.session.email && req.session.pass) {
+            Upload(req, res, (err) => {
                 if (err instanceof multer.MulterError) {
                     console.log("A Multer error occurred when uploading.");
                 } else if (err) {
                     console.log("An unknown error occurred when uploading." + err);
                 } else {
-                  
+
                     Product.ProductModel.AddProduct(
-                        req.body.category, 
+                        req.body.category,
                         req.body.description,
-                        req.body.name, 
-                        req.body.price, 
-                        req.body.quantity, 
-                        req.body.volumtric, 
+                        req.body.name,
+                        req.body.price,
+                        req.body.quantity,
+                        req.body.volumtric,
                         req.file.filename
-)
+                    )
+                    res.redirect("./listproduct")
                 }
             })
 
 
-            res.redirect("./listproduct")
+
         } else {
             res.redirect("/login_admin")
 
@@ -102,7 +103,7 @@ module.exports = function (app, makeid, db, multer, moment, fs, Upload) {
             res.redirect("/login_admin")
         }
     });
-    
+
 
     app.get("/editproduct1", async (req, res) => {
         if (req.session.email && req.session.pass) {
@@ -144,25 +145,25 @@ module.exports = function (app, makeid, db, multer, moment, fs, Upload) {
     });
     app.get("/editproduct2", async (req, res) => {
         if (req.session.email && req.session.pass) {
-        let listcategory = await Product.ProductModel.listcategory()
-        console.log(listcategory)
-        let newlist = await Product.ProductModel.getProID(req.query.id)
+            let listcategory = await Product.ProductModel.listcategory()
+            console.log(listcategory)
+            let newlist = await Product.ProductModel.getProID(req.query.id)
 
-        res.render("Home", {
-            pages: "Edit_Product2",
-            username: req.session.username,
-            url: req.session.image,
-            listcats1: listcategory,
-            listcats: newlist,
+            res.render("Home", {
+                pages: "Edit_Product2",
+                username: req.session.username,
+                url: req.session.image,
+                listcats1: listcategory,
+                listcats: newlist,
 
-        });
+            });
 
-    } else {
-        res.redirect("/login_admin")
-    }
+        } else {
+            res.redirect("/login_admin")
+        }
 
     })
-    
+
     app.post("/editproduct/:id", async (req, res) => {
         let ts = Date.now();
         if (req.session.email && req.session.pass) {
@@ -223,7 +224,7 @@ module.exports = function (app, makeid, db, multer, moment, fs, Upload) {
 
         res.redirect("/listproduct")
     })
-    app.post("/deletesale/:id",async (req, res) => {
+    app.post("/deletesale/:id", async (req, res) => {
 
         await Product.ProductModel.DeleteSale(req.params.id)
         res.redirect("/listproduct")
@@ -235,9 +236,9 @@ module.exports = function (app, makeid, db, multer, moment, fs, Upload) {
 
     app.get("/deleteproduct", async (req, res) => {
         if (req.session.email && req.session.pass) {
-                await Product.ProductModel.DeleteAll(req.query.id,req.query.url)
-                res.redirect("/listproduct")
-            
+            await Product.ProductModel.DeleteAll(req.query.id, req.query.url)
+            res.redirect("/listproduct")
+
         } else {
             res.redirect("/login_admin")
         }
