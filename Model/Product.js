@@ -20,11 +20,11 @@ const ProductModel = {
                 });
             })
     },
-    AddProduct:function (catID, description, name, price, quantity, volumetric, image) {
+    AddProduct:async function (catID, description, name, price, quantity, volumetric, image) {
         var id = makeid(20)
         let ts = Date.now();
 
-        let docRef = db.collection('Product').doc(id).set({
+       await db.collection('Product').doc(id).set({
 
             catID: catID,
             description: description,

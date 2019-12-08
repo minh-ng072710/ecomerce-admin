@@ -36,7 +36,7 @@ module.exports = function (app, makeid, db, multer, moment, fs, Upload) {
         }
 
     })
-    app.post("/addproduct",async (req, res) => {
+    app.post("/addproduct",(req, res) => {
       if (req.session.email && req.session.pass) {
         Upload(req, res, (err) => {
                 if (err instanceof multer.MulterError) {
