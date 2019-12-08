@@ -328,14 +328,18 @@
     // If the count down is over, write some text 
     if (distance < 0) {
       let cityRef = db.collection('Product').doc("<%=listcats.proID%>");
-      let updateMany = cityRef.update({
+     let updateMany = cityRef.update({
         isSale: 1,
         date:Date.now(),
+       
       })
+
       clearInterval(x);
-      alert("Đến Thời Gian Khuyến Mãi")
+   
+      
       var countDownDate1 = new Date("<%= full_timeend%>").getTime();
 
+   
 
       var y = setInterval(function () {
         var now = new Date().getTime();
@@ -349,6 +353,7 @@
         document.getElementById("demo").innerHTML = "Còn " + days1 + " ngày " + hours1 + " tiếng "
           + minutes1 + " phút " + seconds1 + " giây";
         if (distance1 < 0) {
+      
           clearInterval(y);
           document.getElementById("demo").innerHTML = ""
           alert("Ngưng Khuyến Mãi");
