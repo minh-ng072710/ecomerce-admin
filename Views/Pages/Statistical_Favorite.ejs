@@ -11,6 +11,7 @@
 
     <script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-analytics.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-firestore.js"></script>
+
     <title>test chart</title>
 </head>
 
@@ -39,71 +40,80 @@
         firebase.initializeApp(firebaseConfig);
         firebase.analytics();
         const db = firebase.firestore(firebase)
-        // let list = []
-        let proID = []
-        let feedback = []
-        let listname = []
-        db.collection("Product")
-            .onSnapshot(function (doc) {
 
-                db.collection("Product").get().then(snapshot => {
+
+        db.collection("Feedback")
+            .onSnapshot(async function (doc) {
+                let listfeedback = []
+                await db.collection("Feedback").get().then(snapshot => {
                     snapshot.forEach(doc => {
-                        list.push(doc.data())//feedback
+                        listfeedback.push(doc.data())//feedback
 
                     })
-                    list.forEach((arr) => {
-
-                        proID.push(arr.proID)
-                    })
-
-                    proID.forEach((arr3) => {
-                        var db1 = db.collection('Feedback').where('proID', '=', arr3).get()
-                            .then((snapshot) => {
-                                snapshot.forEach((doc) => {
-                                    // console.log(doc.id, '=>', doc.data());
-                                    feedback.push(doc.data())
-                                    // console.log(list)
-
-
-                                });
-                                feedback.forEach((arrname) => {
-                                    listname.push(arrname.proID)
-                                })                             // console.log(feedback)
-                            })
-                    })
-
                 })
-            })
+                let listrating = []
+                let lisproid = []
+                await listfeedback.forEach((arr) => {
+                    listrating.push(arr.rating)
+                    lisproid.push(arr.proID)
+                })
 
 
-                let mychart1 = document.getElementById('mychart').getContext('2d')
-                var html = `
-        Thống Kê Doanh Thu
-        `
-                var myChart = new Chart(mychart1, {
-                    type: 'bar',
+                let listproduct = async function () {
+                    const listprobyID = []
+                    for (var i = 0; i < listproID.length; i++) {
+                        await db.collection('Product')
+                            .where('proID', '==', listproID[i])
+                            .get().then(snapshot => {
+                                if (snapshot.empty) {
+                                    console.log("No document")
+                                }
+                                snapshot.forEach(doc => {
+                                    this.listprobyID = []
+                                    listprobyID.push(doc.data())
+                                })
+                                return;
+
+                            })
+
+                    }
+                    return listprobyID
+
+                }
+
+            
+
+                var ctx = document.getElementById('mychart').getContext('2d');
+                var myChart = new Chart(ctx, {
+                    type: 'line',
                     data: {
-                        labels: listname,
+                        labels: lisproid,
                         datasets: [{
-                            label: '# of Votes',
-                            data: [12, 19, 3, 5, 2, 3],
+                            barPercentage: 0.5,
+                            barThickness: 6,
+                            maxBarThickness: 8,
+                            minBarLength: 2,
+                            label: 'THỐNG KÊ THEO LƯỢT THÍCH',
+                            data: listrating,
+                            pointBackgroundColor: 'rgba(255,99,132,0.6)',
+
                             backgroundColor: [
-                                'rgba(255, 99, 132, 0.2)',
-                                'rgba(54, 162, 235, 0.2)',
-                                'rgba(255, 206, 86, 0.2)',
-                                'rgba(75, 192, 192, 0.2)',
-                                'rgba(153, 102, 255, 0.2)',
-                                'rgba(255, 159, 64, 0.2)'
+                                'rgba(255,99,132,0.6)',
+                                'rgba(45,162,235,0.6)',
+                                'rgba(20,206,86,0.6)',
+                                'rgba(255,99,86,0.6)'
                             ],
                             borderColor: [
                                 'rgba(255, 99, 132, 1)',
                                 'rgba(54, 162, 235, 1)',
                                 'rgba(255, 206, 86, 1)',
                                 'rgba(75, 192, 192, 1)',
-                                'rgba(153, 102, 255, 1)',
-                                'rgba(255, 159, 64, 1)'
+
                             ],
-                            borderWidth: 1
+                            borderWidth: 4,
+                            borderColor: '#777',
+                            hoverBorderWidth: 3,
+                            hoverBorderColor: '#000'
                         }]
                     },
                     options: {
@@ -116,16 +126,6 @@
                         }
                     }
                 });
-
-
-
-
-
-
-
-
-
-
-
+            })
     </script>
     <script type="text/javascript" src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>

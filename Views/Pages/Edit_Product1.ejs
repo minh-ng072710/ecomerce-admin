@@ -2,20 +2,20 @@
   .form-group{margin-bottom: 2rem }
   .form-control{height: 48px !important;}
 
-   #demo{
+  #demo {
     background: aqua;
-    width: 383px;
-    font-size: 20px;
-    border-radius: 11px;
+    width: 503px;
+    font-size: 18px;
+    border-radius: 66px;
     color: red;
     font-weight: bold;
-    padding-left: 12px;
-    padding-top: 7px;
+    padding-left: 32px;
+    padding-top: 12px;
     /* padding-bottom: 23px; */
-    height: 48px;
-    margin-left: 58px;
+    height: 49px;
+    margin-left: -18px;
 
-                  }
+  }
   p {
     margin-left: 172px;
     color:yellow;
@@ -57,8 +57,7 @@
                                   <label class="control-label">Ngày Bắt Đầu Khuyến Mãi: : <span class="required"></span>
                                   </label>
                                   <div class="col-md-6 col-sm-6 col-xs-12">
-                                      <input type="datetime-local" id="startsale" required="required"  style="width: 450px;" name="startsale_old" class="form-control" value="<%=time_start%>T<%=hour_start%>" disabled>
-                                      <input type="datetime-local" id="startsale"  style="width: 450px;" name="startsale" class="form-control" >
+                                      <input type="datetime-local" id="startsale" required="required"  style="width: 450px;" name="startsale" class="form-control" value="<%=time_start%>T<%=hour_start%>" disabled>
 
                                     </div>
                           </div>
@@ -68,8 +67,7 @@
                                   </label>
                                   <div class="col-md-6 col-sm-6 col-xs-12">
                                     
-                                    <input type="datetime-local" id="endsale_old" required="required"  style="width: 450px;" name="endsale_old" class="form-control" value="<%=time_end%>T<%=hour_end%>" disabled>
-                                    <input type="datetime-local" id="endsale"  style="width: 450px;" name="endsale" class="form-control">
+                                    <input type="datetime-local" id="endsale" required="required"  style="width: 450px;" name="endsale_old" class="form-control" value="<%=time_end%>T<%=hour_end%>" disabled>
 
                                   </div>
                           </div>
@@ -83,17 +81,18 @@
                                       <div class="col-md-6 col-sm-6 col-xs-12">
                                   <select class="form-control" name="discount_percent" id="discount_percent" style="width: 450px;">
                                          
-                                          <option  value="<%=listcats.proID%>" selected><%=listcats.discount%></option>
-                                          <option value="0">0</option>
-                                          <option value="5">5</option>
-                                          <option value="5">10</option>
-                                          <option value="5">15</option>
-                                          <option value="15">20</option>
-                                          <option value="25">25</option>
-                                          <option value="50">50</option>
-                                          <option value="5">60</option>
-                                          <option value="5">70</option>
-                                          <option value="5">99</option>
+                                    <option value="<%=listcats.discount%>" selected><%=listcats.discount%></option>
+                                    <option value="0">0</option>
+              
+                                    <option value="5">5</option>
+                                    <option value="10">10</option>
+                                    <option value="15">15</option>
+                                    <option value="20">20</option>
+                                    <option value="25">25</option>
+                                    <option value="50">50</option>
+                                    <option value="60">60</option>
+                                    <option value="70">70</option>
+                                    <option value="99">99</option>
                                   
                                         
                                         </select>
@@ -305,7 +304,7 @@ var seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
 // Output the result in an element with id="demo"
 document.getElementById("demo").innerHTML ="Còn "+ days + " ngày"+" "+ hours + " tiếng"+" "
-+ minutes + " phút"+" " + seconds + " giây"+"</br>"
++ minutes + " phút"+" " + seconds + " giây hết khuyến mãi"+"</br>"
 
 
 // If the count down is over, write some text 
@@ -321,7 +320,6 @@ if (distance < 0) {
   clearInterval(x);
  
 }
-alert("Đến Thời Gian Khuyến Mãi")
 }, 1000);
 
 </script>       

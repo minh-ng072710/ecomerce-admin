@@ -16,7 +16,7 @@ const ReceiptModel = {
 
     cmpReceiptID : async function (){
         const listreceiptID = []
-        let cpmReceipt = await this.getAll()
+        let cpmReceipt = await this.getAll()//lisst receipt
         cpmReceipt.forEach((arr) => {
             listreceiptID.push(arr.receiptID)
         })
@@ -26,7 +26,7 @@ const ReceiptModel = {
 
 
     getOrderDetail:async function(){
-       const Orderdetail = await this.cmpReceiptID()
+       const Orderdetail = await this.cmpReceiptID()//receipt id
        const listOrderdetail = []
         for (var i = 0; i < Orderdetail.length ; i++){
             console.log("Current Item :" + Orderdetail[i])

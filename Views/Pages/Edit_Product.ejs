@@ -9,16 +9,16 @@
 
   #demo {
     background: aqua;
-    width: 383px;
-    font-size: 20px;
-    border-radius: 11px;
+    width: 503px;
+    font-size: 18px;
+    border-radius: 66px;
     color: red;
     font-weight: bold;
-    padding-left: 12px;
-    padding-top: 7px;
+    padding-left: 32px;
+    padding-top: 12px;
     /* padding-bottom: 23px; */
-    height: 48px;
-    margin-left: 58px;
+    height: 49px;
+    margin-left: -18px;
 
   }
 
@@ -63,9 +63,7 @@
                 </label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
                   <input type="datetime-local" id="startsale" required="required" style="width: 450px;"
-                    name="startsale_old" class="form-control" value="<%=time_start%>T<%=hour_start%>" disabled>
-                  <input type="datetime-local" id="startsale" style="width: 450px;" name="startsale" class="form-control">
-
+                    name="startsale" class="form-control" value="<%=time_start%>T<%=hour_start%>" >
                 </div>
               </div>
 
@@ -75,8 +73,7 @@
                 <div class="col-md-6 col-sm-6 col-xs-12">
 
                   <input type="datetime-local" id="endsale_old" required="required" style="width: 450px;"
-                    name="endsale_old" class="form-control" value="<%=time_end%>T<%=hour_end%>" disabled>
-                  <input type="datetime-local" id="endsale" style="width: 450px;" name="endsale" class="form-control">
+                    name="endsale" class="form-control" value="<%=time_end%>T<%=hour_end%>">
 
                 </div>
               </div>
@@ -90,18 +87,18 @@
                   <div class="col-md-6 col-sm-6 col-xs-12">
                     <select class="form-control" name="discount_percent" id="discount_percent" style="width: 450px;">
 
-                      <option value="<%=listcats.proID%>" selected><%=listcats.discount%></option>
+                      <option value="<%=listcats.discount%>" selected><%=listcats.discount%></option>
                       <option value="0">0</option>
 
                       <option value="5">5</option>
-                      <option value="5">10</option>
-                      <option value="5">15</option>
-                      <option value="15">20</option>
+                      <option value="10">10</option>
+                      <option value="15">15</option>
+                      <option value="20">20</option>
                       <option value="25">25</option>
                       <option value="50">50</option>
-                      <option value="5">60</option>
-                      <option value="5">70</option>
-                      <option value="5">99</option>
+                      <option value="60">60</option>
+                      <option value="70">70</option>
+                      <option value="99">99</option>
               
 
                     </select>
@@ -322,7 +319,7 @@
 
     // Output the result in an element with id="demo"
     document.getElementById("demo").innerHTML = "Còn " + days + " ngày" + " " + hours + " tiếng" + " "
-      + minutes + " phút" + " " + seconds + " giây" + "</br>"
+      + minutes + " phút" + " " + seconds + " giây đến khuyến mãi" + "</br>"
 
       let ts = Date.now();
     // If the count down is over, write some text 
@@ -351,7 +348,7 @@
         var seconds1 = Math.floor((distance1 % (1000 * 60)) / 1000);
 
         document.getElementById("demo").innerHTML = "Còn " + days1 + " ngày " + hours1 + " tiếng "
-          + minutes1 + " phút " + seconds1 + " giây";
+          + minutes1 + " phút " + seconds1 + " giây hết khuyến mãi";
         if (distance1 < 0) {
       
           clearInterval(y);
