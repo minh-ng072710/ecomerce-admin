@@ -65,15 +65,15 @@ const ReceiptModel = {
      return listbyid
 
     },
-    editOrderPost:async function(id){
+    editOrderPost:async function(id,statuss,address){
         let ts = Date.now();
         let date_ob = (new Date(ts)).toString();
         let date = moment(date_ob).format("YYYY-MM-DD  HH:mm:ss")
 
         let docRef = db.collection('Receipt').doc(id)
         let updateMany = docRef.update({
-            status:req.body.statuss,
-            deliveryAdd:req.body.address,
+            status:statuss,
+            deliveryAdd:address,
             date:date
 
         });
