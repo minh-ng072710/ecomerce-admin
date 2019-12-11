@@ -12,11 +12,18 @@
 </head>
 <body>
     <div class="container" style="margin-top: 35px;">
-        <h4>Select Rows</h4>
+       
+            <center>
+                <div class="x_title">
+                        <h2 style="color:#606445;font-family: 'PT Serif', serif;font-weight: 900;margin-left:10px;margin-top: 14px;">KẾT QUẢ TÌM KIẾM</h2>
+                        <div class="clearfix"></div>
+                      </div>
+            </center>
+              
         <div class="form-group">
             <select name="state" id="maxRows" class="form-control" style="width: 150px;">
-                <option value="5000">Show ALl</option>
-                <option value="5">5</option>
+                <option value="5000">Hiển thị tất cả</option>
+                <option value="1">5</option>
                 <option value="10">10</option>
                 <option value="15">15</option>
                 <option value="20">20</option>
@@ -25,58 +32,75 @@
                 <option value="100">100</option>
             </select>
         </div>
-        <table id="mytable" class="table table-bordered table-striped">
+        <table id="mytable" class="table table-srtriped table-bordered table-hover">
             <thead>
-                <th>Ảnh Đại Diện</th>
-                <th>TOKEN_ID</th>
-                <th>Tên Đăng Nhập</th>
-                <th>Số Điện Thoại</th>
-                <th>Email</th>
-                <th>Ngày Đăng Kí</th>
-                <th>Sửa/Xóa</th>
+                <tr role="row" style="background-color: lightslategrey; color: lightyellow;">
+                    <th class="pd-l-20 tx-center" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1"
+                      aria-label="Position: activate to sort column ascending" style="width:120px;">
+                    ẢNH SẢN PHẨM
+                    </th>
+                
+                
+                    <th tabindex="0" aria-controls="datatable" rowspan="1" colspan="1"
+                      aria-label="Name: activate to sort column descending" style="width:200px ;text-align: center;">LOẠI SẢN PHẨM</th>
+                    <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1"
+                      aria-label="Position: activate to sort column ascending" style="width:150px ;text-align: center;">TÊN SẢN PHẨM</th>
+                      <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1"
+                      aria-label="Position: activate to sort column ascending" style="width:700px ;text-align: center;">MÔ TẢ</th>
+                    <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1"
+                      aria-label="Salary: activate to sort column ascending" style="width: 130px;text-align: center">SỐ LƯỢNG
+                    </th>
+                    <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1"
+                    aria-label="Position: activate to sort column ascending" style="width:150px ;text-align: center;">GIẢM GIÁ(%)</th>
+                   
+                    <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1"
+                    aria-label="Position: activate to sort column ascending" style="width:150px ;text-align: center;">DUNG TÍCH</th>
+                    
+                  
+                  </tr>
             </thead>
             <tbody>
              
                     <%list.forEach((arr)=>{%>
                                       
 
-                                       
                         <tr role="row" >
                          
                               <th class="sorting_1">  
                                 <center>
-                                    <img src="./Upload/<%=arr.url%>" class="wd-70 rounded-circle" alt="Image">
+                                    <img src="<%=arr.imgURL%>" class="wd-70 rounded-circle" alt="Image">
                                 </center> 
                                 </th>
-                                <td style="width: 130px;text-align: center;padding-top: 33px;color: black;"><%=arr.name%></td>
+                                <td style="width: 130px;text-align: center;padding-top: 33px;color: black;"><%=arr.catID%></td>
                               
-                                <td style="width: 130px;text-align: center;padding-top: 33px;color: black;" ><%=arr.AcFullName%></td>
-                                <td style="width: 130px;text-align: center;padding-top: 33px;color: black;"><%=arr.Phone%></td>
-                                <td style="width: 130px;text-align: center;padding-top: 33px;color: black;"><%=arr.Email%></td>
-                                <td style="width: 130px;text-align: center;padding-top: 33px;color: black;"><%=arr.Time%></td>
-                                <td style="width: 180px;text-align: center;padding-top: 33px">
-                                  <a href="./edituser/?id=<%=arr.id%>"><button class="btn btn-success" type="reset">Sửa</button></a>
-                                  <a href="./delete/?id=<%=arr.id%>&&url=<%=arr.url%>"><button type="button" class="btn btn-danger">Xóa</button></a>
-                              </td>
+                                <td style="width: 130px;text-align: center;padding-top: 33px;color: black;" ><%=arr.name%></td>
+                                <td style="width: 130px;text-align: center;padding-top: 33px;color: black;"><%=arr.description%></td>
+                                <td style="width: 130px;text-align: center;padding-top: 33px;color: black;"><%=arr.quantity%></td>
+
+                                <td style="width: 130px;text-align: center;padding-top: 33px;color: black;"><%=arr.discount%></td>
+
+                                <td style="width: 130px;text-align: center;padding-top: 33px;color: black;"><%=arr.volumetric%></td>
+
+      
                             </tr>
-                            
                         
                          <%})%>   
             </tbody>
         </table>
-        <div>
-                <center>
-                  <a href="./adduser"><button class="btn btn-primary" type="reset">Thêm Mới</button></a>
-                </center>
-    
-              </div>
+        
         <div class="pagination-container">
             <nav>
-                <ul class="pagination">
+                <ul class="pagination" style="margin-left: 1061px;">
                 
                 </ul>
             </nav>
         </div>
+        <div>
+                <center>
+                  <a href="./listproduct"><button class="btn btn-primary" type="reset">Quay Về Danh Sách</button></a>
+                </center>
+    
+              </div>
     </div>
   
     <script>
@@ -98,7 +122,7 @@
           if(totalRows > maxRows){
               var pagenum=Math.ceil(totalRows/maxRows)
               for(var i=1;i<=pagenum;){
-                $('.pagination').append('<li data-page="'+i+'">\<span>'+ i++ +'<span class="sr-only">(current)</span></span>\</li>').show()
+                $('.pagination').append('<li style="border:solid 3px cornflowerblue;width:45px;height:30px;text-align:center;background-color: #E7E7E3;cursor: pointer;" data-page="'+i+'">\<span>'+ i++ +'<span class="sr-only">(current)</span></span>\</li>').show()
               }
               
           }

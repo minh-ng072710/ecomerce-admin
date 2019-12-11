@@ -51,59 +51,66 @@
 
                     })
                 })
+                console.log(listfeedback)
                 let listrating = []
                 let lisproid = []
                 await listfeedback.forEach((arr) => {
                     listrating.push(arr.rating)
                     lisproid.push(arr.proID)
                 })
+                let count=0;
+                let listrating_new=[]
+                let lisproid_new=[]
+                for(let i=0;i<=listfeedback.length;i++){
+                    if(listfeedback[i].proID==listfeedback[i+1].proID){
+                        count=count+listfeedback[i].rating
+                       
 
-
-                let listproduct = async function () {
-                    const listprobyID = []
-                    for (var i = 0; i < listproID.length; i++) {
-                        await db.collection('Product')
-                            .where('proID', '==', listproID[i])
-                            .get().then(snapshot => {
-                                if (snapshot.empty) {
-                                    console.log("No document")
-                                }
-                                snapshot.forEach(doc => {
-                                    this.listprobyID = []
-                                    listprobyID.push(doc.data())
-                                })
-                                return;
-
-                            })
-
+                    }else{
+                        listrating_new.push({
+                            id:listfeedback[i].proID,
+                            rating:count
+                        })
+                   
                     }
-                    return listprobyID
-
                 }
+                console.log(listrating_new)
+
+
+           
 
             
 
                 var ctx = document.getElementById('mychart').getContext('2d');
                 var myChart = new Chart(ctx, {
-                    type: 'line',
+                    type: 'bar',
                     data: {
-                        labels: lisproid,
+                        labels: listrating_new.id,
                         datasets: [{
                             barPercentage: 0.5,
                             barThickness: 6,
                             maxBarThickness: 8,
                             minBarLength: 2,
                             label: 'THỐNG KÊ THEO LƯỢT THÍCH',
-                            data: listrating,
+                            data: listrating_new.rating,
                             pointBackgroundColor: 'rgba(255,99,132,0.6)',
 
                             backgroundColor: [
                                 'rgba(255,99,132,0.6)',
                                 'rgba(45,162,235,0.6)',
                                 'rgba(20,206,86,0.6)',
+                                'rgba(255,99,86,0.6)',
+                                'rgba(255,99,132,0.6)',
+                                'rgba(45,162,235,0.6)',
+                                'rgba(20,206,86,0.6)',
                                 'rgba(255,99,86,0.6)'
+
                             ],
                             borderColor: [
+                                'rgba(255, 99, 132, 1)',
+                                'rgba(54, 162, 235, 1)',
+                                'rgba(255, 206, 86, 1)',
+                                'rgba(75, 192, 192, 1)',
                                 'rgba(255, 99, 132, 1)',
                                 'rgba(54, 162, 235, 1)',
                                 'rgba(255, 206, 86, 1)',
