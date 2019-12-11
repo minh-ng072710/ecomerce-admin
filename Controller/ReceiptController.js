@@ -27,20 +27,20 @@ module.exports = function (app, makeid, db, multer, moment, fs, Upload) {
 
 
         });
-        app.post("/editorder/:id", async (req, res) => {
-            await Receipt.ReceiptModel.editOrderPost(
-                req.params.id,
-                req.body.statuss,
-                req.body.address
-                
-                )
-            res.redirect("/listorder")
-        })
-        app.get("/deleteorder",async(req,res)=>{
-            await Receipt.ReceiptModel.delete(req.query.id)
-            res.redirect("/listorder")
-        })
-        
-    
-})
+    })
+    app.post("/editorder/:id", async (req, res) => {
+        await Receipt.ReceiptModel.editOrderPost(
+            req.params.id,
+            req.body.statuss,
+            req.body.address
+
+        )
+        res.redirect("/listorder")
+    })
+    app.get("/deleteorder", async (req, res) => {
+        await Receipt.ReceiptModel.delete(req.query.id)
+        res.redirect("/listorder")
+    })
+
+
 }
