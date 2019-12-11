@@ -308,7 +308,7 @@ document.getElementById("demo").innerHTML ="Còn "+ days + " ngày"+" "+ hours +
 
 
 // If the count down is over, write some text 
-if (distance < 0) {
+if (distance < 1) {
   let cityRef = db.collection('Product').doc("<%=listcats.proID%>");
   let updateMany = cityRef.update({
   isSale:0,

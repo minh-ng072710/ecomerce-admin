@@ -36,6 +36,10 @@ module.exports = function (app, makeid, db, multer, moment, fs, Upload) {
                 )
             res.redirect("/listorder")
         })
+        app.get("/deleteorder",async(req,res)=>{
+            await Receipt.ReceiptModel.delete(req.query.id)
+            res.redirect("/listorder")
+        })
         
     
 })
