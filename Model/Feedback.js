@@ -55,6 +55,9 @@ var FeedbackModel = {
             rating:rating
         });
     },
+    getFeedbackByID:async function(){
+
+    },
 
     Delete: function (id) {
         var db1 = db.collection('Feedback').doc(id).delete();

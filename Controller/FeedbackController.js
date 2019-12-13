@@ -46,7 +46,9 @@ module.exports = function (app, makeid, db, multer, moment, fs, Upload) {
             res.redirect("/login_admin")
         }
     });
-
+    app.get("viewdetail",(req,res)=>{
+            
+    })
     app.get("/deletefeedback", async (req, res) => {
         var id = req.query.id
         if (req.session.email && req.session.pass) {
