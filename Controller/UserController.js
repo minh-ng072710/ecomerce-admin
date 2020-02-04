@@ -20,7 +20,7 @@ module.exports = function (app, makeid, db, bcrypt, saltRounds, multer, moment, 
             res.redirect("/login_admin")
         }
     })
-
+    
     
     app.get("/delete_user",async (req, res) => {
         if(req.session.email&&req.session.pass){

@@ -1,7 +1,10 @@
 var Product = require("../Model/Product")
 
 module.exports = function (app, makeid, db, multer, moment, fs, Upload) {
-
+    app.get("/api/listproduct", async (req, res) => {
+        var listproduct = await Product.ProductModel.GetALL()
+        res.json(listproduct)
+    })
     app.get("/listproduct", async (req, res) => {
         // let ts = Date.now();
         // let date_ob = (new Date(ts)).toString();

@@ -11,14 +11,15 @@ function makeid(length) {
 }
 
 const ProductModel = {
-    GetALL: function () {
+    GetALL:async function () {
         let list2 = [];
-        let observer = db.collection('Product').get()
+        await db.collection('Product').get()
             .then(snapshot => {
                 snapshot.forEach(doc => {
                     list2.push(doc.data())
                 });
             })
+        return list2
     },
     AddProduct:async function (catID, description, name, price, quantity, volumetric, image) {
         var id = makeid(20)
